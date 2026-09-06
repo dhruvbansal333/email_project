@@ -1,0 +1,6 @@
+{
+  "commitment_token_precision": 0.617880566102865,
+  "commitment_token_recall": 0.6777735706171905,
+  "commitment_token_f1": 0.6464427591188154,
+  "tag_accuracy_on_commitment_tokens": 0.6330935251798561
+}

@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "data": {
+      "text": "enrononline started to see message delivery slow down drastically at 8 : 40 am . at 8 : 50 updates were so slow that all products were suspended from trading . at 8 : 56 we brought the site offline to insure that trading would not continue , as our traders could not manage their products .\nat 9 : 10 we were able to isolate the issue to a single disk , in a brick of storage , that was responding extremely slowly , but not failing over like it should . we removed the storage from the configuration and brought the database back online . once we verified the database was healthy we brought eol back online at approximately 9 : 28 am . at this point all our users , both internal and external , started logging back in .\nthe issue was caused by a bug in the firmware on the disk . the vendor of the disk has already provided us with a patch for this bug . we will be applying this patch to all of our storage , one brick at a time starting this evening .\nwe had to take eol offline for a second time at 11 : 17 am due to a failure on another brick of storage . this failure was caused while we were verifying the root cause of the issue we experienced earlier . we brought the site back online at 11 : 56 . during this outage we verified that there was no corruption or loss of data , due to either of the outages .\nregards ,\nbob hillier\ne - commerce operations",
+      "thread_id": "pilot_12446",
+      "subject": "enrononline outage , august 9 , 2001",
+      "date": "2001-08-09",
+      "likely_commitment_cue": null
+    }
+  },
+  {
+    "id": 2,
+    "data": {
+      "text": "as enron ' s broadband services business grows , we will continue to position\nthe company to take advantage of the significant opportunities in this market\nand meet the needs of our global customers . with that in mind , we ' ve made a\nnumber of changes within the office of the chairman of enron broadband\nservices aimed at providing a better focus on the key objectives of the\norganization .\nperson_1a6ff2 and person_7c82ea , previously co - ceos of enron broadband services , will\ncontinue to jointly manage the strategic direction of the company . person_78675c will\ncontinue as ceo and will be responsible for the primary executive management\nof ebs as well as network build - out , bos development , cross - market\ncapabilities and staff functions . person_78e0b1 will assume the role of chief\ncommercial officer and will be responsible for developing the commercial\nfunctions of the organization .\nin addition , person_ff8a3b has been named chief operating officer and will be\nresponsible for the day - to - day operations of ebs . person_85f5e1 was most recently\nceo of global risk management and , prior to that position , he was president\nand coo of enron north america , where he has been instrumental in developing\nenron ' s trading and risk management business in gas , electricity and other\nemerging markets . person_68c7a4 , president and coo of ena , will again assume\nhis responsibilities for global risk management .\nplease join us in congratulating person_78675c , person_78e0b1 , person_85f5e1 and greg in their new roles .",
+      "thread_id": "pilot_5541",
+      "subject": "organizational changes",
+      "date": "2000-02-17",
+      "likely_commitment_cue": null
+    }
+  },
+  {
+    "id": 3,
+    "data": {
+      "text": "person_eee9e0 and marcus ,\nwe ' re still in the waiting period with the green card process .\nas a reminder , we ' ll need the baby ' s birth certificate from houston vital statistics to start the process of obtaining a us passport and dual citizenship . bobbi has some helpful information on traveling with a baby which she will bring over for you .\nthe compensation team is looking at the us plan issues related to pwcs deferred compensation scheme .\ntry to send over a copy of louise ' s new social security card this week . also , we would like to follow up on your unreimbursed medical claims .\nregards ,",
+      "thread_id": "pilot_11694",
+      "subject": "immigration update",
+      "date": "2001-05-04",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 4,
+    "data": {
+      "text": "dear ut team :\nattached you will find the status of our candidates . cultivation is\ncritical , so please remember to contact your candidates . their deadline is\njanuary 23 .\nlet me know if you have any questions .\nthanks !\nlexi\n3 - 4585",
+      "thread_id": "pilot_23671",
+      "subject": "ut offer status",
+      "date": "2001-01-08",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 5,
+    "data": {
+      "text": "as soon as someone from global counterparties gets here i am going to have them activate the old contracts so that person_64b4d0 can finish pathing .\nperson_c667fd i will send you an email to let you know when they are active .\nperson_c3915b swisher\nspecialist , energy operations\nenron net works , llc\nphone : 713 - 345 - 3042\nfax : 713 - 345 - 7701\ncell : 713 - 540 - 2063\nemail : stephen . person_78bd9b @ enron . com\n- - - - - original message - - - - -\n \n \n \n \n \nmike / stephen ,\nhave the two of you been able to get the deal in for the sale of the centana storage to aep ? please advise . i would like to have this completed for this close if possible .\ndaren - if you are not aware of this transaction , please let me know . thanks !",
+      "thread_id": "pilot_3632",
+      "subject": "re : centana storage deal",
+      "date": "2001-12-11",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 6,
+    "data": {
+      "text": "as today is the deadline for our open season responses , please make a copy of\nany capacity requests for me as i will consolidate them and send out a\nsummary to the commercial group .\nthanks .\nlorraine",
+      "thread_id": "pilot_28210",
+      "subject": "open season notices",
+      "date": "2000-11-16",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 7,
+    "data": {
+      "text": "person_98d9d5 ,\nsorry for a delay in responding to you .\nmy hr people were asked to get in touch with you re\nthe candidates .\nperson_c4e2a0 on 03 / 27 / 2001 02 : 36 : 12 pm\n \n \n \nvince ,\ni had two candidates speak with zamin lu on 3 / 14 / 01 and 3 / 16 / 01 .\n( person_2ef093 and person_cfdfb5 respectively ) . i know you were in london last\nweek . if you could please give me some feedback ( either positive or\nnegative ) as soon as possible , i would appreciate it .\nregards ,\nperson_7e0f2c\nvice president\nperson_8b7462\nphone : 212 - 704 - 0596\nfax : 212 - 704 - 4312\nmarshall . person_5eb67f @ robertwalters . com\ncaution : electronic mail sent through the internet is not secure and could\nbe intercepted by a third party .\nthis email and any files transmitted with it are confidential and\nintended solely for the use of the individual or entity to whom they\nare addressed . if you have received this email in error please notify\nthe system manager .\nthis footnote also confirms that this email message has been swept by\nmimesweeper for the presence of computer viruses .",
+      "thread_id": "pilot_8905",
+      "subject": "re : interviews",
+      "date": "2001-04-06",
+      "likely_commitment_cue": true
+    }
+  },
+  {
+    "id": 8,
+    "data": {
+      "text": "person_08c461 :\n7 am at hyatt regency downtown would be perfect . i will see you in the lobby\nat 7 am .\nbest regards , dale\n- - - - - original message - - - - -\n \n \n \n \n \ndale ,\nfriday is a bad day ( performance review committee all day ) .\nwhat about 7 : 00 at the office or breakfast meeting at 7 : 00 ? we can meet\nat hyatt regency downtown ( smith street ) .\nvince\n\" dale nesbitt \" on 07 / 05 / 2000 12 : 13 : 59 am\n \n \n \nvince :\ncan we get together friday morning july 7 at 800 am at your office ? that\nwould be particularly convenient for me . i will have to leave downtown at\nabout 945 to catch a plane . that will ensure that i wont take up too much\nof your time ! ! thanks for your efforts here , and thanks for being patient\nwith me .\ndale nesbitt",
+      "thread_id": "pilot_6429",
+      "subject": "re : friday morning meeting ?",
+      "date": "2000-07-05",
+      "likely_commitment_cue": null
+    }
+  },
+  {
+    "id": 9,
+    "data": {
+      "text": "start date : 12 / 20 / 01 ; hourahead hour : 23 ; no ancillary schedules awarded . no variances detected .\nlog messages :\nparsing file - - > > o : \\ portland \\ westdesk \\ california scheduling \\ iso final schedules \\ 2001122023 . txt",
+      "thread_id": "pilot_17398",
+      "subject": "start date : 12 / 20 / 01 ; hourahead hour : 23 ;",
+      "date": "2001-12-21",
+      "likely_commitment_cue": null
+    }
+  },
+  {
+    "id": 10,
+    "data": {
+      "text": "dear vince ,\ni hope you are well and that things round at enron aren ' t too hectic . it is\nmy pleasure to invite you to speak at energy any help would be gratefully received .\nthis event will be thoroughly marketed through both energy & power risk\nmanagement magazine and our extensive database . it is my aim to attract the\nleading market players by providing a first - class programme with top - rated\nspeakers , making this a highly worthwhile event for the energy industry .\ni have attached a copy of the programme for your information .\nunfortunately my schedule for this event is very tight . please let me know\nif you would like to participate by reurn email as it is unlikely that we\ncan speak on the phone as i am currently based in hong kong . if you would\nlike to send a colleague , then i would be happy to discuss this but it\nwould be great if you could complete the eprm grand slam by addressing our\nthree major annual events on three different continents !\ni look forward to hearing from you soon .\nyours sincerely ,\nperson_cdbc77\nproducer , eprm conferences & courses\n- australianenergy 2000 . doc\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\neprm conferences\nrisk publications\nhong kong\ntel : 852 2545 2710\nfax : 852 2545 7317\nwww . riskpublications . com",
+      "thread_id": "pilot_5470",
+      "subject": "australian energy 2000",
+      "date": "2000-02-09",
+      "likely_commitment_cue": null
+    }
+  },
+  {
+    "id": 11,
+    "data": {
+      "text": "thanks vince . we ' ll talk to him this week .\n- - dan\nvince j kaminski\n02 / 02 / 2001 05 : 03 pm\n \n \n \nperson_ec4f2d ,\ni am sending you a resume of one of my compatriots who\nlives in houston . i met him socially a few times .\nhe graduated from the same university i did .\nvince\n- - - - - - - - - - - - - - - - - - - - - - forwarded by vince j kaminski / hou / ect on 02 / 02 / 2001\n05 : 00 pm - - - - - - - - - - - - - - - - - - - - - - - - - - -\nawenda 2000 @ cs . com on 02 / 01 / 2001 09 : 57 : 42 am\n \n \n \nhi vince ,\ni am enclosing my resume , as per our most recent conversation .\nbest regards ,\nbogdan m . szopa\n- bogdan res . . doc",
+      "thread_id": "pilot_8468",
+      "subject": "re : message from bogdan",
+      "date": "2001-02-05",
+      "likely_commitment_cue": true
+    }
+  },
+  {
+    "id": 12,
+    "data": {
+      "text": "person_64b4d0 ,\nfollowing up on my phone call , we ' re ready to do the following :\n1 . assign a login and password to enron for a trial evaluation of the\nwww . weathereffects . com power trader web service .\n2 . initiate a daily bilateral conference call at a morning time to be\ndetermined . to ensure that your traders and analysts are ready for such a\ncall , we will await your response to this email before initiating the\nservice .\n3 . we will also pdf certain energy analysis files to you ( eg , the daily gas\nmarket file ) so you can see the evolution of our day to day thinking on the\nmarkets .\na reminder that the power service currently deals with nepool and pjm and\nwill initiate coverage of nypp in september .\ni look forward to hearing from you .\nperson_c9a8e4\ndirector , esai gas and power services",
+      "thread_id": "pilot_6531",
+      "subject": "trial of weathereffects web site",
+      "date": "2000-07-17",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 13,
+    "data": {
+      "text": "after getting your imput , i think this is the best :\nwe will only communicate needs improvement and issues . there will be\ndiffering messages for needs improvement which fit the situation - some need\nto hear that they are not performing at a high enought level relative to\npeers to help us achieve business goals or for them to be considered for a\nbonus ( may need to finda another role within or outside enron which is a\nbetter fit ) . message to someone new to enron in that category should be\ndifferent . glad they are here : believe that as they learn the organization\nand their job that they will be able to make significant contribution : doing\nthe right thing to learn business , but that contributions to date are not\nsignificant enough to warrant payment of a bonus .\nlet me know what you think .\nthanks\nbob",
+      "thread_id": "pilot_2411",
+      "subject": "ranks communication",
+      "date": "2001-01-17",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 14,
+    "data": {
+      "text": "start date : 1 / 24 / 02 ; hourahead hour : 4 ; hourahead schedule download failed . manual intervention required .",
+      "thread_id": "pilot_17869",
+      "subject": "schedule crawler : hourahead failure",
+      "date": "2002-01-24",
+      "likely_commitment_cue": true
+    }
+  },
+  {
+    "id": 15,
+    "data": {
+      "text": "i will be out of the office next week . during my absence , please contact\nbob cotten at extension 3 - 6101 .",
+      "thread_id": "pilot_1189",
+      "subject": "out of the office during the week of july 17 th thru july 21 st",
+      "date": "2000-07-14",
+      "likely_commitment_cue": true
+    }
+  },
+  {
+    "id": 16,
+    "data": {
+      "text": "i will check with person_345507 and see if it ' s feasible to do a quick evaluation\nof his software here in houston .\n- - stinson\nvince j kaminski\n04 / 24 / 2001 05 : 22 pm\n \n \n \nperson_510e35 ,\nhe keeps bugging us about it .\nany thoughts what we should do ?\nvince\n- - - - - - - - - - - - - - - - - - - - - - forwarded by vince j kaminski / hou / ect on 04 / 24 / 2001\n05 : 22 pm - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\" person_64b4d0 curran \" on 04 / 24 / 2001 10 : 03 : 24 am\nplease respond to \" person_64b4d0 curran \"\n \n \n \nhi vince -\nhope all is well with you .\nsharad hasn ' t had time to evaluate our willow tree or monte carlo software\nsince the middle of last year . is there somebody else that could do it ?\nplease let me know who i should send the evaluation to .\nbest regards ,\nperson_203d6e\nquantin ' leap limited\npiercy house\n7 copthall avenue\nlondon ec 2 r 7 nj\ntel : + 44 ( 0 ) 20 7562 3450\nfax : + 44 ( 0 ) 20 7562 3411\nmailto : mcurran @ quantinleap . com\nhttp : / / www . quantinleap . com",
+      "thread_id": "pilot_9291",
+      "subject": "re : willow and pathstar evaluations",
+      "date": "2001-04-30",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 17,
+    "data": {
+      "text": "michelle ,\ni wanted to know about connecting into the suction of wt - 1 ( not sure i have\nthe name correct , but the station located off of hwy 180 / 62 carlsbad / hobbs\nhighway ) . we have a line we are evaluating converting to lean gathering .\nit passes about 1 mile from this station . is it possible to connect there .\nwe will be looking for 19 mmcfd initially and then increasing to 30 if the\nvolume shows up . we currently have about 13 mmcfd we would take into this\npoint .\ncet\n> - - - - - original message - - - - -\n> from : lokay , michelle [ smtp : person_016211 . person_a37073 @ enron . com ]\n> sent : thursday , june 21 , 2001 3 : 49 pm\n> to : charles . e . person_e770e9 . conoco . com\n> subject : fw : tw / conoco in lea county , nm\n>\n> > >",
+      "thread_id": "pilot_28669",
+      "subject": "re : tw / conoco in lea county , nm",
+      "date": "2001-06-25",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 18,
+    "data": {
+      "text": "i will be 40 years old this saturday , and was thinking about having some friends around for pinochle and soda crackers . . . . . no , just kidding . i ' ll actually be turning a different age which i ' ll disclose to you if you come to my party and partake in some fine draft beer and fajitas and hot chicks !\nfestivities begin around 7 p . m . bring something to grill - we ' ll provide the fixings for fajitas . directions are as follows . . . . . .\ni - 84 east to 33 rd ave . exit\nleft off the exit\nstraight through the light at broadway & 33 rd\nleft on brazee ( directly across the street from grant park )\nmy house is directly ahead on the corner of 32 nd place and brazee . tall , white with green trim . guarded by two mean cats .\ncall if you get lost - 503 - 288 - 6546 .\nsee you on saturday !\nkate",
+      "thread_id": "pilot_17035",
+      "subject": "kate ' s birthday party !",
+      "date": "2001-08-09",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 19,
+    "data": {
+      "text": "please disregard the memo below and the following will apply for 8 / 4 / 00 :\ndeliveries to eastrans will be 7 , 800 mmbtu / dy\nredeliveries into hpl from fuels cotton valley\nfor 8 / 5 , 8 / 6 , & 8 / 7 ( saturday , sunday & monday ) deliveries to eastrans will be\n7 , 800 mmbtu / dy ( 23 , 400 mmbtu for 3 days ) . the deliveries of this gas will\noccur\nin a batch on monday , 8 / 7 .\nredeliveries into hpl from fuels cotton valley\n- - - - - - - - - - - - - - - - - - - - - - forwarded by marta k henderson / houston / pefs / pec on\n08 / 03 / 2000 11 : 21 am - - - - - - - - - - - - - - - - - - - - - - - - - - -\nmarta k henderson\n08 / 03 / 2000 08 : 58 am\n \nchad\nw . person_cb6af9 / gcs / cec / pec @ pec , person_b6353d cherry / easttexas / pefs / pec @ pec , bruce\nmcmills / ftworth / pefs / pec @ pec , person_b99de1 person_288063 / gcs / cec / pec @ pec , person_ed62c6\nc . person_01df2c / gcs / cec / pec @ pec , julia a . urbanek / gcs / cec / pec @ pec , dora j .\nlevy / gcs / cec / pec @ pec , briley @ enron . com , dfarmer @ enron . com ,\ncarlos . j . rodriguez @ enron . com , person_f282fe / ftworth / pefs / pec @ pec , connie\nwester / easttexas / pefs / pec @ pec\n \n \nplease increase deliveries to eastrans to 30 , 000 mmbtu / dy effective 8 / 4 / 00\nthe redeliveries will be :\n7 , 800 from fuels cotton valley\n22 , 200 to pg & e",
+      "thread_id": "pilot_1333",
+      "subject": "more changes to eastrans nomination changes effective 8 / 4 / 00",
+      "date": "2000-08-03",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 20,
+    "data": {
+      "text": "person_eee9e0 ,\nwe have been trying to get something arranged for this friday . ubs has special events personnel that arrange these types of events including what we saw at the houstonian a few weeks ago . it is my understanding that we are awaiting approval from person_8abd89 before making any arrangements . informally , i have spoken with person_d849e9 ' s and sambuca regarding availability for a friday afternoon event . however , absent using yours or greg ' s credit card , we will need approval through ubs prior to booking any formal event .\nkind regards ,\nperson_bce8cd original message - - - - -\n \n \n \n \n \nwe need a big party organizing for everyone - please sort .\nthanks\n- - - - - original message - - - - -\n \n \n \n \n \nso i have a couple of people in my team trying to organise something for friday . would either or both of you be game to do a floor talk , presuming we have closed ?\nperson_654918 original message - - - - -\n \n \n \n \nfor the shin - dig we ' ll have on friday ( if hutch approves ) , do you thing we could get john , person_eee9e0 , and greg to say a word ?",
+      "thread_id": "pilot_15000",
+      "subject": "re : friday",
+      "date": "2002-02-04",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 21,
+    "data": {
+      "text": "dear vince\ncould you let me know when you are able to meet riskcare ? i will try to\nreach you in houston , otherwise i will give anjam ' s office a call\ntomorrow .\nregards\nmanuel\nmanuel rensink\nriskcare - financial technology services\npiercy house\n7 copthall avenue\nlondon\nhttp : / / www . riskcare . com\ntel : + 44 ( 0 ) 20 7562 3400\nfax : + 44 ( 0 ) 20 7562 3401\nabout riskcare\nsince riskcare ' s inception in 1994 , we have specialised in providing\npre - eminent services and pioneering tools to the financial markets\nindustry .\nriskcare offers :\n* a range of hands - on technology services for systems implementation\nand operation , including development , integration , support , technical\nskills and software selection\n* a range of financial engineering services , including model\nvalidation , risk advisory , analytics integration , development of pricing\nmodels for derivative instruments and front office analytics such as\nwillow , a revolutionary tool for option pricing",
+      "thread_id": "pilot_5473",
+      "subject": "london meeting",
+      "date": "2000-02-09",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 22,
+    "data": {
+      "text": "i will keep you informed !\n- - - - - - - - - - - - - - - - - - - - - - forwarded by person_faae80 / ect on 11 / 06 / 2000 02 : 45\npm - - - - - - - - - - - - - - - - - - - - - - - - - - -\n \n \n \nbwood @ avistar . com\n \nhi person_85f5e1 ,\nbrian wood with avistar is going to be here next tuesday ( 11 / 14 ) . i have\nasked him to schedule some time to meet with you and vince , and whomever else\nneeds to be trained . i was not aware that you would be using the media\nserver , so i didn ' t arrange to have him spend any time with you when he was\nhere alst . i ' ll let you kow what time ( s ) he ' ll be available next tuesday .\nsorry for the delay\nian - - please ensure that vince kaminski is set up to use the media server\nthanks !\npaige\nperson_536dd4 @ ect\n11 / 06 / 2000 12 : 43 pm\n \n \n \nwe are still waiting on avistar training / set up .\nplease inform me on the situation .\nthanks\nperson_9494c4",
+      "thread_id": "pilot_7548",
+      "subject": "re : avistar training",
+      "date": "2000-11-06",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 23,
+    "data": {
+      "text": "person_08c461 ,\ni had a lunch meeting with rudi and vladi from rac , and i also met with ted\nmurphy .\nthey are supposed to get back with me by friday to confirm the proposed\nsummer rotation .\nso far i have a very positive impression of the group , and the projects that\nthey are involved in .\nthey also told me that rac and research people are often working on projects\ntogether , so i am sure that my ties with research are not going to go away\nwith me rotating to rac .\ni will keep you posted on further developments .\ncoordially ,\nperson_f3635d",
+      "thread_id": "pilot_5881",
+      "subject": "summer rotation in rac",
+      "date": "2000-04-05",
+      "likely_commitment_cue": null
+    }
+  },
+  {
+    "id": 24,
+    "data": {
+      "text": "dear sven the packets cover electricity and gas markets and modelling ,\nderegulation & exchanges , weather derivatives and value - at - risk / risk\nmanagement / case studies . this is by no means final , and i hope to supplement\nwith some more ideas over the next few days . once you have considered the\nmaterial , i can fine - tune the type of material that is relevant for you and\nthen we can look at starting to put something together , after which we can\npass on to person_8b6790\nif you need some simple articles on pricing options or an explanation on how\nto calculate volatility , then i am sure we can put that together for you .\nregards ,\nanjam\nx 35383",
+      "thread_id": "pilot_6286",
+      "subject": "initial collection of research material for your web sites",
+      "date": "2000-06-19",
+      "likely_commitment_cue": true
+    }
+  },
+  {
+    "id": 25,
+    "data": {
+      "text": "volatilities calculation\nwinston ,\ni am sending you the documentation on the new methodology for creating ffvols\nfrom implied vols . this methodology requires some minimization procedure\nto fit the given vol curve with a smoothing function . i am sending you the\ncode i wrote that performs minimization with simulated annealing method from\nnumerical recipes .\nwe might need to discuss some details . please , let me know if you have\nquestions .\ntanya .",
+      "thread_id": "pilot_7831",
+      "subject": "re : implementation of smothing algorithm for forward forward",
+      "date": "2000-12-07",
+      "likely_commitment_cue": true
+    }
+  },
+  {
+    "id": 26,
+    "data": {
+      "text": "attached is a brief memo outline some of the transtion issues with hpl to aep\nthis is the first draft .\nthe itilized items currently require some more action .\nplease add any items and forward back to me . i will update\nthanks\nbob",
+      "thread_id": "pilot_23904",
+      "subject": "aep transition items",
+      "date": "2001-03-23",
+      "likely_commitment_cue": null
+    }
+  },
+  {
+    "id": 27,
+    "data": {
+      "text": "wanda and person_97897a ,\nfyi . . . .\nhope and we have finalized the merchant assets reconciliation . ect\ninvestements and merchant assets are booking two entries today relating to\nthe remaining portion of 1998 and the 1997 activity . these entries should\nclear the mtm balance for merchant assets . the two entries below will be\nmade for the february close .\n- - - - - - - - - - - - - - - - - - - - - - forwarded by person_d3fd35 / ect on 03 / 07 / 2000 10 : 21\nam - - - - - - - - - - - - - - - - - - - - - - - - - - -\n \n \n \nvargas / hou / ect @ ect , d todd hall / hou / ect @ ect , terri harlan / hou / ect @ ect\n \nwanda and person_97897a ,\nmerchant assets and ect investments inc . are both making a $ 6 . 9 million entry\nwhich will reduce the mtm asset on merchant assets . we will book a payable\nto ma and they will book a inter company receivable from ecti .\nwe will continue with the reconciliation and keep you apprised of our\nprogress .\nhope and sheila",
+      "thread_id": "pilot_22667",
+      "subject": "mtm recon",
+      "date": "2000-03-07",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 28,
+    "data": {
+      "text": "the following listing reflects your new enron office locations . please\nremember to properly label all boxes ,\nchairs , mouses , keyboards , cpu ' s , monitors , stenophones , amtels and / or palm\npilot stations .\ni will be here both saturday and sunday to ensure that your items have been\nmoved and pc ' s are working efficiently .\nperson_fa396a 3212 a\nperson_1223f9 3212 c\nami chokshi 3213 e\ndaren farmer 3210 e\ncraig falbaum 3210 f\nedward gottlob 3212 b\nbrenda herod 3213 c\ngary lamphier 3213 a\nbarbara lewis 3214 c\nperson_1b88ce c\ngreg mcclendon 3211 a\nperson_70a343 3213 b\ncarey metz 3211 d\nperson_f9846d neuweiler 3209 e\njennifer sabine 3206 a\njim schwieger 3211 b\nelsa villarreal 3211 e\njanet wallis 3213 d\ngas control 3209 f\nsunny rodgers : i will notify you of our exact mailstop location asap .",
+      "thread_id": "pilot_541",
+      "subject": "new locations",
+      "date": "2000-03-28",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 29,
+    "data": {
+      "text": "we will soon be migrating to windows 2000 and outlook . the texas desk is\nscheduled for tuesday , april 10 th . i was told to pass along the following\ninformation to my group :\n1 . you will be receiving emails from the migration team ( \" gem \" ) - please be\nsure to only open this from your own desktop , and not remotely . this is very\nimportant . these messages will be explaining the migration process and what\nyou need to do to insure a successful migration .\n2 . due to new space limitations on your mailbox , you are advised to clean\nyour notes mailbox of old , unneeded messages before migration . with outlook ,\nyou will be restricted to a mailbox size of 100 mb . outlook will issue a\nwarning once you reach 75 mb to let you know that you are near your mailbox\nlimit . once you reach 100 mb , you will be prevented from sending email , but\nyou will still be able to receive internal and external messages you will\nthen need to reduce the size of your mailbox by deleting old mail , saving\nattachments to a local drive , etc . before you will be able to send an email\nagain .\n3 . from the day of migration , only 30 days of old mail will be migrated from\nyour mailbox . this includes mail in your inbox and other folders . calendar\nitems dating back one year from the day of migration will be migrated .\n4 . everyone will have a read only view of notes until the transition is\ncompleted . you will be able to copy / paste .\nthanks ,\nlaura",
+      "thread_id": "pilot_2883",
+      "subject": "windows 2000 and outlook",
+      "date": "2001-03-27",
+      "likely_commitment_cue": false
+    }
+  },
+  {
+    "id": 30,
+    "data": {
+      "text": "i will be leaving early today around 12 : 00 pm or soon after . if there is anything you need before i leave , let me know .\notherwise i will be back in the office on monday . if by chance you do need something after i leave\nkathy sheppard can asist you .\n- jill",
+      "thread_id": "pilot_16727",
+      "subject": "1 / 2 day of vacation",
+      "date": "2001-06-22",
+      "likely_commitment_cue": true
+    }
+  }
+]

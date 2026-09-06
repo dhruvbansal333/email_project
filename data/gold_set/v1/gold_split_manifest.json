@@ -1,0 +1,25 @@
+{
+  "version": "v1",
+  "seed": 42,
+  "ratios": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15
+  },
+  "total_threads_with_commitments": 679,
+  "total_commitments": 1190,
+  "summary": {
+    "train": {
+      "threads": 475,
+      "commitments": 824
+    },
+    "val": {
+      "threads": 101,
+      "commitments": 181
+    },
+    "test": {
+      "threads": 103,
+      "commitments": 185
+    }
+  }
+}

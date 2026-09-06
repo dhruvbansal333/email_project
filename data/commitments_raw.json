@@ -1,0 +1,1172 @@
+[
+  {
+    "task_id": 1,
+    "text": "we will be applying this patch to all of our storage , one brick at a time starting this evening .",
+    "start": 858,
+    "end": 956,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "high",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 2,
+    "text": "we will continue to position\\nthe company to take advantage of the significant opportunities in this market\\nand meet the needs of our global customers ",
+    "start": 49,
+    "end": 199,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 2,
+    "text": "person_1a6ff2 and person_7c82ea , previously co - ceos of enron broadband services , will\\ncontinue to jointly manage the strategic direction of the company ",
+    "start": 394,
+    "end": 550,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "third_party_reported": "no",
+    "confidence": "low"
+  },
+  {
+    "task_id": 2,
+    "text": "person_78675c will\\ncontinue as ceo and will be responsible for the primary executive management\\nof ebs as well as network build - out , bos development , cross - market\\ncapabilities and staff functions .",
+    "start": 552,
+    "end": 755,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 2,
+    "text": "person_78e0b1 will assume the role of chief\\ncommercial officer and will be responsible for developing the commercial\\nfunctions of the organization .",
+    "start": 756,
+    "end": 904,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 2,
+    "text": "person_68c7a4 , president and coo of ena , will again assume\\nhis responsibilities for global risk management .",
+    "start": 1324,
+    "end": 1434,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 2,
+    "text": "please join us in congratulating person_78675c , person_78e0b1 , person_85f5e1 and greg in their new roles .",
+    "start": 1435,
+    "end": 1543,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 3,
+    "text": " bobbi has some helpful information on traveling with a baby which she will bring over for you ",
+    "start": 253,
+    "end": 348,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 3,
+    "text": "the compensation team is looking at the us plan issues related to pwcs deferred compensation scheme .",
+    "start": 350,
+    "end": 451,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 3,
+    "text": "as a reminder , we ' ll need the baby ' s birth certificate from houston vital statistics to start the process of obtaining a us passport and dual citizenship ",
+    "start": 93,
+    "end": 252,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 3,
+    "text": "try to send over a copy of louise ' s new social security card this week",
+    "start": 452,
+    "end": 524,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 3,
+    "text": "we would like to follow up on your unreimbursed medical claims .",
+    "start": 534,
+    "end": 598,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 4,
+    "text": " please remember to contact your candidates . their deadline is\\njanuary 23 .",
+    "start": 97,
+    "end": 173,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "high",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 5,
+    "text": "i am going to have them activate the old contracts so that person_64b4d0 can finish pathing .",
+    "start": 56,
+    "end": 149,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 5,
+    "text": " i will send you an email to let you know when they are active .",
+    "start": 163,
+    "end": 227,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 5,
+    "text": "have the two of you been able to get the deal in for the sale of the centana storage to aep ?",
+    "start": 485,
+    "end": 578,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 5,
+    "text": "please advise ",
+    "start": 579,
+    "end": 593,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 5,
+    "text": "i would like to have this completed for this close if possible .",
+    "start": 595,
+    "end": 659,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 5,
+    "text": "if you are not aware of this transaction , please let me know",
+    "start": 668,
+    "end": 729,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 6,
+    "text": "please make a copy of\\nany capacity requests for me",
+    "start": 57,
+    "end": 107,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "high",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 6,
+    "text": " i will consolidate them and send out a\\nsummary to the commercial group .",
+    "start": 110,
+    "end": 183,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 7,
+    "text": "my hr people were asked to get in touch with you re\\nthe candidates .",
+    "start": 57,
+    "end": 125,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 7,
+    "text": "if you could please give me some feedback ( either positive or\\nnegative ) as soon as possible , i would appreciate it .",
+    "start": 351,
+    "end": 470,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 8,
+    "text": " i will see you in the lobby\\nat 7 am .",
+    "start": 65,
+    "end": 103,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 8,
+    "text": "i will have to leave downtown at\\nabout 945 to catch a plane .",
+    "start": 550,
+    "end": 611,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 8,
+    "text": "what about 7 : 00 at the office or breakfast meeting at 7 : 00 ? we can meet\\nat hyatt regency downtown ( smith street ) .",
+    "start": 241,
+    "end": 362,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 8,
+    "text": "can we get together friday morning july 7 at 800 am at your office ?",
+    "start": 434,
+    "end": 502,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 10,
+    "text": " it is\\nmy pleasure to invite you to speak at energy",
+    "start": 85,
+    "end": 136,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 10,
+    "text": "i have attached a copy of the programme for your information",
+    "start": 480,
+    "end": 540,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 10,
+    "text": "if you would\\nlike to send a colleague , then i would be happy ",
+    "start": 755,
+    "end": 817,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 10,
+    "text": "let me know\\nif you would like to participate by reurn email ",
+    "start": 607,
+    "end": 667,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 10,
+    "text": " it\\nwould be great if you could complete the eprm grand slam by addressing our\\nthree major annual events on three different continents !",
+    "start": 836,
+    "end": 972,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 10,
+    "text": "i look forward to hearing from you soon ",
+    "start": 973,
+    "end": 1013,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 11,
+    "text": " we ' ll talk to him this week",
+    "start": 14,
+    "end": 44,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 11,
+    "text": "i am sending you a resume of one of my compatriots ",
+    "start": 120,
+    "end": 171,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 11,
+    "text": "i am enclosing my resume , as per our most recent conversation .",
+    "start": 522,
+    "end": 586,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 12,
+    "text": "assign a login and password to enron for a trial evaluation of the\\nwww . weathereffects . com power trader web service .",
+    "start": 88,
+    "end": 208,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 12,
+    "text": " initiate a daily bilateral conference call at a morning time to be\\ndetermined ",
+    "start": 212,
+    "end": 291,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 12,
+    "text": " we will also pdf certain energy analysis files to you ( eg , the daily gas\\nmarket file ) so you can see the evolution of our day to day thinking on the\\nmarkets",
+    "start": 439,
+    "end": 599,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 12,
+    "text": "we will await your response to this email before initiating the\\nservice .",
+    "start": 362,
+    "end": 435,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 12,
+    "text": "i look forward to hearing from you .",
+    "start": 722,
+    "end": 758,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 12,
+    "text": "will initiate coverage of nypp in september .",
+    "start": 676,
+    "end": 721,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 13,
+    "text": "we will only communicate needs improvement and issues ",
+    "start": 54,
+    "end": 108,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 13,
+    "text": "let me know what you think",
+    "start": 778,
+    "end": 804,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 14,
+    "text": " manual intervention required .",
+    "start": 84,
+    "end": 115,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "high",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 15,
+    "text": "i will be out of the office next week",
+    "start": 0,
+    "end": 37,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 15,
+    "text": " during my absence , please contact\\nbob cotten at extension 3 - 6101 .",
+    "start": 39,
+    "end": 109,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 16,
+    "text": "i will check with person_345507 and see if it ' s feasible to do a quick evaluation\\nof his software here in houston .",
+    "start": 0,
+    "end": 117,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 16,
+    "text": "please let me know who i should send the evaluation to .",
+    "start": 732,
+    "end": 788,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 16,
+    "text": " is there somebody else that could do it ?",
+    "start": 689,
+    "end": 731,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 16,
+    "text": "any thoughts what we should do ?",
+    "start": 226,
+    "end": 258,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 17,
+    "text": "we will be looking for 19 mmcfd initially and then increasing to 30 if the\\nvolume shows up",
+    "start": 323,
+    "end": 413,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 17,
+    "text": "we currently have about 13 mmcfd we would take into this\\npoint .",
+    "start": 416,
+    "end": 480,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 17,
+    "text": "i wanted to know about connecting into the suction",
+    "start": 11,
+    "end": 61,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 17,
+    "text": "is it possible to connect there .",
+    "start": 289,
+    "end": 322,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 18,
+    "text": " i ' ll disclose to you if you come to my party ",
+    "start": 198,
+    "end": 246,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 18,
+    "text": "we ' ll provide the fixings for fajitas ",
+    "start": 373,
+    "end": 413,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 18,
+    "text": "see you on saturday !",
+    "start": 781,
+    "end": 802,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 18,
+    "text": "bring something to grill ",
+    "start": 346,
+    "end": 371,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 18,
+    "text": "call if you get lost",
+    "start": 739,
+    "end": 759,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 19,
+    "text": "deliveries to eastrans will be\\n7 , 800 mmbtu",
+    "start": 234,
+    "end": 278,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 19,
+    "text": " the deliveries of this gas will\\noccur",
+    "start": 315,
+    "end": 353,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 19,
+    "text": "the redeliveries will be :\\n7 , 800 from fuels cotton valley\\n22 , 200 to pg & e",
+    "start": 1266,
+    "end": 1344,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 19,
+    "text": "please disregard the memo below",
+    "start": 0,
+    "end": 31,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 19,
+    "text": "please increase deliveries to eastrans to 30 , 000 mmbtu ",
+    "start": 1183,
+    "end": 1240,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "high",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 20,
+    "text": ", i have spoken with person_d849e9 ' s and sambuca regarding availability for a friday afternoon event ",
+    "start": 322,
+    "end": 425,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 20,
+    "text": "for the shin - dig we ' ll have on friday ( if hutch approves )",
+    "start": 947,
+    "end": 1010,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 20,
+    "text": "we need a big party organizing for everyone - please sort .",
+    "start": 618,
+    "end": 677,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "high",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 20,
+    "text": " would either or both of you be game to do a floor talk , presuming we have closed ?",
+    "start": 813,
+    "end": 897,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "third_party_reported": "no",
+    "confidence": "medium"
+  },
+  {
+    "task_id": 20,
+    "text": "do you thing we could get john , person_eee9e0 , and greg to say a word ?",
+    "start": 1013,
+    "end": 1086,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 21,
+    "text": "could you let me know when you are able to meet riskcare ?",
+    "start": 11,
+    "end": 69,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 21,
+    "text": " will try to\\nreach you in houston , otherwise i will give anjam ' s office a call",
+    "start": 71,
+    "end": 152,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 22,
+    "text": "i will keep you informed !",
+    "start": 0,
+    "end": 26,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 22,
+    "text": " i have\\nasked him to schedule some time to meet with you and vince , and whomever else\\nneeds to be trained ",
+    "start": 306,
+    "end": 413,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 22,
+    "text": " i ' ll let you kow what time ( s ) he ' ll be available next tuesday .",
+    "start": 555,
+    "end": 626,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 22,
+    "text": " please ensure that vince kaminski is set up to use the media server\\nthanks !",
+    "start": 654,
+    "end": 731,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "high",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 22,
+    "text": "please inform me on the situation .",
+    "start": 842,
+    "end": 877,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 23,
+    "text": "they are supposed to get back with me by friday to confirm the proposed\\nsummer rotation .",
+    "start": 102,
+    "end": 191,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "implicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 23,
+    "text": "i will keep you posted on further developments .",
+    "start": 472,
+    "end": 520,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 24,
+    "text": "i hope to supplement\\nwith some more ideas over the next few days .",
+    "start": 208,
+    "end": 274,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 24,
+    "text": "hen we can look at starting to put something together",
+    "start": 384,
+    "end": 437,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 24,
+    "text": "we can\\npass on to person_8b6790",
+    "start": 452,
+    "end": 483,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 24,
+    "text": ", then i am sure we can put that together for you .",
+    "start": 585,
+    "end": 636,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 24,
+    "text": "once you have considered the\\nmaterial , i can fine - tune the type of material that is relevant for you ",
+    "start": 275,
+    "end": 379,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 24,
+    "text": "if you need some simple articles on pricing options or an explanation on how\\nto calculate volatility",
+    "start": 484,
+    "end": 584,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 25,
+    "text": "i am sending you the documentation on the new methodology for creating ffvols\\nfrom implied vols",
+    "start": 35,
+    "end": 130,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 25,
+    "text": "i am sending you the\\ncode i wrote that performs minimization with simulated annealing method from\\nnumerical recipes .",
+    "start": 242,
+    "end": 359,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 25,
+    "text": "we might need to discuss some details .",
+    "start": 360,
+    "end": 399,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 25,
+    "text": "please , let me know if you have\\nquestions .",
+    "start": 400,
+    "end": 444,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 26,
+    "text": "i will update",
+    "start": 206,
+    "end": 219,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 26,
+    "text": " itilized items currently require some more action .",
+    "start": 107,
+    "end": 159,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 26,
+    "text": "please add any items and forward back to me ",
+    "start": 160,
+    "end": 204,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 27,
+    "text": " ect\\ninvestements and merchant assets are booking two entries today relating to\\nthe remaining portion of 1998 and the 1997 activity ",
+    "start": 101,
+    "end": 233,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 27,
+    "text": "two entries below will be\\nmade for the february close .",
+    "start": 304,
+    "end": 359,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 27,
+    "text": " we will book a payable\\nto ma and they will book a inter company receivable from ecti .",
+    "start": 778,
+    "end": 865,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 27,
+    "text": "we will continue with the reconciliation and keep you apprised of our\\nprogress .",
+    "start": 866,
+    "end": 946,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 28,
+    "text": "i will be here both saturday and sunday to ensure that your items have been\\nmoved and pc ' s are working efficiently .",
+    "start": 214,
+    "end": 332,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 28,
+    "text": " i will notify you of our exact mailstop location asap .",
+    "start": 748,
+    "end": 804,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "high",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 28,
+    "text": " please\\nremember to properly label all boxes ,\\nchairs , mouses , keyboards , cpu ' s , monitors , stenophones , amtels and / or palm\\npilot stations .",
+    "start": 64,
+    "end": 213,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": "we will soon be migrating to windows 2000 and outlook",
+    "start": 0,
+    "end": 53,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": "the texas desk is\\nscheduled for tuesday , april 10 th ",
+    "start": 56,
+    "end": 110,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": "you will be receiving emails from the migration team ( \" gem \" )",
+    "start": 181,
+    "end": 245,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": "these messages will be explaining the migration process and what\\nyou need to do to insure a successful migration .",
+    "start": 349,
+    "end": 463,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": "you will be restricted to a mailbox size of 100 mb",
+    "start": 620,
+    "end": 670,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": "outlook will issue a\\nwarning once you reach 75 mb",
+    "start": 673,
+    "end": 722,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": "you will be prevented from sending email",
+    "start": 802,
+    "end": 842,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": "you will still be able to receive internal and external messages",
+    "start": 849,
+    "end": 913,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": "only 30 days of old mail will be migrated from\\nyour mailbox ",
+    "start": 1116,
+    "end": 1176,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": "everyone will have a read only view of notes until the transition is\\ncompleted .",
+    "start": 1316,
+    "end": 1396,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": " you will be able to copy / paste .",
+    "start": 1396,
+    "end": 1431,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": " please be\\nsure to only open this from your own desktop , and not remotely . ",
+    "start": 247,
+    "end": 324,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "high",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": "you are advised to clean\\nyour notes mailbox of old , unneeded messages ",
+    "start": 515,
+    "end": 586,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "implicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 29,
+    "text": "you will\\nthen need to reduce the size of your mailbox by deleting old mail , saving\\nattachments to a local drive , etc . before you will be able to send an email\\nagain .",
+    "start": 914,
+    "end": 1083,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 30,
+    "text": "i will be leaving early today around 12 : 00 pm or soon after ",
+    "start": 0,
+    "end": 62,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 30,
+    "text": " i will be back in the office on monday ",
+    "start": 134,
+    "end": 174,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "explicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 30,
+    "text": "kathy sheppard can asist you .",
+    "start": 225,
+    "end": 255,
+    "direction": "COMMITMENT_MADE",
+    "deadline_type": "implicit",
+    "confidence": "low",
+    "third_party_reported": "no"
+  },
+  {
+    "task_id": 30,
+    "text": "f there is anything you need before i leave , let me know .",
+    "start": 65,
+    "end": 124,
+    "direction": "COMMITMENT_REQUESTED",
+    "deadline_type": "explicit",
+    "confidence": "medium",
+    "third_party_reported": "no"
+  }
+]

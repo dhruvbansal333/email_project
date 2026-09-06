@@ -1,0 +1,12 @@
+{
+  "eval_loss": 0.3864801526069641,
+  "eval_token_accuracy": 0.8649882214369847,
+  "eval_commitment_token_precision": 0.6979355306048534,
+  "eval_commitment_token_recall": 0.6939142960028808,
+  "eval_commitment_token_f1": 0.6959191043698086,
+  "eval_tag_accuracy_on_commitment_tokens": 0.6398991717680951,
+  "eval_runtime": 23.6717,
+  "eval_samples_per_second": 4.267,
+  "eval_steps_per_second": 0.549,
+  "epoch": 4.0
+}

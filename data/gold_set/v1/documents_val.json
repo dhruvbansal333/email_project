@@ -1,0 +1,2961 @@
+[
+  {
+    "thread_id": "manual_7676",
+    "text": "kevin g moore\n11 / 20 / 2000 12 : 14 pm\n \n \n \nthis file cabinet will also be located on the\n32 nd floor .\nwhat i will try and attempt is keeping all weather data nearby therefore ,\nonce\nwe move into the new building the information will not be lost .\nthanks\nkevin moore\nshirley crenshaw\n11 / 20 / 2000 11 : 24 am\n \n \n \nvince :\nsince we have to clear kevin ' s office for the new employee jaesoo lew ,\ncan kevin order a tall file cabinet to put the material in ?\nthanks !\nshirley\nvince j kaminski\n11 / 20 / 2000 10 : 55 am\n \n \n \nshirley ,\nno , that ' s it .\nvince\nshirley crenshaw\n11 / 20 / 2000 10 : 06 am\n \n \n \nthe \" skunkworks \" meeting with scott tholan scheduled for this wednesday ,\nthe 22 nd has been cancelled , per scott tholan .\nmike / vince : is there anyone else , that needs to be notified ?\nthanks !\nshirley",
+    "commitments": [
+      {
+        "thread_id": "manual_7676",
+        "subject": "re : file cabinet for mike roberts",
+        "commitment_text": "what i will try and attempt is keeping all weather data nearby therefore ,\nonce\nwe move into the new building the information will not be lost .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "kevin moore",
+        "recipient": "vince"
+      },
+      {
+        "thread_id": "manual_7676",
+        "subject": "re : file cabinet for mike roberts",
+        "commitment_text": "can kevin order a tall file cabinet to put the material in ?",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "kevin moore",
+        "recipient": "vince"
+      },
+      {
+        "thread_id": "manual_7676",
+        "subject": "re : file cabinet for mike roberts",
+        "commitment_text": "mike / vince : is there anyone else , that needs to be notified ?",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_1045",
+    "text": "i will leave the choice to you all . we just need to make sure there is\ncoverage . have a good one !\ndaren j farmer\n06 / 22 / 2000 08 : 00 am\n \n \n \nbh ,\ni plan to be on vacation july 5 - 6 ( finally ) and on the customer trip on the\n7 th . while i am out , gary hanks will be keeping our position during\ntrading . stacey will be in charge of everything else . i am comfortable that\neverything will be covered .\ni will be back in town thursday night . the primary flight for the customer\ntrip leaves around 11 : 30 . others leave at 3 : 30 and 5 : 30 ( ? ) . the latest\nidea we had is that pat would take a later flight on this trip and i will\ntake a later flight on the august trip , allowing one of us to be in the\noffice for half the day . i can also come in for the half day on the 7 th if\nwe decide that is needed .\nd",
+    "commitments": [
+      {
+        "thread_id": "manual_1045",
+        "subject": "re : vacation",
+        "commitment_text": "i will leave the choice to you all .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "daren j farmer",
+        "recipient": "bh"
+      },
+      {
+        "thread_id": "manual_1045",
+        "subject": "re : vacation",
+        "commitment_text": "i will be back in town thursday night .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "thursday night",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_1045",
+        "subject": "re : vacation",
+        "commitment_text": "i can also come in for the half day on the 7 th if\nwe decide that is needed .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "the 7 th",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_13422",
+    "text": "louise ,\nmy name is molly vaughan and i work along side your forrester account manager david kobierowski to cover the relationship between forrester and enron . i was hoping for an opportunity to have a 10 - 15 minute conversation with you to find out more about your specific role and business challenges that you may be facing . based on that conversation , i will be in a better position to direct you to some of the research we have that addresses those specific topics . let me know when a good time for me to call would be .\nlink to forrester ' s homepage - - > http : / / www . forrester . com / home / 0 , 3257 , 1 , ff . html\ni look forward to working with you ,\nbest regards ,\nmolly vaughan\nmolly vaughan | forrester research , inc . | 400 technology sq . | cambridge , ma 02139 | direct : 617 . 613 . 6532 | email : mvaughan @ forrester . com corporate web site : www . forrester . com",
+    "commitments": [
+      {
+        "thread_id": "manual_13422",
+        "subject": "forrester research",
+        "commitment_text": "based on that conversation , i will be in a better position to direct you to some of the research we have that addresses those specific topics .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_13422",
+        "subject": "forrester research",
+        "commitment_text": "let me know when a good time for me to call would be .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_29061",
+    "text": "michelle\ni found another file where i have already detailed the measured and scheduled volumes through feb 200 . it wouldn ' t take that long to finish this spreadsheet if needed .\ni will send it to you if you want it .\ni will try to find an accountant type at el paso to determine what volume they have\nrichard",
+    "commitments": [
+      {
+        "thread_id": "manual_29061",
+        "subject": "mojave summary",
+        "commitment_text": "i will send it to you if you want it .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "richard",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_29061",
+        "subject": "mojave summary",
+        "commitment_text": "i will try to find an accountant type at el paso to determine what volume they have",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "richard",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_7105",
+    "text": "following our meeting with gary today , scott and i prepared the following\nwork plan . hopefully , this reflects the conversation and planning in today ' s\nmeetings .\nplease send comments and revisions .\ncordially ,\nrobert johnston\nmanager , political & sovereign risk\nenron north america\n713 - 853 - 9934",
+    "commitments": [
+      {
+        "thread_id": "manual_7105",
+        "subject": "hickerson / egm knowledge management",
+        "commitment_text": "please send comments and revisions .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "robert johnston",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_16972",
+    "text": "hey guys ! today is my last day at intel . check out my new email at :\nscottkuehn @ go 2 netmail . com\ni will be in gig harbor for awhile , and can be reached at ( 253 ) 851 - 7530\ntalk to you soon ,\nscott\n- - - - - original message - - - - -\n \n \n \n \nhello everyone ,\ntoday is my last day at intel . thanks everyone for a great experience . i have enjoyed working with all of you and hope to stay in touch !\ni will be moving to gig harbor on thursday and can be reached at ( 253 ) 851 - 7530 .\nmy new email account starting tomorrow is : scottkuehn @ go 2 netmail . com\nfarewell ,\nscott kuehn",
+    "commitments": [
+      {
+        "thread_id": "manual_16972",
+        "subject": "scott kuehn leaving intel",
+        "commitment_text": "i will be moving to gig harbor on thursday and can be reached at ( 253 ) 851 - 7530 .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "thursday",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "scott kuehn",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_1586",
+    "text": "daren ,\ni wanted to send you a copy of the activities as we have redefined them , if\nyou want a chance to look at them before we meet tomorrow .\nwe will be identifying what activities are being performed by your team , and\nshari will be talking about the automation of driver information .\njen",
+    "commitments": [
+      {
+        "thread_id": "manual_1586",
+        "subject": "opm - activities",
+        "commitment_text": "we will be identifying what activities are being performed by your team , and\nshari will be talking about the automation of driver information .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "jen",
+        "recipient": "daren"
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_12974",
+    "text": "mark taylor and brad richter discussed this friday and brad and i will stay on top of it with mark and richard sanders . pickering checked with webb and he felt it was probably without merit .\ngp\n- - - - - original message - - - - -\n \n \n \n \ntrading\nimportance : high\njust spoke to mark taylor . he is having a copy of the lawsuit sent down to you . richard sanders , our litigator will handle this case . mark ' s and richard ' s initial opinion based on a quick review is that it ' s not a big deal .\nkal\n- - - - - original message - - - - -\n \n \n \n \ntrading\nimportance : high\nask taylor to email his opinion on this asap . thanks . gp\ngreg piper",
+    "commitments": [
+      {
+        "thread_id": "manual_12974",
+        "subject": "fw : fw : enron accused of infringing patent for electronic trading",
+        "commitment_text": "brad and i will stay on top of it with mark and richard sanders .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "gp",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_12974",
+        "subject": "fw : fw : enron accused of infringing patent for electronic trading",
+        "commitment_text": "ask taylor to email his opinion on this asap .",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": "asap",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "kal",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "pilot_17035",
+    "text": "i will be 40 years old this saturday , and was thinking about having some friends around for pinochle and soda crackers . . . . . no , just kidding . i ' ll actually be turning a different age which i ' ll disclose to you if you come to my party and partake in some fine draft beer and fajitas and hot chicks !\nfestivities begin around 7 p . m . bring something to grill - we ' ll provide the fixings for fajitas . directions are as follows . . . . . .\ni - 84 east to 33 rd ave . exit\nleft off the exit\nstraight through the light at broadway & 33 rd\nleft on brazee ( directly across the street from grant park )\nmy house is directly ahead on the corner of 32 nd place and brazee . tall , white with green trim . guarded by two mean cats .\ncall if you get lost - 503 - 288 - 6546 .\nsee you on saturday !\nkate",
+    "commitments": [
+      {
+        "thread_id": "pilot_17035",
+        "subject": "kate ' s birthday party !",
+        "commitment_text": "i ' ll disclose to you if you come to my party",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "pilot_17035",
+        "subject": "kate ' s birthday party !",
+        "commitment_text": "we ' ll provide the fixings for fajitas",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "pilot_17035",
+        "subject": "kate ' s birthday party !",
+        "commitment_text": "see you on saturday !",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "kate",
+        "recipient": null
+      },
+      {
+        "thread_id": "pilot_17035",
+        "subject": "kate ' s birthday party !",
+        "commitment_text": "bring something to grill",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "pilot_17035",
+        "subject": "kate ' s birthday party !",
+        "commitment_text": "call if you get lost",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "kate",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_12749",
+    "text": "i have traded several phone messages with bill transier ( evp , cfo @ ocean ) . i expect to get some additional info at that time . i will keep you posted . in bill ' s last voice mail he suggested that he remained interested in the upsale services activity from ena even if we were not purchasing the gas . i will keep you informed .\nfrank\n- - - - - original message - - - - -\n \n \n \n \nonly got your message today - is there no way we can rescue it ? what exactly is the problem ? is our old contract a real problem ?",
+    "commitments": [
+      {
+        "thread_id": "manual_12749",
+        "subject": "re : ocena energy",
+        "commitment_text": "i will keep you posted .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_12749",
+        "subject": "re : ocena energy",
+        "commitment_text": "i will keep you informed .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "frank",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_8509",
+    "text": "vince :\ncan you give me some background on bogdan ?\nmany thanks . shawn\n- - - - - - - - - - - - - - - - - - - - - - forwarded by shawn cumberland / enron _ development on\n02 / 12 / 2001 08 : 12 am - - - - - - - - - - - - - - - - - - - - - - - - - - -\nawenda 2000 @ cs . com on 02 / 11 / 2001 11 : 26 : 12 pm\n \n \n \ndear shawn ,\nit was a pleasure talking to you today . i will call you upon my return from\neurope . in the meantime we will stay in touch via e - mail .\nenclosed is my curriculum vitae .\nbest regards ,\nbogdan m . szopa\n- bogdan res . . doc",
+    "commitments": [
+      {
+        "thread_id": "manual_8509",
+        "subject": "bogdan szopa - cv",
+        "commitment_text": "can you give me some background on bogdan ?",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_8509",
+        "subject": "bogdan szopa - cv",
+        "commitment_text": "i will call you upon my return from\neurope",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_12864",
+    "text": "i will follow up on monday morning .\njohn d . suarez\nenron broadband services\n( 713 ) 853 - 5267\n( 713 ) 443 - 5267 mobile\n( 877 ) 597 - 0646 pager\n- - - - - original message - - - - -\n \n \n \n \n \nlouise - do you know this gentleman from your days in london ? his resume looks good and he is interested in moving to houston and working in east power .\njohn suarez - you are going to need at least one and probably two solid cash / term traders for the se region . talk to seresh about this guy .\n- - - - - original message - - - - -\n \n \n \n \n \nkevin ,\nthanks for taking a look at this .\ni will talk to you in the next days to see if you think i will make enough money for you .\nbest regards ,\nenrico\n+ 44 207 783 6560\n>",
+    "commitments": [
+      {
+        "thread_id": "manual_12864",
+        "subject": "re : fw : enrico bauli",
+        "commitment_text": "i will follow up on monday morning .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "monday morning",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "john d . suarez",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_12864",
+        "subject": "re : fw : enrico bauli",
+        "commitment_text": "i will talk to you in the next days to see if you think i will make enough money for you .",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "in the next days",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "enrico",
+        "recipient": "kevin"
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_11916",
+    "text": "we are not done . on friday when we were prepared to sign , black hills energy capital said they needed until today to get a signature from their parent , black hills corp . at noon today they said that the signature was on its way . at 4 : 00 pm we heard that they will issue a l / c instead of the corp guarantee . the l / c approach is fine , but i am concerned with this flaky behavior .\nour plan is to sign the purchase and sale with black hills energy capital tonight / tomorrow morning . they would have the obligation to deliver either a gurantee or an l / c for $ 15 mm by thursday . if not , we can terminate at any time prior to close of business monday . i will update when something changes .\nchris calger\n503 - 464 - 3735",
+    "commitments": [
+      {
+        "thread_id": "manual_11916",
+        "subject": "southwest power update",
+        "commitment_text": "our plan is to sign the purchase and sale with black hills energy capital tonight / tomorrow morning .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "tonight / tomorrow morning",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_11916",
+        "subject": "southwest power update",
+        "commitment_text": "i will update when something changes .",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "when something changes",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "chris calger",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_13384",
+    "text": "laynie :\nper my swapped voice mails with louise last week , i have reduced the group to 6 commercial people ( not including my cost center ) .\nplease let me know if this is what you need .\nregards ,\nbrian\n- - - - - original message - - - - -\n \n \n \n \nbrian ,\nlouise has reviewed the headcount plan submitted for 2002 and asked that we reduce the texas origination count from 12 to 6 . the attached file shows the positions that were initially submitted . if you will let me know what to eliminate , i will make the necessary changes .\nthanks ,\nlaynie\nx 3 - 3131",
+    "commitments": [
+      {
+        "thread_id": "manual_13384",
+        "subject": "fw : 2002 headcount changes",
+        "commitment_text": "please let me know if this is what you need .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "brian",
+        "recipient": "laynie"
+      },
+      {
+        "thread_id": "manual_13384",
+        "subject": "fw : 2002 headcount changes",
+        "commitment_text": "if you will let me know what to eliminate ,",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_13384",
+        "subject": "fw : 2002 headcount changes",
+        "commitment_text": "i will make the necessary changes .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_14247",
+    "text": "with all of the events of yesterday , information for the dpr for the above dates is not yet complete . at the present time , we are planning to issue a final dpr for the 30 th of november as well as a preliminary and then final for the 3 rd of december . however , we do not yet have an estimated time for these to be issued .\ni will keep you up to date when i have additional information . if you have any questions , please call me at 713 853 9123 .\nbest regards\nshona wilson\ndirector , global risk operations\nx 39123",
+    "commitments": [
+      {
+        "thread_id": "manual_14247",
+        "subject": "11 / 30 and 12 / 3 dpr - update",
+        "commitment_text": "i will keep you up to date when i have additional information .",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "when i have additional information",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "shona wilson",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_7995",
+    "text": "cell : 011 - 91 - 984 - 9022360 ( try this first )\nhyderabad : 011 - 91 - 40 - 7114833\nvijayawada : 011 - 91 - 866 - 430928 ( dec 28 - jan 8 )\nbombay office : 011 - 91 - 982 - 1038711\nalso , i will be checking my email regularly ( as long as i can get the\nconnected ) . have a great christmas and holidays . i will see you all in the\nnew year !\nbest wishes\nkrishna .",
+    "commitments": [
+      {
+        "thread_id": "manual_7995",
+        "subject": "contact info . during my vacation",
+        "commitment_text": "i will be checking my email regularly",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_23545",
+    "text": "due to the thanksgiving holiday in the u . s . , the nymex and equity markets\nwill be closed on thursday the 23 rd and the nymex will be closed on friday\nthe 24 th . the consolidated dpr will report the 22 nd ' s data on monday the\n27 th . additionally , the data for thursday and friday will be combined into\none consolidated dpr and also reported on the 27 th . although the reporting\nfor thursday the 23 rd and friday the 24 th are combined into one daily\nposition report , violations will still be reported based on daily information .\nplease continue to export your data as in the past . we will need the data\nfor each day separated and not combined for thursday and friday due to the\nneed to assess the information against limits . however , if your market is\nclosed and there is no trading for the day , we do not need an export .\nplease call me with any questions or comments x 39123 .",
+    "commitments": [
+      {
+        "thread_id": "manual_23545",
+        "subject": "holiday daily position report reporting",
+        "commitment_text": "please continue to export your data as in the past .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_23545",
+        "subject": "holiday daily position report reporting",
+        "commitment_text": "we will need the data\nfor each day separated and not combined for thursday and friday due to the\nneed to assess the information against limits .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_289",
+    "text": "effective 2 - 11 ( friday ) our nom into eastrans will revert to 32 , 000 mmbtu / d\nwith 25 , 000 into pg & e and 7 , 000 from fuels cotton valley on purchase and\nsale .\nalso , we will sell you 500 mmbtu / d from fcv .\non 2 - 10 - 2000 , we zeroed out the nom from hpl to eastrans due\nto force majeure breakdown of compressor . we sold you\n7 , 000 mmbtud at gas daily mid - $ . 05 and 500 mmbtud at inside\nferc monthly index - $ . 05 .",
+    "commitments": [
+      {
+        "thread_id": "manual_289",
+        "subject": "nomination 2 - 11 - 2000 ; 2 - 9 and 2 - 10",
+        "commitment_text": "also , we will sell you 500 mmbtu / d from fcv .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_5816",
+    "text": "shirley ,\nplease , pay .\nvince\n- - - - - - - - - - - - - - - - - - - - - - forwarded by vince j kaminski / hou / ect on 03 / 29 / 2000\n12 : 33 pm - - - - - - - - - - - - - - - - - - - - - - - - - - -\nlacima @ compuserve . com > on 03 / 28 / 2000 02 : 49 : 43 pm\n \n \n \nshirley ,\nplease find attached the invoice for the energy derivatives courses . if i\nshould forward this to someone in accounts , please let me know who i should\ncontact and i will take care of it .\nthanks ,\njulie\nlacima consultants\n- enron 28 _ 03 _ 00 . doc",
+    "commitments": [
+      {
+        "thread_id": "manual_5816",
+        "subject": "invoice for energy derivatives courses",
+        "commitment_text": "shirley ,\nplease , pay .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "vince",
+        "recipient": "shirley"
+      },
+      {
+        "thread_id": "manual_5816",
+        "subject": "invoice for energy derivatives courses",
+        "commitment_text": "and i will take care of it .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "julie",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_28266",
+    "text": "effective immediately , joe jeffers , manager of technical training and skill\nbased pay administration , and his team of dick heitman , cliff mcpherson ,\nandrea woody and lupi trevino will move from ets human resources to ets\noperations technical services . joe will report to steve klimesh .\nthis move will better align technical training and sbp administration with\noperations and enhance the interfaces that take place between this group and\nets operations management and the field teams .\njoe and his team have provided outstanding support to operations in the past ,\nand it is expected that this high standard of customer service will\ncontinue . we will be sending more information in the very near future with\nregard to the individual support accountabilities of the team members .\nplease join me in welcoming this team and helping to make their transition a\nsmooth one .",
+    "commitments": [
+      {
+        "thread_id": "manual_28266",
+        "subject": "ets on the move . . .",
+        "commitment_text": "we will be sending more information in the very near future with\nregard to the individual support accountabilities of the team members .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "in the very near future",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_16751",
+    "text": "jerald surface will be in portland ( from houston ) to interview for a position in real time . i will provide a copy of his resume to his interviews for review . see below for interview schedule and location :\njerald surface , cascade conference room , thursday , july 5 th , 2001\n11 : 30 am - chris mallory\n12 : 15 pm - greg wolfe\n1 : 00 pm - stewart rosman\n1 : 45 pm - amy fitzpatrick\njerald surface , mt . rainier conference room , friday , july 6 th , 2001\n9 : 15 am - bill williams iii\n10 : 00 am - ryan slinger\neach interview has been schedule for 45 minutes . please let me know if you have any questions .\nthanks ,\ngrace\nx 8321",
+    "commitments": [
+      {
+        "thread_id": "manual_16751",
+        "subject": "jerald surface interview , july 6 th , 2001",
+        "commitment_text": "i will provide a copy of his resume to his interviews for review .",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_16883",
+    "text": "fyi -\ni ' ve created a spreadsheet that will track aps line losses our group has incurred and paid back . this will allow us to see at a glance the month ' s transmission purchases and what it ' s cost us to purchase power in order to pay aps back physically . keep in mind that loss volumes are calculated as 2 . 5 % of the total volume of transmission purchased in a given period .\ni will maintain this spreadsheet , and you ' re encouraged to reference it at your leisure . please let me know if you have questions .\nthanks ,\nkate",
+    "commitments": [
+      {
+        "thread_id": "manual_16883",
+        "subject": "aps line losses - fyi",
+        "commitment_text": "i will maintain this spreadsheet , and you ' re encouraged to reference it at your leisure .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "kate",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "pilot_6531",
+    "text": "person_64b4d0 ,\nfollowing up on my phone call , we ' re ready to do the following :\n1 . assign a login and password to enron for a trial evaluation of the\nwww . weathereffects . com power trader web service .\n2 . initiate a daily bilateral conference call at a morning time to be\ndetermined . to ensure that your traders and analysts are ready for such a\ncall , we will await your response to this email before initiating the\nservice .\n3 . we will also pdf certain energy analysis files to you ( eg , the daily gas\nmarket file ) so you can see the evolution of our day to day thinking on the\nmarkets .\na reminder that the power service currently deals with nepool and pjm and\nwill initiate coverage of nypp in september .\ni look forward to hearing from you .\nperson_c9a8e4\ndirector , esai gas and power services",
+    "commitments": [
+      {
+        "thread_id": "pilot_6531",
+        "subject": "trial of weathereffects web site",
+        "commitment_text": "assign a login and password to enron for a trial evaluation of the\\nwww . weathereffects . com power trader web service .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": "person_64b4d0"
+      },
+      {
+        "thread_id": "pilot_6531",
+        "subject": "trial of weathereffects web site",
+        "commitment_text": "initiate a daily bilateral conference call at a morning time to be\\ndetermined",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "pilot_6531",
+        "subject": "trial of weathereffects web site",
+        "commitment_text": "we will also pdf certain energy analysis files to you ( eg , the daily gas\\nmarket file ) so you can see the evolution of our day to day thinking on the\\nmarkets",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "september",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "pilot_6531",
+        "subject": "trial of weathereffects web site",
+        "commitment_text": "we will await your response to this email before initiating the\\nservice .",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "pilot_6531",
+        "subject": "trial of weathereffects web site",
+        "commitment_text": "i look forward to hearing from you .",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": "september",
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "person_c9a8e4\\n",
+        "recipient": null
+      },
+      {
+        "thread_id": "pilot_6531",
+        "subject": "trial of weathereffects web site",
+        "commitment_text": "will initiate coverage of nypp in september .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "september",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "person_c9a8e4\\n",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_29134",
+    "text": "michelle\ni have taped the detail for 9 / 28 / 00 to my monitor - i couldn ' t locate you fax # and it was too exhaustive to type - i forgot about the third party info . i will not be here tomorrow but can be reached at 832 - 754 - 4737 .\nthanks\nrichard",
+    "commitments": [
+      {
+        "thread_id": "manual_29134",
+        "subject": "mojave schedule vols",
+        "commitment_text": "i will not be here tomorrow but can be reached at 832 - 754 - 4737 .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "tomorrow",
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "richard",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_7223",
+    "text": "we are still in discussions with mec about a transaction , but it seems to be\nmoving in the right direction . they have asked to set up an advisory meeting\nin december to meet the senior team members . mr . plotnick indicated that he\nexpects to have his cto in place by then . i am trying to arrange our first\nmeeting the week of december 5 or december 12 . please send me a short list\nof times you have available for a two hour meeting .\nonce again , i would like to thank each of you for your help with this\nproject .\nregards ,\nmark\nmark lay\nenron investment partners\n333 clay st . , suite 3800\nhouston , tx 77002\np 713 - 853 - 7408\nf 713 - 345 - 7670",
+    "commitments": [
+      {
+        "thread_id": "manual_7223",
+        "subject": "mec advisory board meeting",
+        "commitment_text": "please send me a short list\nof times you have available for a two hour meeting .",
+        "direction": "requested",
+        "deadline_type": "implicit",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "mark lay",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_11705",
+    "text": "we have another opportunity to sell to dwr . i have been in discussions with ray hart of dwr and ron nichols , their consultant . we are closing in on a structure that has less upfront risk for enron with a larger overall short position in the back . they want to move to contract negotiations next week . i would appreciate your input . i will arrange a conference call with the legal and credit teams for monday to review the status of our eei contract and the requirements for this potential deal . notional terms :\nnp - 15\npeak\nq 301 : 100 mw\nq 401 : 100 mw\nql 02 : 150 mw\nq 202 : 200 mw\nq 302 : 250 mw\nq 402 : 300 mw\n1 / 03 - 12 / 06 : 300 mw\napprox 6 mm pv mwhrs\nprice : $ 85 / mwh",
+    "commitments": [
+      {
+        "thread_id": "manual_11705",
+        "subject": "dwr again",
+        "commitment_text": "i would appreciate your input",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": "monday",
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_11705",
+        "subject": "dwr again",
+        "commitment_text": "i will arrange a conference call with the legal and credit teams for monday to review the status of our eei contract and the requirements for this potential deal",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "monday",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_1833",
+    "text": "john ,\ni have a draft that i have been working on revising - - got pulled off to work\non triple lutz again and may not have anything to distribute until late next\nweek - - i will be out of the office on triple lutz the rest of today and\ntomorrow and then out of town until the 25 th - - i will try to get something to\nyou to look at before i go but can make no guarantees - -\nsandi\njohn griffith @ enron\n10 / 17 / 2000 08 : 17 am\n \n \n \nsandi ,\nwhat is going on with cornhusker ? have we made any progress on the\nagreement ? please let me know where we stand . thanks .\njohn",
+    "commitments": [
+      {
+        "thread_id": "manual_1833",
+        "subject": "re : cornhusker",
+        "commitment_text": "i will try to get something to\nyou to look at before i go but can make no guarantees",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "before i go",
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "sandi",
+        "recipient": "sandi"
+      },
+      {
+        "thread_id": "manual_1833",
+        "subject": "re : cornhusker",
+        "commitment_text": "please let me know where we stand",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "sandi",
+        "recipient": "sandi"
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_11105",
+    "text": "i will attempt to get you macro supply / demand info for eastern us by tommorow cob . tim will have to get west data .",
+    "commitments": [
+      {
+        "thread_id": "manual_11105",
+        "subject": "re : mark",
+        "commitment_text": "i will attempt to get you macro supply / demand info for eastern us by tommorow cob",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "tommorow cob",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_7244",
+    "text": "i am preparing a summary or our thursday discussions to be used as a\nbackground piece for discussion / brainstorming with oil traders . i will\ncirculate this for review / correction later today , or , at the latest , monday .\ngreg , you mentioned that enron had participated in a speculative survey in\nthe gulf of mexico that was successful . it might be useful to get more info\non this . terms , return realized ( over what time frame ) , why we have not\ncontinued to do this , etc .\nalso , from your comments , many , if not most of the 3 - d surveys are in deep\nwater . i read recently that shell , i believe , is participating in a deep sea\ndrilling / extraction project in the gulf . what oil price is required to make\nthese kinds of projects viable financially ?\nbob lee",
+    "commitments": [
+      {
+        "thread_id": "manual_7244",
+        "subject": "seismic data via satellite",
+        "commitment_text": "i will\ncirculate this for review / correction later today , or , at the latest , monday .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "later today , or , at the latest , monday",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_6915",
+    "text": "vince ,\njust fine . i will be there at 11 : 30 am on friday , september 8 , 2000 .\nsee you at the enron building .\nthank you .\nmaruti\n- - - - - original message - - - - -\n \n \n \ndate : monday , august 28 , 2000 2 : 14 pm\n \nmaruti ,\ndoes 11 : 30 enron building work for you ?\nvince\n\" more \" on 08 / 28 / 2000 01 : 25 : 54 pm\n \n \n \nhello vince ,\nthank you very much for getting back to me .\nfriday , september 8 is fine with me . please let me know what time would be\nconvenient for you and where we can meet . i can come any time anywhere .\nsincerely ,\nmaruti\n832 - 251 - 7267\n- - - - - original message - - - - -\n \n \n \ndate : monday , august 28 , 2000 12 : 12 pm\n \nmaruti ,\nwhat about september 8 , friday ?\nvince\n\" more \" on 08 / 25 / 2000 03 : 27 : 26 pm",
+    "commitments": [
+      {
+        "thread_id": "manual_6915",
+        "subject": "re : enron open positions",
+        "commitment_text": "i will be there at 11 : 30 am on friday , september 8 , 2000 .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "11 : 30 am on friday , september 8 , 2000",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "maruti",
+        "recipient": "vince"
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_8120",
+    "text": "vasant ,\nvince and i spoke with gary hickerson and michelle cisneros about the\nconsultant ' s power plant model this afternoon . we will take their model ' s\ninterface and recode the calculation engine , incorporating useful insights\nfrom the consultant . it help will be available\nvia gary ' s group . so i will spend the next 4 weeks working on this .\nalex",
+    "commitments": [
+      {
+        "thread_id": "manual_8120",
+        "subject": "new project",
+        "commitment_text": "we will take their model ' s\ninterface and recode the calculation engine , incorporating useful insights\nfrom the consultant .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": "the next 4 weeks",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "alex",
+        "recipient": "vasant"
+      },
+      {
+        "thread_id": "manual_8120",
+        "subject": "new project",
+        "commitment_text": "so i will spend the next 4 weeks working on this .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "the next 4 weeks",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "alex",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_14973",
+    "text": "as per my email from yesterday ;\nattached are pipeline companies , transmission company ( ercot ) and canadian companies not on the prior \" louise approved \" list which credit has been working on .\nwe have been having difficulty tracking down the full legal name for some of the storage and transmission companies , and for aec storage , there are two names - i assume only one may be required . for any cases where the full legal name cannot be found today , we have included the group name . we will resolve the remaining full legal names on monday morning , when other staff are available .\ndave",
+    "commitments": [
+      {
+        "thread_id": "manual_14973",
+        "subject": "day 1 list additions",
+        "commitment_text": "we will resolve the remaining full legal names on monday morning , when other staff are available .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "monday morning",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "dave",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_14847",
+    "text": "louise ,\nthere seems to be some confusion over this , but i would like to proceed as follows . please let me know if you disagree :\n1 ) for all contracts , \" ubs ag , london branch \" will be used ( online / offline , license applications , regulatory approvals , etc . )\n2 ) for all marketing purposes , ubs warburg energy , llc will be used ( letterhead , brochures , etc . )\n3 ) when using ubs warburg energy , llc , we will include small print along the lines of : \" ubs warburg energy llc is a wholly owned subsidiary of ubs ag , london branch \" ( i am confirming the wording and concept with legal ) .\nthanks ,\ndave",
+    "commitments": [
+      {
+        "thread_id": "manual_14847",
+        "subject": "company name",
+        "commitment_text": "please let me know if you disagree :",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": "louise"
+      },
+      {
+        "thread_id": "manual_14847",
+        "subject": "company name",
+        "commitment_text": "we will include small print along the lines of : \" ubs warburg energy llc is a wholly owned subsidiary of ubs ag , london branch \"",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "dave",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_9430",
+    "text": "tani ,\nyes , i am aware of it .\nthanks for letting me know who\nis the hr rep in london .\nvince\ntani nath\n05 / 02 / 2001 09 : 01 am\n \n \n \nvince ,\ni don ' t know if you are already aware of this , but maureen raymond has been\ntaken ill and i understand has received medical advice that she should not\ntravel before the end of next week at the earliest .\ntara is the appropriate hr representative in london ; i will ask her to keep\nboth you and houston hr informed of the situation .\nmany thanks , tani",
+    "commitments": [
+      {
+        "thread_id": "manual_9430",
+        "subject": "re :",
+        "commitment_text": "tara is the appropriate hr representative in london ; i will ask her to keep\nboth you and houston hr informed of the situation .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_8006",
+    "text": "folks :\nit is my pleasure to announce the visit of professor rene carmona from\nprinceton on february 13 , 2001 .\n( this web site may provide a little information on professor carmona :\nhttp : / / www . princeton . edu / ~ rcarmona / )\nprofessor carmona is going to talk to us about his research endeavors in\nweather and financial engineering .\nsimilarly , we will make a short presentation of our activities and research\ninterests .\nthe aim of the meeting is to explore areas of common interest and investigate\nthe possibility of collaborating in certain research areas .\nthe time is 2 : 00 - 3 : 30 pm . room eb 30 cl is reserved for 2 : 00 - 4 : 30 pm .\nplease plan on attending . also , do let me know , if you would like to include\nsomeone else to this distribution list .\nyannis tzamouranis",
+    "commitments": [
+      {
+        "thread_id": "manual_8006",
+        "subject": "re : spring workshop",
+        "commitment_text": "please plan on attending .",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "yannis tzamouranis",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_8006",
+        "subject": "re : spring workshop",
+        "commitment_text": "also , do let me know , if you would like to include\nsomeone else to this distribution list .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "yannis tzamouranis",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_9481",
+    "text": "team ,\ncan you resend your text document to vince asap .\nwe could open your spreadsheet ok , but not the document .\nvince ' s contact information is on the attached email below .\nthanks\njason\n- - - - - - - - - - - - - - - - - - - - - - forwarded by jason sokolov / hou / ect on 05 / 04 / 2001 05 : 32 pm - - - - - - - - - - - - - - - - - - - - - - - - - - -\nvince j kaminski\n05 / 04 / 2001 05 : 29 pm\n \n \n \nfelix ,\nplease , resend me the term papers of your group , each as a separate file .\nplease send it to my aol address as well as work address .\nmy aol address is vkaminski @ aol . com\nmy home phone number is 281 367 5377 .\nvince",
+    "commitments": [
+      {
+        "thread_id": "manual_9481",
+        "subject": "term papers",
+        "commitment_text": "can you resend your text document to vince asap .",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": "asap",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "jason",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_9481",
+        "subject": "term papers",
+        "commitment_text": "please , resend me the term papers of your group , each as a separate file .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "vince j kaminski",
+        "recipient": "felix"
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_16919",
+    "text": "to all ads market participants :\nplease find attached for your review the following documents : \" oos examples\nmp \" ( electronic dispatch of out - of - sequence and out - of - market instructions\n- - guide for market participants ) , a proposed ads query file data\ndictionary , and a proposed ads download file data dictionary .\nthese three documents attempt to explain how oos , in - area oom , and real - time\nrmr dispatches will be communicated through ads .\nnote that we are proposing a market sim during the week of 9 / 24 - 9 / 28 , and a\nrollout to production on 10 / 12 / 01 .\ni will be available in the tswg meetings to answer any questions , or you can\nemail comments to me at gford @ caiso . com .\n> > >\ngreg ford\ncalifornia iso\nmarket operations\n( 916 ) 351 - 2344\ngford @ caiso . com",
+    "commitments": [
+      {
+        "thread_id": "manual_16919",
+        "subject": "caiso ads communication : important notice for ads users",
+        "commitment_text": "i will be available in the tswg meetings to answer any questions , or you can\nemail comments to me at gford @ caiso . com .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "greg ford",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_14775",
+    "text": "great . let me know if i can provide any further help .\n- - - - - original message - - - - -\n \n \n \n \n \nanne ,\ni received your voice mail . we are working with each vendor to assign the contracts or enter into new contracts as required in order to ensure that content is available on relaunch of the system .\naffected contracts are :\nintelligence press - no agreement required .\naccuweather - have verbally agreed to continue service to the new entity\ndow jones - have verbally agreed to continue service to the new entity\nreuters - working on new month - to - month contract with them .\nwe will work with leslie on getting written consents .\nthanks ,\ndave",
+    "commitments": [
+      {
+        "thread_id": "manual_14775",
+        "subject": "re : content contracts",
+        "commitment_text": "we will work with leslie on getting written consents .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "dave",
+        "recipient": "dave"
+      },
+      {
+        "thread_id": "manual_14775",
+        "subject": "re : content contracts",
+        "commitment_text": "great . let me know if i can provide any further help .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "anne",
+        "recipient": "anne"
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_23172",
+    "text": "sally has asked that the inclement weather contact list be updated by the end\nof this week given the fact that hurricane debby could be a threat to the\ngulf of mexico . i have attached the contact list that was updated last\noctober . i know there have been a lot of changes ; therefore , i need your\nhelp to update the list . please send me your revisions by noon on friday ,\naugust 25 th . if you foresee any problems meeting this deadline , please\ncontact me to discuss . in addition , if you need to forward this document to\nsomeone else in you group , please do so . thanks .\nlisa cousino\nx 3 - 6343\n713 - 905 - 9824 ( pager )",
+    "commitments": [
+      {
+        "thread_id": "manual_23172",
+        "subject": "update inclement weather plan",
+        "commitment_text": "please send me your revisions by noon on friday ,\naugust 25 th .",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": "noon on friday ,\naugust 25 th",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_23172",
+        "subject": "update inclement weather plan",
+        "commitment_text": "if you foresee any problems meeting this deadline , please\ncontact me to discuss .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": "noon on friday ,\naugust 25 th",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "lisa cousino",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_404",
+    "text": "hpl can ' t take the extra 15 mmcf / d over the weekend . we ' ll try next week ,\nbut for now the nom will stay at 60 mmcf / d , with redeliveries as they have\nbeen\n-\n50 into pg & e , 7 from fcv , and 3 at carthage .\n- - - - - - - - - - - - - - - - - - - - - - forwarded by bruce mcmills / ftworth / pefs / pec on\n03 / 03 / 2000\n09 : 42 am - - - - - - - - - - - - - - - - - - - - - - - - - - -\nbruce mcmills\n03 / 03 / 2000 09 : 10 am\n \n \nc . spencer / gcs / cec / pec @ pec , michael r . cherry / easttexas / pefs / pec @ pec ,\ndarrel f . bane / easttexas / pefs / pec @ pec\n \nthis is to nominate 75 , 000 mmbtu / d into eastrans for 3 / 4 / 2000 and following .\nwe will deliver 50 , 000 into pg & e , 7 , 000 from fuel cotton valley ( continue\n750\nmmbtu / d sale ) ,\nand 18 , 000 mmbtu / d into your cartwheel agreement at carthage .",
+    "commitments": [
+      {
+        "thread_id": "manual_404",
+        "subject": "3 / 4 / 2000 and following noms",
+        "commitment_text": "we ' ll try next week ,",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "next week",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_404",
+        "subject": "3 / 4 / 2000 and following noms",
+        "commitment_text": "we will deliver 50 , 000 into pg & e , 7 , 000 from fuel cotton valley ( continue\n750\nmmbtu / d sale ) ,",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_9410",
+    "text": "please respond to hello vince and kenneth ,\nmy teammates and i would like to schedule a time with you to discuss our\npresentation materials . we would prefer to meet with you sometime on\nthursday so that we can have the weekend to include any changes that you may\nsuggest , but we will accommodate your schedules .\nthank you for all of your help ,\n= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =\ncharles womack jr .\nmba candidate 2002\nrice university\njesse h . jones graduate school of management\ncwomack @ rice . edu\ncell : 281 - 413 - 8147",
+    "commitments": [
+      {
+        "thread_id": "manual_9410",
+        "subject": "meeting to discuss presentation materials",
+        "commitment_text": "my teammates and i would like to schedule a time with you to discuss our\npresentation materials .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": "vince and kenneth"
+      },
+      {
+        "thread_id": "manual_9410",
+        "subject": "meeting to discuss presentation materials",
+        "commitment_text": "but we will accommodate your schedules .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "charles womack jr .",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_15012",
+    "text": "all :\nattached you will find a clean and marked version of the master firm gas purchase / sale agreement . your thoughts would be appreciated as this is somewhat of a departure from the previous approach . i will continue to review as this was thown together fairly quickly and i have not had the opportunity to carefully put all the pieces together .\njeff",
+    "commitments": [
+      {
+        "thread_id": "manual_15012",
+        "subject": "gas master",
+        "commitment_text": "i will continue to review as this was thown together fairly quickly and i have not had the opportunity to carefully put all the pieces together .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "jeff",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_6909",
+    "text": "vince ,\nthe attached report on the pound incorporates some minor edits from your\nversion . we will be inserting graphics into the report tomorrow to show\ninterest rate differentials , exchange rate movements , and growth rate\ndifferentials .\nmaureen",
+    "commitments": [
+      {
+        "thread_id": "manual_6909",
+        "subject": "british pound analysis",
+        "commitment_text": "we will be inserting graphics into the report tomorrow to show\ninterest rate differentials , exchange rate movements , and growth rate\ndifferentials .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "tomorrow",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "maureen",
+        "recipient": "vince"
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_12005",
+    "text": "all ,\nplease find above , the rotations outlined for the the trading track a & a along with graduation dates . if you have any changes / comments etc please let me know . i will be confirming these rotations ( not graduation dates ) to the participants by the end of the week\nbryce schneider will be starting in c . july 19 th . wes mitchell under discussion with respect to offer .\nkind regards ,\nkaren\nx 54667",
+    "commitments": [
+      {
+        "thread_id": "manual_12005",
+        "subject": "trading track - rotations",
+        "commitment_text": "i will be confirming these rotations ( not graduation dates ) to the participants by the end of the week",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "by the end of the week",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "karen",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_12005",
+        "subject": "trading track - rotations",
+        "commitment_text": "if you have any changes / comments etc please let me know .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": "by the end of the week",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_12005",
+        "subject": "trading track - rotations",
+        "commitment_text": "bryce schneider will be starting in c . july 19 th .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "by the end of the week",
+        "confidence": "medium",
+        "third_party_reported": true,
+        "notes": "reported_by: bryce schneider",
+        "sender": "karen",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_5886",
+    "text": "dear vince ,\n?\ni hope you are well . i am leaving risk at the end of next week and before i\nleave i am producing the mathematics for energy derivatives training course .\ni have written a programme and attached it to this email and i wondered\nwhether you could have a look at it and let me know what you think . i also\nwondered whether you would be interested in speaking at the course .\n?\ni will give you a call on monday to it .\n?\nbest regards ,\n?\nvicky\n- mthsprg . doc",
+    "commitments": [
+      {
+        "thread_id": "manual_5886",
+        "subject": "eprm training course",
+        "commitment_text": "i wondered whether you could have a look at it and let me know what you think .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": "monday",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "vicky",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_5886",
+        "subject": "eprm training course",
+        "commitment_text": "i also\nwondered whether you would be interested in speaking at the course .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": "monday",
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "vicky",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_5886",
+        "subject": "eprm training course",
+        "commitment_text": "i will give you a call on monday to it .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "monday",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "vicky",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_14790",
+    "text": "just discussed this with collette and ubs hr . suggestion is we proceed as follows :\nany suggested change must be agreed by one of you on the enron side ( including support )\nif you agree , we will capture the proposed changes on the attached form and fax it to ubs team .\nif the change is simply a reallocation of dollars , as anticipated within the pool , they will generate a new contract .\nif the change is incremental to the pool , or otherwise significant , collette has arranged a time on sat , sun and mon to call hutch . if he agrees she will authorise the ubs team to produce the amended form .\ni anticipate suggested changes to the document text and titles . these we will also capture on above form and fax to ubs for discussion .\ndavid",
+    "commitments": [
+      {
+        "thread_id": "manual_14790",
+        "subject": "ubs contract changes - the process",
+        "commitment_text": "if you agree , we will capture the proposed changes on the attached form and fax it to ubs team .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_14790",
+        "subject": "ubs contract changes - the process",
+        "commitment_text": "if he agrees she will authorise the ubs team to produce the amended form .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": true,
+        "notes": "reported_by: collette",
+        "sender": "david",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_14790",
+        "subject": "ubs contract changes - the process",
+        "commitment_text": "these we will also capture on above form and fax to ubs for discussion .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "david",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_3588",
+    "text": "i have no problem sticking around with the group , it is a compliment and i am glad that you all appreciate what i have been able to contribute to the group . i just want your opinion on something .\none of my many goals while a part of the analyst program is to become a senior analyst or third year analyst . it is a promotion that also brings with it a bit of a pay increase . in no way do i want to imply greed , or that i will only stay for money , but if in your opinion i may be deserving of this , then maybe we could run it by bob or the program , or whoever is in control of that .\njust a thought , let me know what you think .\nmike",
+    "commitments": [
+      {
+        "thread_id": "manual_3588",
+        "subject": "daren ,",
+        "commitment_text": "just a thought , let me know what you think",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "mike",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_14633",
+    "text": "- - - - - original message - - - - -\n \n \n \n \ngeorganne\nattached below is the same documentation in excel format\n- - - - -\n \n \n \n \n \ngeorgeanne ,\nattached below is treasury ' s initial project plan for a full banking system replica for netco . as you will see we have estimated we can be up and running with basic wire functionality by 1 / 23 / 01 and a full system of checks , issuance files , ach ' s and workstation within 93 days . we do reserve the right to amend and or clarify this plan as we have time to complete our due diligence on the full system requirements and the impact of the changes . currently the plan does not include the citibanking installation which will be included as soon as possible and will not extend the project deadline .\nregards ,\nmarcus pullicino",
+    "commitments": [
+      {
+        "thread_id": "manual_14633",
+        "subject": "fw : project plan full treasury systems",
+        "commitment_text": "the citibanking installation which will be included as soon as possible and will not extend the project deadline .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "as soon as possible",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "marcus pullicino",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_23150",
+    "text": "dear kate ,\nwe are now ranking the findings - red or yellow . since these need to be done\nimmediately , i suggest that they are red findings .\nregards\nkate agnew\n08 / 15 / 2000 01 : 59 pm\n \nlauer / hou / ect @ ect , sally beck / hou / ect @ ect , wes colwell / hou / ect @ ect , ted\nmurphy / hou / ect @ ect\n \n \nattached is the mariner doorstep report . jim brown indicated that the action\ndates for the three findings should be immediately , we decided that october 1\nwas a realistic deadline for implementation . please let us know any comments\nor questions .\nthank you\nkate",
+    "commitments": [
+      {
+        "thread_id": "manual_23150",
+        "subject": "re : mariner doorstep report",
+        "commitment_text": "please let us know any comments\nor questions",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_8310",
+    "text": "anshuman : i have been asked to contact you regarding your possible move to\nhouston , texas . in order that i may begin the process of getting you an ll\nimmigration visa , i will need you to complete the attached visa questionnaire\nand return it to me with copies of the following documents :\na copy of all pages of your passport , even if blank\ncopies of all previous us visas issued\nan updated resume , showing months and years\ncopies of all diplomas and transcripts received\nif you have dependent family members coming to the states with you , copies of\ntheir passports\nplease send to my attention , via fedex to :\nenron corp .\n3 allen center , 3 ac 2026 a\n333 clay street\nhouston , tx 77002\nplease call me with any questions you may have at 713 - 345 - 5083 .",
+    "commitments": [
+      {
+        "thread_id": "manual_8310",
+        "subject": "ll visa - anshuman shrivastava",
+        "commitment_text": "in order that i may begin the process of getting you an ll\nimmigration visa , i will need you to complete the attached visa questionnaire\nand return it to me with copies of the following documents :",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": "anshuman"
+      },
+      {
+        "thread_id": "manual_8310",
+        "subject": "ll visa - anshuman shrivastava",
+        "commitment_text": "please send to my attention , via fedex to :",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_12442",
+    "text": "after your and my conversation this am , our legal team had meeting with allegheny ' s .\nmeeting went well .\ninsurance still open , but we developed what should be a path to agt . other two major issues ( remedies under default and legal venue ) along with numerous minor issues were hopefully on way to being solved . docs to be exchanged again tonite . we ' ll see .\nsince that meeting , new issue arose re letter agt . it dealt with ensuring that the agts made by epmi in ltr agt re collateral were final once allegheny gave us notice that they were ok with security agts . issue not substantive and we will agree to their change . trying to get date of ltr agt to be today .",
+    "commitments": [
+      {
+        "thread_id": "manual_12442",
+        "subject": "allegheny status",
+        "commitment_text": "docs to be exchanged again tonite .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "tonite",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_12442",
+        "subject": "allegheny status",
+        "commitment_text": "issue not substantive and we will agree to their change .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": "today",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_12442",
+        "subject": "allegheny status",
+        "commitment_text": "trying to get date of ltr agt to be today .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "today",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_2926",
+    "text": "estimated actual for march 28 , 2001\nteco tap 20 . 000\nwhen we receive the numbers from duke i will forward the true actual numbers\nto\nyou .",
+    "commitments": [
+      {
+        "thread_id": "manual_2926",
+        "subject": "enron / hpl actuals for march 28 , 2001",
+        "commitment_text": "when we receive the numbers from duke i will forward the true actual numbers\nto\nyou",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "when we receive the numbers from duke",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_7067",
+    "text": "stinson ,\ngreat ! i ' m looking forward to a very productive collaboration .\ni ' ll immediately start doing giuseppe ' s papers , for him to work\non the enron / stanford program .\nmany thanks to you and vince , and i hope to see you soon at stanford\nor enron . if i remember correctly , vince is visiting stanford in\noctober .\nbest regards ,\nnick\nstinson . gibner @ enron . com wrote :\n>\n> nick ,\n>\n> i spoke with paul racicot , head of trading for ebs , north america this\n> morning . he said that he is happy to send the $ 100 , 000 for your program\n> from his budget . i have forwarded to him the draft letter to accompany\n> the funds and will try to follow up to make sure that the money is sent\n> promptly .\n>\n> - - stinson",
+    "commitments": [
+      {
+        "thread_id": "manual_7067",
+        "subject": "re : enron / stanford program",
+        "commitment_text": "i ' ll immediately start doing giuseppe ' s papers , for him to work\non the enron / stanford program .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "stinson",
+        "recipient": "stinson"
+      },
+      {
+        "thread_id": "manual_7067",
+        "subject": "re : enron / stanford program",
+        "commitment_text": "he said that he is happy to send the $ 100 , 000 for your program\n> from his budget .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": "promptly",
+        "confidence": "medium",
+        "third_party_reported": true,
+        "notes": "reported_by: paul racicot",
+        "sender": "nick",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_7067",
+        "subject": "re : enron / stanford program",
+        "commitment_text": "will try to follow up to make sure that the money is sent\n> promptly .",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "promptly",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_28999",
+    "text": "- - - - - original message - - - - -\n \n \n \n \n \nmonday , dec . 17 th . station 2 will take unit 202 for 32 to 36 hours to repair gear box . capacity west of thoreau will be 1060 mmbtu / d for dec . 17 th . we will determine capacity monday for the 18 th gas day .\nif you have any question give me a call .\ngary",
+    "commitments": [
+      {
+        "thread_id": "manual_28999",
+        "subject": "fw : tw station 2 unit 202",
+        "commitment_text": "we will determine capacity monday for the 18 th gas day .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "gary",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_12602",
+    "text": "you asked me to look into this ( the ford sponsorship thing ) .\ni think they will be unlikely to deliver on the benefits promised by m 3 management ( their marketing consultant ) and will add little value to our dealmaking opportunities with ford .\ni will pass the info . along to ees to see if they have any interest in paying the $ 7 million for general advertising exposure .\ndave",
+    "commitments": [
+      {
+        "thread_id": "manual_12602",
+        "subject": "team rahal update",
+        "commitment_text": "i will pass the info . along to ees to see if they have any interest in paying the $ 7 million for general advertising exposure .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "dave",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_11676",
+    "text": "hey , look at this ! we will now terminate the derivatives as the shares were sold .\nwes\n- - - - - original message - - - - -\n \n \n \n \n \nwes ,\ni spoke with ljm ' s counsel regarding the hanover derivatives , and we are in agreement with enron ' s view regarding the settlement of the swap and the collar . that is , the put can be exercised for intrinsic , not extrinsic , value in the interim before maturity . sorry it took so long to resolve this matter .\nchris loehr\nx 33092",
+    "commitments": [
+      {
+        "thread_id": "manual_11676",
+        "subject": "fw : hanover",
+        "commitment_text": "we will now terminate the derivatives as the shares were sold .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "wes",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "pilot_5473",
+    "text": "dear vince\ncould you let me know when you are able to meet riskcare ? i will try to\nreach you in houston , otherwise i will give anjam ' s office a call\ntomorrow .\nregards\nmanuel\nmanuel rensink\nriskcare - financial technology services\npiercy house\n7 copthall avenue\nlondon\nhttp : / / www . riskcare . com\ntel : + 44 ( 0 ) 20 7562 3400\nfax : + 44 ( 0 ) 20 7562 3401\nabout riskcare\nsince riskcare ' s inception in 1994 , we have specialised in providing\npre - eminent services and pioneering tools to the financial markets\nindustry .\nriskcare offers :\n* a range of hands - on technology services for systems implementation\nand operation , including development , integration , support , technical\nskills and software selection\n* a range of financial engineering services , including model\nvalidation , risk advisory , analytics integration , development of pricing\nmodels for derivative instruments and front office analytics such as\nwillow , a revolutionary tool for option pricing",
+    "commitments": [
+      {
+        "thread_id": "pilot_5473",
+        "subject": "london meeting",
+        "commitment_text": "could you let me know when you are able to meet riskcare ?",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": "tomorrow",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "manuel",
+        "recipient": "vince"
+      },
+      {
+        "thread_id": "pilot_5473",
+        "subject": "london meeting",
+        "commitment_text": "will try to\\nreach you in houston , otherwise i will give anjam ' s office a call",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "tomorrow",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "manuel",
+        "recipient": "vince"
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_23835",
+    "text": "sounds like a significant investment - but worthwhile - we will need cost\ncodes to charge time etc to\njames new\n15 / 02 / 2001 16 : 30\n \n \n \nmike the following 2 doorstep dates have been agreed\n5 / 3 ees for 10 days paul\n19 / 3 interest rates , fx coralie\ndavid wall are intending on going out on tuesday the 13 th . david will leave\non friday the 16 th and i will leave on tuesday the 20 th . i will therefore be\nable to help the guys ( if necessary ) of fully pursue my own agenda which is\nenough in itself .\nis this ok with you ?",
+    "commitments": [
+      {
+        "thread_id": "manual_23835",
+        "subject": "re : houston visit and doorsteps",
+        "commitment_text": "sounds like a significant investment - but worthwhile - we will need cost\ncodes to charge time etc to",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "james new",
+        "recipient": "mike"
+      },
+      {
+        "thread_id": "manual_23835",
+        "subject": "re : houston visit and doorsteps",
+        "commitment_text": "is this ok with you ?",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_13654",
+    "text": "john , if it is unlikely that we will be able to assign deals to marketing counterparties to reduce cash collateral calls , should we not use this opportunity to call for collateral from all of our otm customers ( particularly cnr ) ? please advise .",
+    "commitments": [
+      {
+        "thread_id": "manual_13654",
+        "subject": "collateral",
+        "commitment_text": "please advise .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "pilot_12446",
+    "text": "enrononline started to see message delivery slow down drastically at 8 : 40 am . at 8 : 50 updates were so slow that all products were suspended from trading . at 8 : 56 we brought the site offline to insure that trading would not continue , as our traders could not manage their products .\nat 9 : 10 we were able to isolate the issue to a single disk , in a brick of storage , that was responding extremely slowly , but not failing over like it should . we removed the storage from the configuration and brought the database back online . once we verified the database was healthy we brought eol back online at approximately 9 : 28 am . at this point all our users , both internal and external , started logging back in .\nthe issue was caused by a bug in the firmware on the disk . the vendor of the disk has already provided us with a patch for this bug . we will be applying this patch to all of our storage , one brick at a time starting this evening .\nwe had to take eol offline for a second time at 11 : 17 am due to a failure on another brick of storage . this failure was caused while we were verifying the root cause of the issue we experienced earlier . we brought the site back online at 11 : 56 . during this outage we verified that there was no corruption or loss of data , due to either of the outages .\nregards ,\nbob hillier\ne - commerce operations",
+    "commitments": [
+      {
+        "thread_id": "pilot_12446",
+        "subject": "enrononline outage , august 9 , 2001",
+        "commitment_text": "we will be applying this patch to all of our storage , one brick at a time starting this evening .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "starting this evening",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_7963",
+    "text": "thank you , so very much for the gift basket , it is beautiful , i will share\nwith the group .\nhappy , happy , holiday ' s !\ndolores sustaita & move - team",
+    "commitments": [
+      {
+        "thread_id": "manual_7963",
+        "subject": "holiday gift basket",
+        "commitment_text": "i will share\nwith the group .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "dolores sustaita & move - team",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_1844",
+    "text": "from sandi braband :\nattached is an initial draft of a gas management services and agency\nagreement with tenaska iv . it should be reviewed internally only and not\nforwarded beyond those on the above distribution list without first checking\nwith me or barbara gray . pat radford , my assistant , will be making\narrangements for a meeting next week to discuss the agreement as well as the\ncornhusker structure generally .\ni will be out of town until the 25 th . if there is an urgent issue that needs\nresolution before my return , please contact barbara gray at 36832 .",
+    "commitments": [
+      {
+        "thread_id": "manual_1844",
+        "subject": "tenaska iv gas management agreement ( initial draft )",
+        "commitment_text": "pat radford , my assistant , will be making\narrangements for a meeting next week to discuss the agreement as well as the\ncornhusker structure generally .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "next week",
+        "confidence": "medium",
+        "third_party_reported": true,
+        "notes": "reported_by: pat radford",
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_1844",
+        "subject": "tenaska iv gas management agreement ( initial draft )",
+        "commitment_text": "if there is an urgent issue that needs\nresolution before my return , please contact barbara gray at 36832 .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": "next week",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_11932",
+    "text": "i will be circulating in the next few minutes a revised new albany analysis . the only revisions that were made were to correct : ( 1 ) the cost basis ( as of 3 / 31 / 01 ) , ( 2 ) the monthly depreciation amount ( which actually diverges from the budgeted amount ) and ( 3 ) the spare parts basis . i have double checked with cris sherman and theresa vos and they are in agreement with these numbers . the total impact of these changes is a reduction to the pv margin of $ 2 , 316 , 000 . i apologize for the mistake but hope that you understand that the mistake arose from errors in the information that was supplied to me .\nstuart",
+    "commitments": [
+      {
+        "thread_id": "manual_11932",
+        "subject": "revised new albany analysis",
+        "commitment_text": "i will be circulating in the next few minutes a revised new albany analysis .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "in the next few minutes",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_7940",
+    "text": "let me see what we can work out , vince , and we ' ll get back to you .\nmolly\nvince j kaminski\n12 / 18 / 2000 01 : 46 pm\n \n \n \nmolly ,\nthis is the list of people we can ask to interview iris .\ni would include one ( or possibly more ) people from each group below ,\ndepending on availability .\n1 . debbie brackett or bill bradford\n2 . ted murphy , bjorn hagelman or david port\n3 . mark tawney or joe hrgovcic\n4 . greg whalley or louise kitchen\ni shall send a message to them explaining that we try to identify the best\nfit for a good\ncandidate .\nvince\nenron north america corp .\n \n \n \n \niris would like to come on thursday , 12 / 28 / 2000 , to visit with you and your\ngroup . she will be in new orleans , and will just fly in for the day .\nmolly",
+    "commitments": [
+      {
+        "thread_id": "manual_7940",
+        "subject": "re : iris mack",
+        "commitment_text": "let me see what we can work out , vince , and we ' ll get back to you .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "molly",
+        "recipient": "vince"
+      },
+      {
+        "thread_id": "manual_7940",
+        "subject": "re : iris mack",
+        "commitment_text": "i shall send a message to them explaining that we try to identify the best\nfit for a good\ncandidate .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_13440",
+    "text": "louise ,\nattached is the list with the names as i have been able to assemble so far . if i can get more info . before our meeting , i will add it .\nnote i have removed entergy . there is some background to this . please see me if you want details .\ndave",
+    "commitments": [
+      {
+        "thread_id": "manual_13440",
+        "subject": "ees examples 10 - 23 - 01 . xls",
+        "commitment_text": "if i can get more info . before our meeting , i will add it .",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "before our meeting",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "dave",
+        "recipient": "louise"
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_14322",
+    "text": "are we duplicating effort ?\n- - - - - original message - - - - -\n \n \n \n \n \nin an effort to consolidate due diligence requests for a data room , can you please send me a copy of any due diligence item that you have sent directly to a particular bidder and / or their legal counsel ?\nthank you ,\nmari capestany\nx 33519",
+    "commitments": [
+      {
+        "thread_id": "manual_14322",
+        "subject": "fw : due diligence requests",
+        "commitment_text": "can you please send me a copy of any due diligence item that you have sent directly to a particular bidder and / or their legal counsel ?",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "mari capestany",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_906",
+    "text": "fyi - - -\nsome of the gas purchased from dynegy on gas day 6 / 6 was cut :\n9 b 5 p\n662 cut to 599\n10 , 000 cut to 9 , 061\n( per joanie adams at oasis )\ni will enter in mops as estimates .\nthanks ,\nmark",
+    "commitments": [
+      {
+        "thread_id": "manual_906",
+        "subject": "el paso cuts on oasis",
+        "commitment_text": "i will enter in mops as estimates",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "mark",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_28934",
+    "text": "enron travel club officer election notice :\nplease be advised that we will have election of officers at our regularly scheduled meeting scheduled\nfor tuesday , november 13 , 2001 . if you know someone that you would like to nominate for a position ,\nplease forward the name ( s ) to dianne langeland by november 6 th . she will contact the nominee ( s )\nto see if he / she is willing to serve and notify the membership of the nominee ( s ) prior to the meeting .\nthanks !",
+    "commitments": [
+      {
+        "thread_id": "manual_28934",
+        "subject": "etc - officer election notice",
+        "commitment_text": "please forward the name ( s ) to dianne langeland by november 6 th .",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": "november 6 th",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_28934",
+        "subject": "etc - officer election notice",
+        "commitment_text": "she will contact the nominee ( s )\nto see if he / she is willing to serve and notify the membership of the nominee ( s ) prior to the meeting .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "november 6 th",
+        "confidence": "medium",
+        "third_party_reported": true,
+        "notes": "reported_by: dianne langeland",
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_11323",
+    "text": "as i promised from our meeting earlier today :\nby business names firms projects / acreage relevant numbers\nupstream products mrha aker devil ' s tower 713 - 430 - 1283\nproduction offshore byargeon convergent crazy horse 713 - 430 - 1284\ndouble lease structure fowler aep triton 281 - 588 - 7500\nfasb 125 sell - down haynes pioneer 504 - 593 - 7308\nidc tax benefits o ' sullivan mariner\ncorridor herasimchuk dominion\ntieback spartech lp\n2 p\n3 p\nfpso\nfloating production facility\nspar or spar\ni think this list is exhaustive . please include the phone numbers given by brian redmond from our meeting earlier .\nif you have any further questions , please contact me or brian redmond . i will be leaving for calgary this evening and returning friday morning . i will be checking voicemail and my mobile is 713 - 302 - 4187 .\nregards , jean",
+    "commitments": [
+      {
+        "thread_id": "manual_11323",
+        "subject": "buzzwords",
+        "commitment_text": "please include the phone numbers given by brian redmond from our meeting earlier .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_11323",
+        "subject": "buzzwords",
+        "commitment_text": "i will be checking voicemail and my mobile is 713 - 302 - 4187 .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "jean",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_8031",
+    "text": "i will be out next week . if there are any problems with or questions\nconcerning the grains report , please let me know . i can be reached on my\ncell phone at 713 - 303 - 5973 and will periodically check voice mail . have a\ngood holiday !\nnelson",
+    "commitments": [
+      {
+        "thread_id": "manual_8031",
+        "subject": "contact info",
+        "commitment_text": "if there are any problems with or questions\nconcerning the grains report , please let me know .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "nelson",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_22590",
+    "text": "open affiliate book action plans attached . i ' ll search for any other related\non monday morning . please give me a call at x 34884 with any questions .\nthanks . rl\n \n \n \n \ni want to make sure that we address all audit points we can during the\nimplementation process for 133 . are there any points related to affiliate\nbooks , accrual books , hedging or policies related to that ? i know there was\none on the affiliate or hedging policy . please send it to me and ron\nbaker . thanks .",
+    "commitments": [
+      {
+        "thread_id": "manual_22590",
+        "subject": "re : audit points",
+        "commitment_text": "i ' ll search for any other related\non monday morning .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "monday morning",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "rl",
+        "recipient": "rl"
+      },
+      {
+        "thread_id": "manual_22590",
+        "subject": "re : audit points",
+        "commitment_text": "please send it to me and ron\nbaker .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "pilot_23671",
+    "text": "dear ut team :\nattached you will find the status of our candidates . cultivation is\ncritical , so please remember to contact your candidates . their deadline is\njanuary 23 .\nlet me know if you have any questions .\nthanks !\nlexi\n3 - 4585",
+    "commitments": [
+      {
+        "thread_id": "pilot_23671",
+        "subject": "ut offer status",
+        "commitment_text": "please remember to contact your candidates . their deadline is\\njanuary 23 .",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": "january 23",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "lexi",
+        "recipient": "ut team :"
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_12859",
+    "text": "tod\njust to be clear i am expecting mike to let san antonio know today that we are out at that price . we are therefore assuming the aep deal will for with our ppa still in place .\nlouise\n- - - - - original message - - - - -\n \n \n \n \nzero cost to the guarantee as it is not recognized as financial .\ntod , clearly you should puch forward on the aep sale assuming we keep our ppa .\nlouise\n- - - - - original message - - - - -\n \n \n \n \nper your request , i will start providing a daily status report on the wind ppa mtm value . as of the close of thurs . 9 / 13 , the ppa value was approx . $ 24 . 0 mm ( after reserves ) . when i receive the $ 100 mm guaranty cost i will start incorporating this into a net calculation for an enron corp . view of the value .\nregards ,\nmike curry\nenron power marketing , inc .\n( 713 ) 853 - 4258\nfax ( 713 ) 646 - 8272",
+    "commitments": [
+      {
+        "thread_id": "manual_12859",
+        "subject": "re : wind ppa value",
+        "commitment_text": "just to be clear i am expecting mike to let san antonio know today that we are out at that price .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "today",
+        "confidence": "medium",
+        "third_party_reported": true,
+        "notes": "reported_by: mike curry",
+        "sender": "louise",
+        "recipient": "tod"
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_16979",
+    "text": "join us in welcoming ena ' s new employees to the portland office !\nwe will be meeting at 6 : 00 pm in the hawthorne room at the heathman hotel . hors d ' oeuvres will be available , and dinner will be served shortly after the guests arrive .\nthe hotel is located at 1001 sw broadway at salmon street , 6 blocks from the office - - feel free to carpool or walk as a group !\nplease let me know if there are any changes to your availability . otherwise , i look forward to seeing you there !\nthanks ,\ngrace\nx 8321",
+    "commitments": [
+      {
+        "thread_id": "manual_16979",
+        "subject": "final reminder : new hire dinner is tonight !",
+        "commitment_text": "we will be meeting at 6 : 00 pm in the hawthorne room at the heathman hotel .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "6 : 00 pm",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_16979",
+        "subject": "final reminder : new hire dinner is tonight !",
+        "commitment_text": "please let me know if there are any changes to your availability .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "grace",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_8363",
+    "text": "tanya ,\ni have checked the factors for us power and all except the\nfollowing are acceptable :\nrl 1 , rlc , rlf , rlj , rlk , rll , rlm , rln , rlz , r 4 a , r 4 b .\nfor global liquids , the requisite curves have been submitted to the\nliquids team . i will review their results and confirm .\nnaveen\ntanya tamarchenko @ ect\n01 / 25 / 2001 12 : 52 pm\n \nlew / na / enron @ enron\n \n \nnaveen ,\nattached spreadsheet contains the factors for us power curves calculated\nbased on 9 / 28 / 00 - 11 / 28 / 00 data in stage with the latest version of vatrfacs .\nby specifying integer number from 1 to 32 in cell jl you can see the factors\nfor different regions .\ni suggest to consider the following sets of factors as acceptable :\nrla , rle , r 2 , r 2 a , r 2 b , r 3 , r 3 a , r 3 b , r 4 , r 4 c , r 5 , r 5 a , r 6 , r 7 , r 7 a , r 8 , r 9 .\nplease review and confirm .\ntanya .",
+    "commitments": [
+      {
+        "thread_id": "manual_8363",
+        "subject": "re : factors for us power curves",
+        "commitment_text": "i will review their results and confirm .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "naveen",
+        "recipient": "naveen"
+      },
+      {
+        "thread_id": "manual_8363",
+        "subject": "re : factors for us power curves",
+        "commitment_text": "please review and confirm .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_14093",
+    "text": "ray ,\neddie meche ( cro ) and jim bob perkins ( president ) from reliant will be meeting with you and i in your offices at 8 : 00 am . the purpose of the meeting is to continue to educate reliant on our current financial position . they have been supportive in the market until last week where they came out with a public announcement with concerns about enron . our hope is to give them further disclosure to get them comfortable with our near term and long term financial plans . they have $ 100 mm gross exposure ( $ 50 mm net exposure ) to enron and have recently slowed trading volumes .\nfeel free to give me a call if you need further breifings . i will be in the office about 7 : 00 am .\nthanks ,\nbill\n713 - 857 - 7739 ( cell )\n713 - 853 - 3831 ( office )\n713 - 863 - 1884 ( home )",
+    "commitments": [
+      {
+        "thread_id": "manual_14093",
+        "subject": "reliant meeting",
+        "commitment_text": "feel free to give me a call if you need further breifings .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "bill",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_8444",
+    "text": "kristin ,\nyes , we would like very much to have her as a summer intern .\ni can take her ino my group .\nvince\nenron north america corp .\n \n \n \n \nvince ,\ncan you tell me if these candidates will be part of the program ? i will\ngenerate an offer letter as soon as i know this information .\nthank you ,\nkristin\nvince j kaminski @ ect\n01 / 23 / 2001 01 : 23 pm\n \n \n \nkristin .\nkim is a member of the tiger team . she is interested in a summer\ninternship with enron and i shall be glad to take her .\nvince\n- - - - - - - - - - - - - - - - - - - - - - forwarded by vince j kaminski / hou / ect on 01 / 23 / 2001\n01 : 24 pm - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\" kim whitsel \" on 01 / 22 / 2001\n12 : 07 : 35 am\n \n \n \n- - - - - original message - - - - -\n \n \n \n \nsummer position under wharton schedule # 1823\n- kim whitsel - enron cover letter . doc\n- kim whitsel - wharton 2 resume . doc",
+    "commitments": [
+      {
+        "thread_id": "manual_8444",
+        "subject": "re : fw : wharton resume submission - summer intern",
+        "commitment_text": "i can take her ino my group .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": "as soon as i know this information",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "vince",
+        "recipient": "kristin"
+      },
+      {
+        "thread_id": "manual_8444",
+        "subject": "re : fw : wharton resume submission - summer intern",
+        "commitment_text": "i will\ngenerate an offer letter as soon as i know this information .",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "as soon as i know this information",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "vince",
+        "recipient": "vince"
+      },
+      {
+        "thread_id": "manual_8444",
+        "subject": "re : fw : wharton resume submission - summer intern",
+        "commitment_text": "i shall be glad to take her .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_6928",
+    "text": "barbara ,\nwe are in touch with ketra and john and we shall work with them when they are\nhere .\nvince\nbarbara g dillard @ enron\n08 / 29 / 2000 11 : 23 am\n \n \nluce / corp / enron @ enron , d . wear @ pecorp . com @ ees @ ect ,\nk . schmitt @ pecorp . com @ ees @ ect , j . wirick @ pecorp . com @ ees @ ect\n \nmark :\nf . y . i . - i have been informed by ketra that she plans to be in the houston\noffice on monday september 18 th through wednesday september 20 th to meet with\nvince and stinston .\nhopefully we will be ready to continue phase i of the forecasting project .\ncan you make arrangements with vince and stinson ( hopefully they will be\navailable to meet ! ) .\nthanks !\nbarbara\n( 312 ) 541 - 1232",
+    "commitments": [
+      {
+        "thread_id": "manual_6928",
+        "subject": "re : forecasting project",
+        "commitment_text": "we are in touch with ketra and john and we shall work with them when they are\nhere .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "vince",
+        "recipient": "barbara"
+      },
+      {
+        "thread_id": "manual_6928",
+        "subject": "re : forecasting project",
+        "commitment_text": "can you make arrangements with vince and stinson ( hopefully they will be\navailable to meet ! ) .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_491",
+    "text": "i will be on vacation friday , march 24 th , 27 th , 28 th and maybe 29 th . in my\nabsence please call jackie young @ 3 - 9497 .\nsusan { @ 3 - 5796 } will back up jackie during my absence for industrial\nactivity .",
+    "commitments": [
+      {
+        "thread_id": "manual_491",
+        "subject": "vacation scheduled",
+        "commitment_text": "susan { @ 3 - 5796 } will back up jackie during my absence for industrial\nactivity .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": true,
+        "notes": "reported_by: susan",
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_22786",
+    "text": "forwarding per jim brown\nthank you for the input . we will discuss this with our business risk\nmanagers sally beck and wes colwell as we move to finalizing our timing . .\n \n \n \njennifer , if we could do the audit september 11 - 22 , that would be best for\nus with the sap and unify - financial implementations in july and august .",
+    "commitments": [
+      {
+        "thread_id": "manual_22786",
+        "subject": "re : timing of audit",
+        "commitment_text": "we will discuss this with our business risk\nmanagers sally beck and wes colwell as we move to finalizing our timing .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": "september 11 - 22",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_22786",
+        "subject": "re : timing of audit",
+        "commitment_text": "if we could do the audit september 11 - 22 , that would be best for\nus with the sap and unify - financial implementations in july and august .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "september 11 - 22",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_3552",
+    "text": "i cant figure out what to make of this . . .\n- - - - - original message - - - - -\n \n \n \n \nthis is a follow up to the e - mail i sent earlier in th month .\nplease be advised that we have discrepancies with the state and county information for the meter no . ( s ) listed on the attached spreadsheet .\nwill you please review this spreadsheet and provide the state and county information that you may have for the listed meters .\nif you are not the scheduler for this pipe please forward this to the appropriate scheduler .\nplease do not hesitate to contact me .\nthank you ,\nryan sheeren\nenron net works\nglobal facilities\nryan . sheeren @ enron . com\n( 713 ) 853 - 5817",
+    "commitments": [
+      {
+        "thread_id": "manual_3552",
+        "subject": "fw : state and county verification",
+        "commitment_text": "will you please review this spreadsheet and provide the state and county information that you may have for the listed meters .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "ryan sheeren",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_3552",
+        "subject": "fw : state and county verification",
+        "commitment_text": "if you are not the scheduler for this pipe please forward this to the appropriate scheduler .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "ryan sheeren",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "pilot_2411",
+    "text": "after getting your imput , i think this is the best :\nwe will only communicate needs improvement and issues . there will be\ndiffering messages for needs improvement which fit the situation - some need\nto hear that they are not performing at a high enought level relative to\npeers to help us achieve business goals or for them to be considered for a\nbonus ( may need to finda another role within or outside enron which is a\nbetter fit ) . message to someone new to enron in that category should be\ndifferent . glad they are here : believe that as they learn the organization\nand their job that they will be able to make significant contribution : doing\nthe right thing to learn business , but that contributions to date are not\nsignificant enough to warrant payment of a bonus .\nlet me know what you think .\nthanks\nbob",
+    "commitments": [
+      {
+        "thread_id": "pilot_2411",
+        "subject": "ranks communication",
+        "commitment_text": "we will only communicate needs improvement and issues",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "pilot_2411",
+        "subject": "ranks communication",
+        "commitment_text": "let me know what you think",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "bob",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_14286",
+    "text": "louise ,\nenron property has asked me to validate whether some of the remote office leases should be paid for january . i have been unable to get an answer about the denver office . will you please advise ?\nwe will still be able to reject the lease even if we pay the january rent , if we do so by feb . 2 under the bankruptcy rules .\nthank you ,\ntammy",
+    "commitments": [
+      {
+        "thread_id": "manual_14286",
+        "subject": "remote office lease payments",
+        "commitment_text": "will you please advise ?",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": "feb . 2",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "tammy",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_14286",
+        "subject": "remote office lease payments",
+        "commitment_text": "we will still be able to reject the lease even if we pay the january rent , if we do so by feb . 2 under the bankruptcy rules .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "feb . 2",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "tammy",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_13561",
+    "text": "louise and i are confused as to what this report is .\n- - - - - original message - - - - -\n \n \n \n \nall louise has is the file i just sent you jeff . i will send you the entire november position as i understand it .\n- - - - - original message - - - - -\n \n \n \n \nwhatever you ' ve given to louise with any egm counterparties , i ' d like so we ' re all on the same page .\njeff\n- - - - - original message - - - - -\n \n \n \n \njeff ,\nlet me send you what i pieced together from joel bennett ' s position at cob last night + my discussions with peggy rathmell and her slates .\ngive me just a couple of minutes .\ntm\n- - - - - original message - - - - -\n \n \n \n \nwhat about all the other reports for any egm counterparty . i ' d like those as well .\n- - - - - original message - - - - -\n \n \n \n \n \njeff ,\nattached are the november 2001 wti , cushing positions for sempra , koch and coastal .\n>",
+    "commitments": [
+      {
+        "thread_id": "manual_13561",
+        "subject": "re : semora - koch - coastal",
+        "commitment_text": "i will send you the entire november position as i understand it .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": "jeff"
+      },
+      {
+        "thread_id": "manual_13561",
+        "subject": "re : semora - koch - coastal",
+        "commitment_text": "let me send you what i pieced together from joel bennett ' s position at cob last night + my discussions with peggy rathmell and her slates .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "tm",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_7725",
+    "text": "the meeting will be held on december 8 , 2000 from 11 : 30 am to 1 : 00 pm in\nconference room eb 19 cl . box lunches will be served . your choices are\nlisted below :\nsalads : roasted chicken cobb salad , grilled chicken caesar salad , classic\nchef salad\nsandwiches : turkey , roast beef , ham , chicken salad , tuna salad or club\nsandwich . served on homemade white or wheat bread\nplease email your lunch choice to me by monday , december 4 , 2000 .\nthanks and regards ,\nanita dupont",
+    "commitments": [
+      {
+        "thread_id": "manual_7725",
+        "subject": "transmission roundtable meeting",
+        "commitment_text": "please email your lunch choice to me by monday , december 4 , 2000 .",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": "monday , december 4 , 2000",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "anita dupont",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_13626",
+    "text": "i understand . the money out the door is approximately $ 1 . 8 mm , however we have dollars in excess of that amount reserved . the $ 1 . 8 mm will be paid out of that reserve and will not be \" new \" dollars . i will keep you posted .\nthank you\nfrank\n- - - - - original message - - - - -\n \n \n \n \ngo slow on this - in terms of closing ref money out the door\n- - - - - original message - - - - -\n \n \n \n \nlouise , i am moving forward on the tbg settlement . i see that our meeting scheduled for tomorrow has been cancelled . no problem , i will find you if this appears to be ready to close to give you an update . structure remains as we had discussed .\nfrank",
+    "commitments": [
+      {
+        "thread_id": "manual_13626",
+        "subject": "re : tbg",
+        "commitment_text": "i will keep you posted .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "frank",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_8187",
+    "text": "vince ,\n?\njust to let you know , the books will be shipped to both you and rice\nuniversity tomorrow by express mail , which means the books should arrive\nwithin 5 days ( depending on customs ) .\n?\nrice has purchased 25 books , and i informed them that if they don ' t sell\nthem all , we will ? credit their account ? with the amount of unsold copies . ?\ni ' ve asked them to ? give you ? any extra copies instead of returning them .\n?\nplease find attached the invoice for the 50 books .\n?\nthanks again , and if you need anything further , please let me know .\n?\njulie\n- enron 224 _ 10 _ 01 _ 01 . doc",
+    "commitments": [
+      {
+        "thread_id": "manual_8187",
+        "subject": "update on energy book",
+        "commitment_text": "just to let you know , the books will be shipped to both you and rice\nuniversity tomorrow by express mail , which means the books should arrive\nwithin 5 days ( depending on customs ) .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "tomorrow",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": "vince"
+      },
+      {
+        "thread_id": "manual_8187",
+        "subject": "update on energy book",
+        "commitment_text": "if they don ' t sell\nthem all , we will ? credit their account ? with the amount of unsold copies .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_8187",
+        "subject": "update on energy book",
+        "commitment_text": "if you need anything further , please let me know .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "julie",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_8481",
+    "text": "jeff ,\nthanks .\nwe shall try to arrange a video conference with houston\nwhen howard is back .\nvince\n\" $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ \" on 02 / 05 / 2001 07 : 29 : 12 pm\nplease respond to \" $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ \"\n \n \n \nok , vince .\ni ' ll track him and find when he is back .\ni will inform alec and his manager what you want .\ni ' m on it .\nthank you .\njeff\njeff ,\nwe shall continue talking to howard when he comes back from nyc .\ni shall set up an interview with him .\nvince\n* get free , secure online email at http : / / www . ziplip . com / *",
+    "commitments": [
+      {
+        "thread_id": "manual_8481",
+        "subject": "re : yes sir",
+        "commitment_text": "we shall try to arrange a video conference with houston\nwhen howard is back",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "when howard is back",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "vince",
+        "recipient": "jeff"
+      },
+      {
+        "thread_id": "manual_8481",
+        "subject": "re : yes sir",
+        "commitment_text": "i ' ll track him and find when he is back",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": "when he comes back from nyc",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_8481",
+        "subject": "re : yes sir",
+        "commitment_text": "i will inform alec and his manager what you want",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": "when he comes back from nyc",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_8481",
+        "subject": "re : yes sir",
+        "commitment_text": "we shall continue talking to howard when he comes back from nyc",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "when he comes back from nyc",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_8481",
+        "subject": "re : yes sir",
+        "commitment_text": "i shall set up an interview with him",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": "when he comes back from nyc",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_12750",
+    "text": "louise , egm may be interested in extending a job offer to gil to work in the weather group . i had a discussion with mike mcconnell and gave him my general opinion . i may have oversold . i will keep you posted .\nin addition , jared kaiser is returning from egm and will take over the lead origination role in the southeast as we have discussed .\nfrank",
+    "commitments": [
+      {
+        "thread_id": "manual_12750",
+        "subject": "confidential",
+        "commitment_text": "i may have oversold . i will keep you posted .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "frank",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_7115",
+    "text": "the research group :\nit is with a deep sense of regret that i announce that grant masson will be\nleaving the research group and enron , effective today .\ngrant has been a very important part of the research group ' s growth and\nstability within enron and he will be deeply missed .\nwe wish him the very best in his new venture and want to send him off with\nall the \" good \" wishes and support that he deserves . however , since i\nwill be out of town all next week , we will postone the \" good luck and\nbest wishes \" party for grant until sometime within the next 3 weeks . an\nannouncement will be forthcoming at a later date .\nplease take a minute to wish grant the \" best \" .\nsincerely ,\nvince",
+    "commitments": [
+      {
+        "thread_id": "manual_7115",
+        "subject": "departure of grant masson",
+        "commitment_text": "since i\nwill be out of town all next week , we will postone the \" good luck and\nbest wishes \" party for grant until sometime within the next 3 weeks .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "within the next 3 weeks",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "vince",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_22572",
+    "text": "attached is a proposed updated version of the brm risk universe for our 2000\naudit plans . arthur andersen has initiated several changes and additions ,\nwith the most significant ones shown in \" red \" on the attachment .\nplease review and provide me with your comments , if any , by monday january\n31 st . the updated model will be presented in the february audit committee .\nthanks .\nterrie",
+    "commitments": [
+      {
+        "thread_id": "manual_22572",
+        "subject": "updated brm risk universe model",
+        "commitment_text": "please review and provide me with your comments , if any , by monday january\n31 st .",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": "monday january\n31 st",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "terrie",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_7040",
+    "text": "vince ,\nit was a pleasure talking with you earlier today . please read the documents i\nhave attached with this email . let ' s talk in the near future to continue our\nconversation . i am very confident that my team and i can be successful\nregarding any staffing need you have . ? i will give sheila in hr a call and\nsee if we can work out a contract . please visit our web site for up - to - date\ninformation at http : / / www . mrportland . com\nthank you for your time and have a nice day .\nsincerely ,\njohan dahl\ndirector energy staffing group\nphone : 1 - 503 - 287 - 8701 ext . 1153\nemail : jdahl @ mrportland . com\n- jcd - client broch - energy # 2 . doc\n- charter of ethical practice . doc",
+    "commitments": [
+      {
+        "thread_id": "manual_7040",
+        "subject": "why johan dahl and the mri energy staffing group ?",
+        "commitment_text": "let ' s talk in the near future to continue our\nconversation",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "in the near future",
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": "vince"
+      },
+      {
+        "thread_id": "manual_7040",
+        "subject": "why johan dahl and the mri energy staffing group ?",
+        "commitment_text": "i will give sheila in hr a call and\nsee if we can work out a contract",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": "in the near future",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_11422",
+    "text": "kim bolton and pam butler .\nthanks !\nmary\n- - - - - original message - - - - -\n \n \n \n \n \nmary ,\npwc has introduced a deferred compensation scheme to louise kitchen that would allow uk foreign nationals to defer income tax free under certain circumstances . they will be sending over details on monday . the idea would involve the existing enron deferred compensation plans . let us know who we should work with on your team . we will be moving quickly on this .\nregards ,",
+    "commitments": [
+      {
+        "thread_id": "manual_11422",
+        "subject": "re : deferred compensation scheme for uk nationals",
+        "commitment_text": "they will be sending over details on monday",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "monday",
+        "confidence": "medium",
+        "third_party_reported": true,
+        "notes": "reported_by: pwc",
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_11422",
+        "subject": "re : deferred compensation scheme for uk nationals",
+        "commitment_text": "let us know who we should work with on your team",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": "monday",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_11422",
+        "subject": "re : deferred compensation scheme for uk nationals",
+        "commitment_text": "we will be moving quickly on this",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "monday",
+        "confidence": "low",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_13573",
+    "text": "john & louise ,\ni can imagine that both of you are very busy but i thought i would drop you a quick line updating you on the status of the sundance b ppa .\nwe received the necessary consents to split the ppa into two from both transalta and the balancing pool last week . we expect the regulation enabling the split to be passed by the government during the week of november 12 , 2001 thereby forming two units ppa ' s effective as of that date .\ndon miller and his team are prepared to smile and dial on monday october 29 , 2001 thereby contacting the list of identified customers and initiating the process .\ni will send you a timeline shortly outlining the entire process from start to finish .\nif you have any qustions please call me .\nderek",
+    "commitments": [
+      {
+        "thread_id": "manual_13573",
+        "subject": "status of sundace b ppa",
+        "commitment_text": "i will send you a timeline shortly outlining the entire process from start to finish",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "shortly",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "derek",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_13573",
+        "subject": "status of sundace b ppa",
+        "commitment_text": "don miller and his team are prepared to smile and dial on monday october 29 , 2001",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "shortly",
+        "confidence": "medium",
+        "third_party_reported": true,
+        "notes": "reported_by: don miller",
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_13931",
+    "text": "the \" bid \" is for an epc contract with the equipment . the implied bid for the equipment is - $ 16 . 7 mm . the implied margin in the epc contract is $ 32 mm plus $ 11 mm of contingency . if the risk / reward on the epc contract is reasonable , then this seems like a great deal . at the same time , we will attach a turbine loi to the epc loi making it clear to allegheny that we can offer the turbines on a stand alone basis . should we offer at the $ 10 mm discount or are you ok with - $ 16 . 7 mm ? ben and i would hit a - $ 16 . 7 mm bid . this would probably close this in january , but we ould try to get a turbine down payment in december .\nchris calger\n503 - 464 - 3735",
+    "commitments": [
+      {
+        "thread_id": "manual_13931",
+        "subject": "allegheny / nepco",
+        "commitment_text": "at the same time , we will attach a turbine loi to the epc loi making it clear to allegheny that we can offer the turbines on a stand alone basis .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": "in january",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_13931",
+        "subject": "allegheny / nepco",
+        "commitment_text": "this would probably close this in january , but we ould try to get a turbine down payment in december .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "in january",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "chris calger",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_6488",
+    "text": "barbara ,\nmy apologies . i was traveling and then we had the usual end of the quarter\npandemonium .\ni am sending you my presentations and would like to get back to you with\nsome questions regarding your products .\nvince\n\" barbara e . brandfass \" on 07 / 10 / 2000 04 : 15 : 33 pm\n \n \n \nhello vince ,\n?\nsorry to be a bother but do you have those materials from your talk in may ?\n?\ni look forward to hearing from you .\n?\nthank you ,\n?\nbarbara e . brandfass , chief of business development\npanalytix , inc . , www . panalytix . com\n212 974 1022 , b @ panalytix . com",
+    "commitments": [
+      {
+        "thread_id": "manual_6488",
+        "subject": "re : b . brandfass",
+        "commitment_text": "i am sending you my presentations and would like to get back to you with\nsome questions regarding your products .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "vince",
+        "recipient": "barbara"
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_2830",
+    "text": "attached is a brief memo outline some of the transtion issues with hpl to aep\nthis is the first draft .\nthe itilized items currently require some more action .\nplease add any items and forward back to me . i will update\nthanks\nbob",
+    "commitments": [
+      {
+        "thread_id": "manual_2830",
+        "subject": "aep transition items",
+        "commitment_text": "please add any items and forward back to me .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "bob",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_2830",
+        "subject": "aep transition items",
+        "commitment_text": "i will update",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "bob",
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_8357",
+    "text": "i would like to pass sharad ' s probationary period .\nsteve\nlondon hrservice centre\n25 / 01 / 2001 10 : 49\nsent by : zoe michael\n \n \n \nnotice of end of probation\ni am writing to inform you that the six month probationary period for sharad\nagnihotri is due to end on the 21 / 02 / 2001 .\nplease can you let me know as soon as possible if you want to :\n* pass the probationary period\n* fail the probationary period * *\n* * in this case you will need to discuss with human resources\nif the probationary period is passed i will send out a letter to this effect\nfor you to sign and pass to your employee .\nthank you\nzoe",
+    "commitments": [
+      {
+        "thread_id": "manual_8357",
+        "subject": "re : notice of end probation",
+        "commitment_text": "i would like to pass sharad ' s probationary period .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "steve",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_8357",
+        "subject": "re : notice of end probation",
+        "commitment_text": "please can you let me know as soon as possible if you want to :",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": "as soon as possible",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_8357",
+        "subject": "re : notice of end probation",
+        "commitment_text": "if the probationary period is passed i will send out a letter to this effect\nfor you to sign and pass to your employee .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": null,
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_8846",
+    "text": "paul ,\nwe have done a lot of work in this area . i shall call you later\ntoday ( monday my time ) , tuesday morning your time with\nsome recommendations .\nvince\np . s . shirley , please send a real options binder to paul .\nvince\n \n \n \nyeow / enron _ development @ enron _ development\n \nvince ,\nthe sydney office is currently evaluating a proposal that involves an option\nto participate in building a wind farm . should this proceed , we would like to\nmark this option \" to market \" .\nhave the research group completed any work on methods for booking and\nremarking real options ? alternatively , do you have any suggestions as to the\nbest way to value , and book , real options fairly ?\nregards\npaul smith",
+    "commitments": [
+      {
+        "thread_id": "manual_8846",
+        "subject": "re : real options",
+        "commitment_text": "i shall call you later\ntoday ( monday my time ) , tuesday morning your time with\nsome recommendations .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "later\ntoday",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "vince",
+        "recipient": "paul"
+      },
+      {
+        "thread_id": "manual_8846",
+        "subject": "re : real options",
+        "commitment_text": "p . s . shirley , please send a real options binder to paul .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": "later\ntoday",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "vince",
+        "recipient": "shirley"
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_112",
+    "text": "this is the data i mention to you this morning concerning valero .\ni will focus on january ' 2000 and you will address nov . ' 99 and dec . ' 99 as\nyou stated .\nif there are any scheduling issues you need my assistance on for nov . or\ndec . 1999 , please let me know .\ni will be on vacation thursday and friday of this week .\nkenneth seaman 01 / 10 / 2000 09 : 43 am\n \nngo / hou / ect @ ect\n \n \neach meter is now to be treated seperately : tickets have been created\naccordingly .\nmeter 1233\nbase 148376\nswing 148382\nbuyback 148381\nmeter 1394\nbase 148390\nswing 148391\nbuyback 148396\nmeter 8018\nbase 148376\nswing 148382\nbuyback 148381\nvolume management will need to set up accounting arrangements to cover\nnovember and december 1999 . scheduling will repath and renom unify , and\nreallocate pops for january .\nif anyone has anything to add to this please let me know .\nken",
+    "commitments": [
+      {
+        "thread_id": "manual_112",
+        "subject": "re : valero",
+        "commitment_text": "i will focus on january ' 2000 and you will address nov . ' 99 and dec . ' 99 as\nyou stated .",
+        "direction": "made",
+        "deadline_type": "none",
+        "deadline_text": "thursday and friday of this week",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_112",
+        "subject": "re : valero",
+        "commitment_text": "if there are any scheduling issues you need my assistance on for nov . or\ndec . 1999 , please let me know .",
+        "direction": "requested",
+        "deadline_type": "none",
+        "deadline_text": "thursday and friday of this week",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_112",
+        "subject": "re : valero",
+        "commitment_text": "i will be on vacation thursday and friday of this week .",
+        "direction": "made",
+        "deadline_type": "explicit",
+        "deadline_text": "thursday and friday of this week",
+        "confidence": "medium",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": null,
+        "recipient": null
+      }
+    ]
+  },
+  {
+    "thread_id": "manual_13818",
+    "text": "guys , i have just been told that pursuant to the terms of our agreement with entergy - koch we are obliged to provide them with a letter of credit ( to replace an existing one which expires ) for ? 20 m today ( by midnight ) or we will be in default - giving them the right to close out . i understand that it is not possible to provide an lc so we will need to cash collateralise them . we will either need to give them $ today or ? tommorrow ( when we will technically be in default , but they seem to be fairly relaxed ) . can you let me know how you would prefer to manage this asap . louise / ray , john or i will give you a call when you get in .\nthanks\nmichael",
+    "commitments": [
+      {
+        "thread_id": "manual_13818",
+        "subject": "entergy - koch",
+        "commitment_text": "can you let me know how you would prefer to manage this asap .",
+        "direction": "requested",
+        "deadline_type": "explicit",
+        "deadline_text": "asap",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "michael",
+        "recipient": null
+      },
+      {
+        "thread_id": "manual_13818",
+        "subject": "entergy - koch",
+        "commitment_text": "louise / ray , john or i will give you a call when you get in .",
+        "direction": "made",
+        "deadline_type": "implicit",
+        "deadline_text": "asap",
+        "confidence": "high",
+        "third_party_reported": false,
+        "notes": null,
+        "sender": "michael",
+        "recipient": null
+      }
+    ]
+  }
+]

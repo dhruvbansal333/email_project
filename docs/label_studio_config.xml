@@ -1,0 +1,72 @@
+<!--
+Label Studio labeling config for commitment extraction.
+Matches docs/annotation_guideline_final.md exactly:
+  sender, recipient, commitment_text, direction, deadline, deadline_type,
+  confidence, thread_id (thread_id comes from the imported task metadata,
+  not labeled by hand).
+
+How to use:
+  1. Start Label Studio: label-studio start
+  2. Create a new project, paste this file's contents into
+     Settings -> Labeling Interface -> Code.
+  3. Import data/pilot_batch/pilot_30.json as the task source.
+
+Design notes:
+  - <Labels name="commitment_span"> creates one region PER commitment,
+    tagged MADE or REQUESTED (this IS the `direction` field, captured
+    directly on the span so span + direction can never drift apart).
+  - deadline_type / confidence / third_party_reported / notes are
+    perRegion="true" with whenTagName="commitment_span" — this attaches
+    them to EACH highlighted commitment individually, not to the task as
+    a whole. Click on commitment #1's highlighted text, its own
+    deadline_type/confidence panel appears; click commitment #2, a
+    SEPARATE panel appears for that one. This is what makes multiple
+    commitments per email work correctly — earlier version of this
+    config had these as task-level Choices, which meant only one shared
+    answer existed for the whole email regardless of how many
+    commitments were highlighted. Fixed here.
+  - <Labels name="parties"> highlights sender/recipient/deadline-text
+    spans separately — these are NOT perRegion (no per-region attributes
+    attached to them), since they're just span identification, not
+    per-commitment attributes.
+-->
+<View>
+  <Header value="Commitment Extraction — highlight each commitment separately, then fill in its own attributes"/>
+
+  <Text name="email_text" value="$text"/>
+
+  <Header value="Step 1 — Highlight EACH commitment span separately, mark its direction"/>
+  <Labels name="commitment_span" toName="email_text">
+    <Label value="COMMITMENT_MADE" background="#4CAF50"/>
+    <Label value="COMMITMENT_REQUESTED" background="#2196F3"/>
+  </Labels>
+
+  <Header value="Step 2 — Highlight sender / recipient / deadline-text mentions"/>
+  <Labels name="parties" toName="email_text">
+    <Label value="SENDER" background="#FF9800"/>
+    <Label value="RECIPIENT" background="#9C27B0"/>
+    <Label value="DEADLINE_TEXT" background="#F44336"/>
+  </Labels>
+
+  <Header value="Step 3 — Click a commitment span above, then answer for THAT commitment only:"/>
+
+  <Choices name="deadline_type" toName="email_text" perRegion="true" whenTagName="commitment_span" title="Deadline type (for the selected commitment)">
+    <Choice value="explicit"/>
+    <Choice value="implicit"/>
+    <Choice value="none"/>
+  </Choices>
+
+  <Choices name="confidence" toName="email_text" perRegion="true" whenTagName="commitment_span" title="Confidence (for the selected commitment)">
+    <Choice value="high"/>
+    <Choice value="medium"/>
+    <Choice value="low"/>
+  </Choices>
+
+  <Choices name="third_party_reported" toName="email_text" perRegion="true" whenTagName="commitment_span" title="Third-party-reported? (Edge Case 5 — for the selected commitment)">
+    <Choice value="no"/>
+    <Choice value="yes_see_edge_case_5"/>
+  </Choices>
+
+  <TextArea name="notes" toName="email_text" perRegion="true" whenTagName="commitment_span" title="Notes for the selected commitment (e.g. reported_by name)" rows="2" editable="true"/>
+</View>
+
