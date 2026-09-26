@@ -1,35 +1,6 @@
-# Core Phase 0 dependencies for AI Commitment Intelligence System
-# Install with: pip install -r requirements.txt
-
-# NLP baseline
-spacy>=3.7
-
-# Modeling
-transformers>=4.40
-torch>=2.2
-datasets>=2.19
-
-# Ranking / classical ML
-scikit-learn>=1.4
-lightgbm>=4.3
-
-# Explainability
-shap>=0.45
-
-# Data handling
-pandas>=2.2
-numpy>=1.26
-
-# Backend / API
-fastapi>=0.111
-uvicorn>=0.29
-
-# Frontend / demo
-streamlit>=1.34
-
-# Experiment tracking
-wandb>=0.17
-
-# Utilities
-python-dotenv>=1.0
-tqdm>=4.66
+fastapi
+uvicorn[standard]
+google-genai
+streamlit
+requests
+pandas

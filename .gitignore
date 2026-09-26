@@ -1,0 +1,42 @@
+# Python virtual environment
+venv/
+.venv/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Local result files
+data/results_store.json
+
+# Raw and generated datasets
+data/raw/
+data/synthetic/
+data/prelabeled/
+
+# Large model files
+models/distilbert_commitment/
+
+# Local experiment outputs
+wandb/
+mlruns/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Temporary files
+*.log
+# Local datasets - do not publish to public GitHub
+data/cleaned/
+data/structured/
+data/gold_set/
