@@ -82,6 +82,26 @@ _max_sender_freq = 1
 _gemini_client = None
 
 # ---------------------------------------------------------
+# Phase 8.5 (continued): shared results store.
+#
+# Why this lives here, not in the dashboard: the dashboard and the
+# Gmail Apps Script are now two independent callers of this same API,
+# potentially running as two separate Render services with separate
+# filesystems. If each kept its own local copy of "everything
+# processed so far," the dashboard would never see what Gmail
+# ingestion found. Keeping the store here, server-side, means both
+# callers see the exact same data.
+#
+# Known limitation (same category as your other free-tier trade-offs,
+# already documented elsewhere in the project): this is in-memory,
+# so it resets if the service restarts. Fine for a demo; would need a
+# real database for production persistence.
+# ---------------------------------------------------------
+
+_results_store: List[dict] = []
+
+
+# ---------------------------------------------------------
 # Security (Phase 8.5): shared secret required on every call
 # to /extract and /process. Set as an environment variable —
 # never hardcoded, never committed to Git.
@@ -189,6 +209,11 @@ def load_resources():
 class EmailInput(BaseModel):
 
     text: str
+
+    # Phase 8.5: which caller sent this ("dashboard" or "gmail"), purely
+    # for display in the results table. Optional so nothing breaks if a
+    # caller doesn't send it.
+    source: Optional[str] = "unspecified"
 
 
 class ExtractResponse(BaseModel):
@@ -455,6 +480,20 @@ def process(
     )
 
     # -----------------------------------------------------
+    # Step 3.5: Save into the shared results store (Phase 8.5)
+    # so both the dashboard and Gmail ingestion see the same data,
+    # regardless of which one triggered this processing run.
+    # -----------------------------------------------------
+
+    processed_at = time.strftime("%Y-%m-%dT%H:%M:%S")
+    for item in ranked:
+        _results_store.append({
+            **item,
+            "_source": payload.source,
+            "_processed_at": processed_at,
+        })
+
+    # -----------------------------------------------------
     # Step 4: Print total processing time
     # -----------------------------------------------------
 
@@ -472,3 +511,35 @@ def process(
     return {
         "ranked_commitments": ranked
     }
+
+
+# ---------------------------------------------------------
+# Phase 8.5: shared results store endpoints.
+# Secured the same way as /process -- only callers with the correct
+# key can read or clear results.
+# ---------------------------------------------------------
+
+@app.get("/results")
+def get_results(x_ingestion_key: Optional[str] = Header(None)):
+    """Returns everything processed so far, from either source
+    (dashboard paste/upload or Gmail ingestion), newest-scored first."""
+
+    verify_ingestion_key(x_ingestion_key)
+
+    sorted_results = sorted(
+        _results_store,
+        key=lambda x: x.get("urgency_score", 0),
+        reverse=True
+    )
+    return {"results": sorted_results}
+
+
+@app.post("/results/clear")
+def clear_results(x_ingestion_key: Optional[str] = Header(None)):
+    """Empties the shared results store. Used by the dashboard's
+    'Clear results' button."""
+
+    verify_ingestion_key(x_ingestion_key)
+
+    _results_store.clear()
+    return {"status": "cleared"}

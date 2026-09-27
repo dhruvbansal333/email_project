@@ -1,88 +1,89 @@
 """
 Phase 7, Step 7.3 — Streamlit demo dashboard.
-(Updated: Phase 8.5 — sends X-Ingestion-Key header on /process calls,
-matching the shared-secret check added to app/main.py. main.py now
-ALWAYS requires this key -- if INGESTION_SECRET isn't set as an
-environment variable in this container, the API will return a 500
-error on every /process call rather than silently allowing requests
-through. Set INGESTION_SECRET in both the API's environment and here
-before running.)
 
-A paste/upload UI that calls the /process endpoint (built in Step 7.1)
-and displays ranked, explained commitments in a table.
+(Updated: Phase 8.5 — sends X-Ingestion-Key header on every call, and
+now reads/clears results via the API's shared server-side store
+(GET /results, POST /results/clear) instead of a local JSON file.
 
-Run (with the FastAPI server already running in a separate terminal):
+Why the change: once the API and dashboard became two separate Render
+services (Phase 8.5 fix for the 405 issue), a local file on the
+dashboard's own disk could never see commitments that Gmail ingestion
+sent straight to the API. The API is now the single shared source of
+truth for both callers.)
+
+A paste/upload UI that calls the /process endpoint and displays
+ranked, explained commitments in a table -- from both manual paste
+and, if Phase 8.5 Gmail ingestion is running, automatically-ingested
+email too.
+
+Run (with the FastAPI server already running separately):
     pip install streamlit requests pandas
     streamlit run app/frontend.py
 """
 
-import json
 import os
-from datetime import datetime
-from pathlib import Path
 
 import pandas as pd
 import requests
 import streamlit as st
 
-# Phase 8.5 fix: configurable so the dashboard can reach the API either
-# locally (same container, Docker Compose-style setup) or as a separate
-# Render service (its own public URL, needed since Render only exposes
-# one public port per service -- see Phase 8.5 notes for why).
+# Configurable: local (same container) or a separate deployed API
+# service's public URL (see Phase 8.5 setup notes for why this is
+# needed on Render specifically).
 API_URL = os.environ.get("API_URL", "http://localhost:8000")
-STORE_PATH = Path(__file__).resolve().parent.parent / "data" / "results_store.json"
 
-# Phase 8.5 addition: same secret as configured on the API side and in
-# the Apps Script. Sent as a header on every /process call. If unset,
-# no header is sent -- matches main.py's "skip check if unset" behavior.
+# Must match the API's INGESTION_SECRET exactly, or every call fails
+# with a 401 (or the API itself returns 500 if IT forgot to set one).
 INGESTION_SECRET = os.environ.get("INGESTION_SECRET")
 
 st.set_page_config(page_title="AI Commitment Intelligence", layout="wide")
 
 
-# --- Shared results store -----------------------------------------------
-
-def load_store() -> list:
-    if STORE_PATH.exists():
-        try:
-            return json.loads(STORE_PATH.read_text())
-        except json.JSONDecodeError:
-            return []
-    return []
-
-
-def save_store(items: list) -> None:
-    STORE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    STORE_PATH.write_text(json.dumps(items, indent=2))
-
-
-def append_to_store(new_items: list, source_label: str) -> None:
-    store = load_store()
-    timestamp = datetime.now().isoformat(timespec="seconds")
-    for item in new_items:
-        item["_source"] = source_label
-        item["_processed_at"] = timestamp
-    store.extend(new_items)
-    save_store(store)
-
-
-# --- API call -------------------------------------------------------------
+# --- API calls -------------------------------------------------------------
 
 def _headers() -> dict:
+    headers = {}
     if INGESTION_SECRET:
-        return {"X-Ingestion-Key": INGESTION_SECRET}
-    return {}
+        headers["X-Ingestion-Key"] = INGESTION_SECRET
+    return headers
 
 
 def call_process(text: str) -> dict:
     response = requests.post(
         f"{API_URL}/process",
-        json={"text": text},
+        json={"text": text, "source": "dashboard"},
         headers=_headers(),
         timeout=60,
     )
     response.raise_for_status()
     return response.json()
+
+
+def fetch_results() -> list:
+    """Pulls the full shared results store from the API -- this is
+    what makes Gmail-ingested commitments show up here too, not just
+    ones pasted directly into this dashboard."""
+    try:
+        response = requests.get(
+            f"{API_URL}/results", headers=_headers(), timeout=15
+        )
+        response.raise_for_status()
+        return response.json().get("results", [])
+    except requests.exceptions.RequestException as e:
+        st.error(f"Could not load results from the API: {e}")
+        return []
+
+
+def clear_results_remote() -> bool:
+    try:
+        response = requests.post(
+            f"{API_URL}/results/clear", headers=_headers(), timeout=15
+        )
+        response.raise_for_status()
+        return True
+    except requests.exceptions.RequestException as e:
+        st.error(f"Could not clear results: {e}")
+        return False
 
 
 def check_health() -> dict | None:
@@ -99,19 +100,20 @@ def check_health() -> dict | None:
 st.title("📋 AI Commitment Intelligence")
 st.caption(
     "Paste an email or thread below. The system extracts commitments, "
-    "ranks them by urgency, and explains each ranking."
+    "ranks them by urgency, and explains each ranking. If Gmail "
+    "auto-ingestion (Phase 8.5) is running, those results appear here too."
 )
 
 health = check_health()
 if health is None:
     st.error(
-        "⚠️ Cannot reach the API server. Make sure it's running:\n\n"
-        "`uvicorn app.main:app --reload --port 8000`"
+        f"⚠️ Cannot reach the API server at {API_URL}. "
+        "Make sure it's running and API_URL is set correctly."
     )
 elif not health.get("gemini_ready"):
     st.warning(
         "⚠️ API server is up, but Gemini isn't configured. "
-        "Set GOOGLE_API_KEY and restart the server."
+        "Set GOOGLE_API_KEY on the API service and restart it."
     )
 else:
     auth_note = " (ingestion key required)" if health.get("ingestion_key_configured") else ""
@@ -145,8 +147,8 @@ with col_actions:
     clear_clicked = st.button("🗑️ Clear results", use_container_width=True)
 
 if clear_clicked:
-    save_store([])
-    st.success("Results store cleared.")
+    if clear_results_remote():
+        st.success("Results store cleared.")
 
 if process_clicked:
     if not email_text or not email_text.strip():
@@ -159,7 +161,6 @@ if process_clicked:
                 result = call_process(email_text)
                 new_items = result.get("ranked_commitments", [])
                 if new_items:
-                    append_to_store(new_items, source_label="paste/upload")
                     st.success(f"Found {len(new_items)} commitment(s).")
                 else:
                     st.info("No commitments found in this text.")
@@ -174,18 +175,27 @@ st.subheader("Ranked Commitments")
 
 hide_low_confidence = st.checkbox("Hide low-confidence items", value=True)
 
-store = load_store()
+col_refresh, _ = st.columns([1, 4])
+with col_refresh:
+    if st.button("🔄 Refresh"):
+        st.rerun()
+
+store = fetch_results()
 if hide_low_confidence:
     store = [item for item in store if item.get("confidence") != "low"]
 
 if not store:
-    st.info("No commitments processed yet. Paste an email above and click Process.")
+    st.info(
+        "No commitments processed yet. Paste an email above and click "
+        "Process, or wait for Gmail ingestion to find one."
+    )
 else:
     df = pd.DataFrame(store)
 
     display_cols = [
         "urgency_score", "commitment_text", "direction", "deadline_type",
-        "deadline_text", "confidence", "sender", "recipient", "explanation",
+        "deadline_text", "confidence", "sender", "recipient", "_source",
+        "explanation",
     ]
     display_cols = [c for c in display_cols if c in df.columns]
     df_display = df[display_cols].sort_values("urgency_score", ascending=False)
@@ -198,7 +208,8 @@ else:
             "urgency_score": st.column_config.NumberColumn("Urgency", format="%.1f"),
             "commitment_text": st.column_config.TextColumn("Commitment", width="large"),
             "explanation": st.column_config.TextColumn("Why", width="large"),
+            "_source": st.column_config.TextColumn("Source"),
         },
     )
 
-    st.caption(f"{len(df_display)} commitment(s) total in the results store.")
+    st.caption(f"{len(df_display)} commitment(s) total in the shared results store.")
