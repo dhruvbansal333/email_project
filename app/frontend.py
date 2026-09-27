@@ -25,7 +25,11 @@ import pandas as pd
 import requests
 import streamlit as st
 
-API_URL = "http://localhost:8000"
+# Phase 8.5 fix: configurable so the dashboard can reach the API either
+# locally (same container, Docker Compose-style setup) or as a separate
+# Render service (its own public URL, needed since Render only exposes
+# one public port per service -- see Phase 8.5 notes for why).
+API_URL = os.environ.get("API_URL", "http://localhost:8000")
 STORE_PATH = Path(__file__).resolve().parent.parent / "data" / "results_store.json"
 
 # Phase 8.5 addition: same secret as configured on the API side and in
