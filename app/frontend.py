@@ -1,25 +1,23 @@
 """
 Phase 7, Step 7.3 — Streamlit demo dashboard.
+(Updated: Phase 8.5 — sends X-Ingestion-Key header on /process calls,
+matching the shared-secret check added to app/main.py. main.py now
+ALWAYS requires this key -- if INGESTION_SECRET isn't set as an
+environment variable in this container, the API will return a 500
+error on every /process call rather than silently allowing requests
+through. Set INGESTION_SECRET in both the API's environment and here
+before running.)
 
 A paste/upload UI that calls the /process endpoint (built in Step 7.1)
 and displays ranked, explained commitments in a table.
 
-Design note (per roadmap v3): results are appended to a single shared
-JSON store (data/results_store.json) rather than only held in memory
-from the last API call. The table always renders from that store. This
-means if Phase 8.5 (Gmail auto-ingestion) is ever built, forwarded-email
-results can be appended to the exact same file and will appear in this
-same table automatically -- no UI rework needed.
-
 Run (with the FastAPI server already running in a separate terminal):
     pip install streamlit requests pandas
     streamlit run app/frontend.py
-
-The API server must be running first:
-    uvicorn app.main:app --reload --port 8000
 """
 
 import json
+import os
 from datetime import datetime
 from pathlib import Path
 
@@ -30,14 +28,15 @@ import streamlit as st
 API_URL = "http://localhost:8000"
 STORE_PATH = Path(__file__).resolve().parent.parent / "data" / "results_store.json"
 
+# Phase 8.5 addition: same secret as configured on the API side and in
+# the Apps Script. Sent as a header on every /process call. If unset,
+# no header is sent -- matches main.py's "skip check if unset" behavior.
+INGESTION_SECRET = os.environ.get("INGESTION_SECRET")
+
 st.set_page_config(page_title="AI Commitment Intelligence", layout="wide")
 
 
 # --- Shared results store -----------------------------------------------
-# This is the "single shared results store" the roadmap calls for. Any
-# source of processed commitments (paste/upload demo now, Gmail polling
-# later) writes into this same file, and the dashboard always reads from
-# here rather than from one specific source.
 
 def load_store() -> list:
     if STORE_PATH.exists():
@@ -65,11 +64,19 @@ def append_to_store(new_items: list, source_label: str) -> None:
 
 # --- API call -------------------------------------------------------------
 
+def _headers() -> dict:
+    if INGESTION_SECRET:
+        return {"X-Ingestion-Key": INGESTION_SECRET}
+    return {}
+
+
 def call_process(text: str) -> dict:
-    """Calls the /process endpoint. Raises requests exceptions on
-    connection failure; caller is responsible for catching and
-    displaying a clean message rather than a raw traceback."""
-    response = requests.post(f"{API_URL}/process", json={"text": text}, timeout=60)
+    response = requests.post(
+        f"{API_URL}/process",
+        json={"text": text},
+        headers=_headers(),
+        timeout=60,
+    )
     response.raise_for_status()
     return response.json()
 
@@ -91,7 +98,6 @@ st.caption(
     "ranks them by urgency, and explains each ranking."
 )
 
-# Health check banner
 health = check_health()
 if health is None:
     st.error(
@@ -104,8 +110,9 @@ elif not health.get("gemini_ready"):
         "Set GOOGLE_API_KEY and restart the server."
     )
 else:
+    auth_note = " (ingestion key required)" if health.get("ingestion_key_configured") else ""
     st.success(
-        f"✅ API connected — {health.get('sender_table_size', 0)} senders loaded."
+        f"✅ API connected — {health.get('sender_table_size', 0)} senders loaded.{auth_note}"
     )
 
 st.divider()
@@ -159,11 +166,13 @@ if process_clicked:
 
 st.divider()
 
-# --- Results table (always reads from the shared store) -------------------
-
 st.subheader("Ranked Commitments")
 
+hide_low_confidence = st.checkbox("Hide low-confidence items", value=True)
+
 store = load_store()
+if hide_low_confidence:
+    store = [item for item in store if item.get("confidence") != "low"]
 
 if not store:
     st.info("No commitments processed yet. Paste an email above and click Process.")

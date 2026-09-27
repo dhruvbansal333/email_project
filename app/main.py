@@ -1,6 +1,6 @@
-
 """
 Phase 7, Step 7.1 — API layer.
+Phase 8.5 — Security update: shared-secret authentication added.
 
 Wraps the full pipeline (extraction -> ranking -> explanation)
 in a FastAPI service.
@@ -9,6 +9,11 @@ Uses the free Gemini API for extraction.
 Ranking reuses the rule-based scorer and feature engineering
 built in Phase 5.
 
+SECURITY (Phase 8.5): /process and /extract now require a matching
+X-Ingestion-Key header. This stops arbitrary internet traffic from
+hitting the API and burning Gemini quota. Both the Streamlit dashboard
+and the Google Apps Script must send this header.
+
 Run:
     uvicorn app.main:app --reload --port 8000
 
@@ -16,6 +21,7 @@ Test:
     Open http://localhost:8000/docs
 """
 
+import os
 import time
 import json
 import sys
@@ -24,7 +30,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Optional, List
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel
 
 
@@ -74,6 +80,36 @@ DATA_DIR = (
 _sender_freq_table = Counter()
 _max_sender_freq = 1
 _gemini_client = None
+
+# ---------------------------------------------------------
+# Security (Phase 8.5): shared secret required on every call
+# to /extract and /process. Set as an environment variable —
+# never hardcoded, never committed to Git.
+# ---------------------------------------------------------
+
+INGESTION_SECRET = os.environ.get("INGESTION_SECRET")
+
+
+def verify_ingestion_key(x_ingestion_key: Optional[str]) -> None:
+    """Raises 401 if the key is missing/wrong. Raises 500 with a
+    clear message if the server itself forgot to set the secret —
+    fail loud, not silently open."""
+
+    if not INGESTION_SECRET:
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Server misconfigured: INGESTION_SECRET is not set. "
+                "Refusing to run with no authentication rather than "
+                "silently allowing all requests."
+            ),
+        )
+
+    if x_ingestion_key != INGESTION_SECRET:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid or missing X-Ingestion-Key header."
+        )
 
 
 # ---------------------------------------------------------
@@ -137,6 +173,14 @@ def load_resources():
             "will fail until GOOGLE_API_KEY is set."
         )
 
+    if not INGESTION_SECRET:
+        print(
+            "WARNING: INGESTION_SECRET is not set. "
+            "/extract and /process will return 500 until it is configured."
+        )
+    else:
+        print("Ingestion key configured — /extract and /process require it.")
+
 
 # ---------------------------------------------------------
 # Pydantic request and response models
@@ -179,7 +223,9 @@ class ProcessResponse(BaseModel):
 
 
 # ---------------------------------------------------------
-# Health endpoint
+# Health endpoint — intentionally NOT secured, so you (and
+# Render's own health checks) can always confirm the service
+# is up without needing the secret.
 # ---------------------------------------------------------
 
 @app.get("/health")
@@ -189,6 +235,7 @@ def health():
         "status": "ok",
         "gemini_ready": _gemini_client is not None,
         "sender_table_size": len(_sender_freq_table),
+        "ingestion_key_configured": INGESTION_SECRET is not None,
     }
 
 
@@ -197,7 +244,10 @@ def health():
 # ---------------------------------------------------------
 
 @app.post("/extract", response_model=ExtractResponse)
-def extract(payload: EmailInput):
+def extract(
+    payload: EmailInput,
+    x_ingestion_key: Optional[str] = Header(None)
+):
 
     """
     Extraction only — no ranking.
@@ -205,6 +255,8 @@ def extract(payload: EmailInput):
     Useful for debugging the LLM's raw output
     before it goes through scoring.
     """
+
+    verify_ingestion_key(x_ingestion_key)
 
     if _gemini_client is None:
 
@@ -240,7 +292,10 @@ def extract(payload: EmailInput):
 # ---------------------------------------------------------
 
 @app.post("/process", response_model=ProcessResponse)
-def process(payload: EmailInput):
+def process(
+    payload: EmailInput,
+    x_ingestion_key: Optional[str] = Header(None)
+):
 
     """
     Full pipeline:
@@ -251,8 +306,11 @@ def process(payload: EmailInput):
     4. Generate ranking explanation.
     5. Sort commitments by urgency score.
 
-    This endpoint is used by the Streamlit dashboard.
+    Requires a valid X-Ingestion-Key header (Phase 8.5 security update).
+    Called by both the Streamlit dashboard and the Gmail Apps Script.
     """
+
+    verify_ingestion_key(x_ingestion_key)
 
     if _gemini_client is None:
 
