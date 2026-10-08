@@ -30,8 +30,10 @@ from collections import Counter
 from pathlib import Path
 from typing import Optional, List
 
-from fastapi import FastAPI, HTTPException, Header
+from fastapi import FastAPI, HTTPException, Header, Depends
 from pydantic import BaseModel
+
+import psycopg2
 
 
 # ---------------------------------------------------------
@@ -51,6 +53,20 @@ from rank_features import (
 from rank_score import (
     score_commitment,
     generate_explanation
+)
+
+# Multi-user extension (Task 3): database + authentication helpers
+from db import get_conn
+from auth import (
+    validate_userid,
+    validate_password,
+    hash_password,
+    verify_password,
+    burn_dummy_check,
+    create_session_token,
+    decode_session_token,
+    session_secret_configured,
+    SESSION_TTL_SECONDS,
 )
 
 
@@ -201,6 +217,11 @@ def load_resources():
     else:
         print("Ingestion key configured — /extract and /process require it.")
 
+    if not os.environ.get("DATABASE_URL"):
+        print("WARNING: DATABASE_URL is not set. /signup and /login will return 503.")
+    if not session_secret_configured():
+        print("WARNING: SESSION_SECRET missing or shorter than 32 chars. /signup and /login will return 503.")
+
 
 # ---------------------------------------------------------
 # Pydantic request and response models
@@ -261,6 +282,7 @@ def health():
         "gemini_ready": _gemini_client is not None,
         "sender_table_size": len(_sender_freq_table),
         "ingestion_key_configured": INGESTION_SECRET is not None,
+        "auth_ready": bool(os.environ.get("DATABASE_URL")) and session_secret_configured(),
     }
 
 
@@ -543,3 +565,242 @@ def clear_results(x_ingestion_key: Optional[str] = Header(None)):
 
     _results_store.clear()
     return {"status": "cleared"}
+
+
+# =========================================================
+# Multi-user extension, Task 3: signup / login / session tokens
+#
+# Existing endpoints above are deliberately UNCHANGED in this task.
+# Task 4 will switch /process, /results, /results/clear over to
+# per-user authentication (session token OR personal API key).
+# =========================================================
+
+MAX_USER_ACCOUNTS = 15  # total accounts allowed, per the roadmap's limits
+
+# ---------------------------------------------------------
+# Simple failed-login throttle (in-memory, per userid).
+#
+# Purpose: stop someone guessing passwords at speed. After
+# LOGIN_MAX_FAILURES wrong attempts within LOGIN_WINDOW_SECONDS,
+# further attempts for that userid get 429 until the window passes.
+# Known trade-offs (fine at this scale, worth stating in the report):
+#   - resets if the service restarts
+#   - someone could deliberately lock out another person's userid
+#     for a few minutes (it does not reveal or expose any data)
+# ---------------------------------------------------------
+
+LOGIN_MAX_FAILURES = 5
+LOGIN_WINDOW_SECONDS = 10 * 60
+_THROTTLE_MAX_KEYS = 5000   # bounds memory if someone sprays random userids
+
+_failed_logins: dict = {}
+
+
+def _prune_failures(key: str) -> list:
+    cutoff = time.time() - LOGIN_WINDOW_SECONDS
+    recent = [t for t in _failed_logins.get(key, []) if t > cutoff]
+    if recent:
+        _failed_logins[key] = recent
+    else:
+        _failed_logins.pop(key, None)
+    return recent
+
+
+def _check_login_throttle(key: str) -> None:
+    if len(_prune_failures(key)) >= LOGIN_MAX_FAILURES:
+        raise HTTPException(
+            status_code=429,
+            detail="Too many failed login attempts. Please wait a few minutes and try again.",
+        )
+
+
+def _record_login_failure(key: str) -> None:
+    if len(_failed_logins) >= _THROTTLE_MAX_KEYS:
+        _failed_logins.clear()
+    _failed_logins.setdefault(key, []).append(time.time())
+
+
+# ---------------------------------------------------------
+# Models
+# ---------------------------------------------------------
+
+class SignupRequest(BaseModel):
+    userid: str
+    password: str
+
+
+class LoginRequest(BaseModel):
+    userid: str
+    password: str
+
+
+class AuthResponse(BaseModel):
+    token: str
+    userid: str
+    expires_in: int
+
+
+# ---------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------
+
+def _require_auth_config() -> None:
+    if not os.environ.get("DATABASE_URL") or not session_secret_configured():
+        raise HTTPException(
+            status_code=503,
+            detail="Account system is not configured on the server.",
+        )
+
+
+def get_current_user(authorization: Optional[str] = Header(None)) -> dict:
+    """Reads 'Authorization: Bearer <token>' and returns
+    {'id': <db user id>, 'userid': <name>}. Raises 401 otherwise."""
+
+    if not authorization or not authorization.lower().startswith("bearer "):
+        raise HTTPException(status_code=401, detail="Missing or invalid session token.")
+
+    claims = decode_session_token(authorization[7:].strip())
+    if claims is None:
+        raise HTTPException(status_code=401, detail="Missing or invalid session token.")
+
+    try:
+        return {"id": int(claims["sub"]), "userid": claims["uid"]}
+    except (KeyError, ValueError):
+        raise HTTPException(status_code=401, detail="Missing or invalid session token.")
+
+
+# ---------------------------------------------------------
+# POST /signup  -- create an account and log in immediately
+# ---------------------------------------------------------
+
+@app.post("/signup", response_model=AuthResponse)
+def signup(payload: SignupRequest):
+
+    _require_auth_config()
+
+    # Userids are case-insensitive: "Dhruv" and "dhruv" are the same account.
+    userid = payload.userid.strip().lower()
+
+    error = validate_userid(userid) or validate_password(payload.password)
+    if error:
+        raise HTTPException(status_code=422, detail=error)
+
+    password_hash = hash_password(payload.password)
+
+    try:
+        with get_conn() as conn:
+            with conn.cursor() as cur:
+                # Serialize signups so two people can't both slip past
+                # the account cap at the same moment.
+                cur.execute("LOCK TABLE users IN SHARE ROW EXCLUSIVE MODE")
+
+                cur.execute("SELECT COUNT(*) FROM users")
+                (count,) = cur.fetchone()
+                if count >= MAX_USER_ACCOUNTS:
+                    raise HTTPException(
+                        status_code=403,
+                        detail="Signups are closed: this demo has reached its account limit.",
+                    )
+
+                cur.execute(
+                    "INSERT INTO users (userid, password_hash) VALUES (%s, %s) RETURNING id",
+                    (userid, password_hash),
+                )
+                (user_db_id,) = cur.fetchone()
+
+    except psycopg2.errors.UniqueViolation:
+        # Unavoidable on signup: the person must be told the name is taken.
+        raise HTTPException(status_code=409, detail="That userid is already taken.")
+    except psycopg2.OperationalError:
+        raise HTTPException(
+            status_code=503,
+            detail="Database is temporarily unavailable. Please try again in a moment.",
+        )
+
+    return {
+        "token": create_session_token(user_db_id, userid),
+        "userid": userid,
+        "expires_in": SESSION_TTL_SECONDS,
+    }
+
+
+# ---------------------------------------------------------
+# POST /login
+#
+# Every failure returns the SAME generic 401, whether the userid
+# doesn't exist or the password is wrong -- so the endpoint never
+# reveals which userids are registered.
+# ---------------------------------------------------------
+
+@app.post("/login", response_model=AuthResponse)
+def login(payload: LoginRequest):
+
+    _require_auth_config()
+
+    userid = payload.userid.strip().lower()
+    _check_login_throttle(userid)
+
+    try:
+        with get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT id, password_hash FROM users WHERE userid = %s",
+                    (userid,),
+                )
+                row = cur.fetchone()
+    except psycopg2.OperationalError:
+        raise HTTPException(
+            status_code=503,
+            detail="Database is temporarily unavailable. Please try again in a moment.",
+        )
+
+    generic_failure = HTTPException(status_code=401, detail="Invalid userid or password.")
+
+    if row is None:
+        burn_dummy_check(payload.password)   # equalize response time
+        _record_login_failure(userid)
+        raise generic_failure
+
+    user_db_id, password_hash = row
+
+    if not verify_password(payload.password, password_hash):
+        _record_login_failure(userid)
+        raise generic_failure
+
+    _failed_logins.pop(userid, None)
+
+    return {
+        "token": create_session_token(user_db_id, userid),
+        "userid": userid,
+        "expires_in": SESSION_TTL_SECONDS,
+    }
+
+
+# ---------------------------------------------------------
+# GET /me  -- "who am I?" Confirms a session token is valid and
+# that the account still exists. The dashboard will use this to
+# decide whether to show the login screen.
+# ---------------------------------------------------------
+
+@app.get("/me")
+def me(user: dict = Depends(get_current_user)):
+
+    try:
+        with get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT userid, created_at FROM users WHERE id = %s",
+                    (user["id"],),
+                )
+                row = cur.fetchone()
+    except psycopg2.OperationalError:
+        raise HTTPException(
+            status_code=503,
+            detail="Database is temporarily unavailable. Please try again in a moment.",
+        )
+
+    if row is None:
+        # Valid token but the account was deleted.
+        raise HTTPException(status_code=401, detail="Missing or invalid session token.")
+
+    return {"userid": row[0], "created_at": row[1].isoformat()}

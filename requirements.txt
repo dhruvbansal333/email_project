@@ -4,3 +4,6 @@ google-genai
 streamlit
 requests
 pandas
+psycopg2-binary
+bcrypt
+PyJWT
