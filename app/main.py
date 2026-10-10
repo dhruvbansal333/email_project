@@ -21,6 +21,7 @@ Test:
     Open http://localhost:8000/docs
 """
 
+import hmac
 import os
 import time
 import json
@@ -66,6 +67,10 @@ from auth import (
     create_session_token,
     decode_session_token,
     session_secret_configured,
+    generate_api_key,
+    hash_api_key,
+    API_KEY_PREFIX,
+    API_KEY_MAX_LENGTH,
     SESSION_TTL_SECONDS,
 )
 
@@ -126,26 +131,154 @@ _results_store: List[dict] = []
 INGESTION_SECRET = os.environ.get("INGESTION_SECRET")
 
 
-def verify_ingestion_key(x_ingestion_key: Optional[str]) -> None:
-    """Raises 401 if the key is missing/wrong. Raises 500 with a
-    clear message if the server itself forgot to set the secret —
-    fail loud, not silently open."""
+def _db_unavailable() -> HTTPException:
+    return HTTPException(
+        status_code=503,
+        detail="Database is temporarily unavailable. Please try again in a moment.",
+    )
 
-    if not INGESTION_SECRET:
-        raise HTTPException(
-            status_code=500,
-            detail=(
-                "Server misconfigured: INGESTION_SECRET is not set. "
-                "Refusing to run with no authentication rather than "
-                "silently allowing all requests."
-            ),
-        )
 
-    if x_ingestion_key != INGESTION_SECRET:
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid or missing X-Ingestion-Key header."
+_UNAUTHORIZED = "Missing or invalid credentials."
+
+
+def _principal_from_session(authorization: str) -> dict:
+    """'Authorization: Bearer <session token>' -> a logged-in user."""
+
+    if not authorization.lower().startswith("bearer "):
+        raise HTTPException(status_code=401, detail=_UNAUTHORIZED)
+
+    _require_auth_config()
+
+    claims = decode_session_token(authorization[7:].strip())
+    if claims is None:
+        raise HTTPException(status_code=401, detail=_UNAUTHORIZED)
+
+    try:
+        user_db_id = int(claims["sub"])
+    except (KeyError, ValueError):
+        raise HTTPException(status_code=401, detail=_UNAUTHORIZED)
+
+    # A token can outlive its account (tokens last 12h). Confirm the
+    # account still exists so a deleted user is locked out immediately.
+    try:
+        with get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT id, userid FROM users WHERE id = %s", (user_db_id,))
+                row = cur.fetchone()
+    except psycopg2.OperationalError:
+        raise _db_unavailable()
+
+    if row is None:
+        raise HTTPException(status_code=401, detail=_UNAUTHORIZED)
+
+    return {"kind": "user", "via": "session", "id": row[0], "userid": row[1]}
+
+
+def _principal_from_api_key(raw_key: str) -> dict:
+    """'X-API-Key: cai_...' -> the user who owns that key."""
+
+    key = raw_key.strip()
+    if not key.startswith(API_KEY_PREFIX) or len(key) > API_KEY_MAX_LENGTH:
+        raise HTTPException(status_code=401, detail=_UNAUTHORIZED)
+
+    if not os.environ.get("DATABASE_URL"):
+        raise HTTPException(status_code=503, detail="Account system is not configured on the server.")
+
+    try:
+        with get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT u.id, u.userid FROM api_keys k "
+                    "JOIN users u ON u.id = k.user_id WHERE k.key_hash = %s",
+                    (hash_api_key(key),),
+                )
+                row = cur.fetchone()
+    except psycopg2.OperationalError:
+        raise _db_unavailable()
+
+    if row is None:
+        raise HTTPException(status_code=401, detail=_UNAUTHORIZED)
+
+    return {"kind": "user", "via": "apikey", "id": row[0], "userid": row[1]}
+
+
+def resolve_principal(
+    authorization: Optional[str] = Header(None),
+    x_api_key: Optional[str] = Header(None),
+    x_ingestion_key: Optional[str] = Header(None),
+) -> dict:
+    """
+    Works out WHO is calling. Used by every protected endpoint.
+
+    Accepts, in this order (only the first one present is considered; if
+    it is invalid the request is rejected, never "tried" against the next):
+      1. Authorization: Bearer <session token>   -> dashboard login
+      2. X-API-Key: cai_...                        -> a user's Gmail script
+      3. X-Ingestion-Key: <global secret>          -> LEGACY (transition only)
+
+    The legacy path is the original single-user design, kept so the live
+    dashboard and Gmail script keep working until they're moved to per-user
+    credentials. It uses its own separate in-memory store and can never see
+    or touch a user's data. It switches itself off when INGESTION_SECRET is
+    removed from the server's environment -- no code change needed.
+    """
+
+    if authorization is not None:
+        return _principal_from_session(authorization)
+
+    if x_api_key is not None:
+        return _principal_from_api_key(x_api_key)
+
+    if x_ingestion_key and INGESTION_SECRET and hmac.compare_digest(
+        x_ingestion_key.encode("utf-8"), INGESTION_SECRET.encode("utf-8")
+    ):
+        return {"kind": "legacy", "via": "ingestion_key"}
+
+    raise HTTPException(status_code=401, detail=_UNAUTHORIZED)
+
+
+# ---------------------------------------------------------
+# Per-user result storage (Neon Postgres)
+# ---------------------------------------------------------
+
+_ALLOWED_SOURCES = {"dashboard", "gmail"}
+
+
+def _normalize_source(source: Optional[str]) -> str:
+    """'source' is caller-supplied free text; only store known values."""
+    return source if source in _ALLOWED_SOURCES else "other"
+
+
+def _save_user_results(user_id: int, ranked: list, source: str) -> None:
+    if not ranked:
+        return
+
+    rows = [
+        (
+            user_id,
+            r.get("commitment_text"),
+            r.get("direction"),
+            r.get("deadline_type"),
+            r.get("deadline_text"),
+            r.get("confidence"),
+            r.get("sender"),
+            r.get("recipient"),
+            r.get("urgency_score"),
+            r.get("explanation"),
+            source,
         )
+        for r in ranked
+    ]
+
+    with get_conn() as conn:
+        with conn.cursor() as cur:
+            cur.executemany(
+                "INSERT INTO results (user_id, commitment_text, direction, "
+                "deadline_type, deadline_text, confidence, sender, recipient, "
+                "urgency_score, explanation, source) "
+                "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                rows,
+            )
 
 
 # ---------------------------------------------------------
@@ -209,13 +342,10 @@ def load_resources():
             "will fail until GOOGLE_API_KEY is set."
         )
 
-    if not INGESTION_SECRET:
-        print(
-            "WARNING: INGESTION_SECRET is not set. "
-            "/extract and /process will return 500 until it is configured."
-        )
+    if INGESTION_SECRET:
+        print("Legacy ingestion key ENABLED (transition mode). Remove INGESTION_SECRET to disable it.")
     else:
-        print("Ingestion key configured — /extract and /process require it.")
+        print("Legacy ingestion key disabled. Only user sessions and personal API keys are accepted.")
 
     if not os.environ.get("DATABASE_URL"):
         print("WARNING: DATABASE_URL is not set. /signup and /login will return 503.")
@@ -293,7 +423,7 @@ def health():
 @app.post("/extract", response_model=ExtractResponse)
 def extract(
     payload: EmailInput,
-    x_ingestion_key: Optional[str] = Header(None)
+    principal: dict = Depends(resolve_principal)
 ):
 
     """
@@ -302,8 +432,6 @@ def extract(
     Useful for debugging the LLM's raw output
     before it goes through scoring.
     """
-
-    verify_ingestion_key(x_ingestion_key)
 
     if _gemini_client is None:
 
@@ -341,7 +469,7 @@ def extract(
 @app.post("/process", response_model=ProcessResponse)
 def process(
     payload: EmailInput,
-    x_ingestion_key: Optional[str] = Header(None)
+    principal: dict = Depends(resolve_principal)
 ):
 
     """
@@ -353,11 +481,10 @@ def process(
     4. Generate ranking explanation.
     5. Sort commitments by urgency score.
 
-    Requires a valid X-Ingestion-Key header (Phase 8.5 security update).
-    Called by both the Streamlit dashboard and the Gmail Apps Script.
+    Requires credentials (see resolve_principal): a login session token,
+    a personal API key, or -- during the transition -- the legacy ingestion
+    key. Results are saved under the caller's own account.
     """
-
-    verify_ingestion_key(x_ingestion_key)
 
     if _gemini_client is None:
 
@@ -507,13 +634,32 @@ def process(
     # regardless of which one triggered this processing run.
     # -----------------------------------------------------
 
-    processed_at = time.strftime("%Y-%m-%dT%H:%M:%S")
-    for item in ranked:
-        _results_store.append({
-            **item,
-            "_source": payload.source,
-            "_processed_at": processed_at,
-        })
+    if principal["kind"] == "legacy":
+
+        # Original single-user path: separate in-memory store, unchanged.
+        processed_at = time.strftime("%Y-%m-%dT%H:%M:%S")
+        for item in ranked:
+            _results_store.append({
+                **item,
+                "_source": payload.source,
+                "_processed_at": processed_at,
+            })
+
+    else:
+
+        # Per-user path: saved to Neon under this user's id only.
+        # If saving fails we return an error rather than "succeed" with the
+        # data lost: the Gmail script then leaves the email unlabeled and
+        # retries it on the next poll.
+        try:
+            _save_user_results(
+                principal["id"], ranked, _normalize_source(payload.source)
+            )
+        except psycopg2.errors.ForeignKeyViolation:
+            # Account was deleted between authentication and saving.
+            raise HTTPException(status_code=401, detail=_UNAUTHORIZED)
+        except psycopg2.OperationalError:
+            raise _db_unavailable()
 
     # -----------------------------------------------------
     # Step 4: Print total processing time
@@ -542,29 +688,71 @@ def process(
 # ---------------------------------------------------------
 
 @app.get("/results")
-def get_results(x_ingestion_key: Optional[str] = Header(None)):
-    """Returns everything processed so far, from either source
-    (dashboard paste/upload or Gmail ingestion), newest-scored first."""
+def get_results(principal: dict = Depends(resolve_principal)):
+    """Everything THIS caller has processed, highest urgency first.
+    A user sees only their own rows -- whether they authenticate with a
+    login session or with their API key, it resolves to the same account."""
 
-    verify_ingestion_key(x_ingestion_key)
+    if principal["kind"] == "legacy":
+        sorted_results = sorted(
+            _results_store,
+            key=lambda x: x.get("urgency_score", 0),
+            reverse=True
+        )
+        return {"results": sorted_results}
 
-    sorted_results = sorted(
-        _results_store,
-        key=lambda x: x.get("urgency_score", 0),
-        reverse=True
-    )
-    return {"results": sorted_results}
+    try:
+        with get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT commitment_text, direction, deadline_type, deadline_text, "
+                    "confidence, sender, recipient, urgency_score, explanation, "
+                    "source, processed_at FROM results WHERE user_id = %s "
+                    "ORDER BY urgency_score DESC, id DESC",
+                    (principal["id"],),
+                )
+                rows = cur.fetchall()
+    except psycopg2.OperationalError:
+        raise _db_unavailable()
+
+    return {
+        "results": [
+            {
+                "commitment_text": r[0],
+                "direction": r[1],
+                "deadline_type": r[2],
+                "deadline_text": r[3],
+                "confidence": r[4],
+                "sender": r[5],
+                "recipient": r[6],
+                "urgency_score": r[7],
+                "explanation": r[8],
+                "_source": r[9],
+                "_processed_at": r[10].isoformat(),
+            }
+            for r in rows
+        ]
+    }
 
 
 @app.post("/results/clear")
-def clear_results(x_ingestion_key: Optional[str] = Header(None)):
-    """Empties the shared results store. Used by the dashboard's
-    'Clear results' button."""
+def clear_results(principal: dict = Depends(resolve_principal)):
+    """'Delete my data': removes every stored result belonging to the
+    caller. Other users' results are never touched."""
 
-    verify_ingestion_key(x_ingestion_key)
+    if principal["kind"] == "legacy":
+        _results_store.clear()
+        return {"status": "cleared"}
 
-    _results_store.clear()
-    return {"status": "cleared"}
+    try:
+        with get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute("DELETE FROM results WHERE user_id = %s", (principal["id"],))
+                deleted = cur.rowcount
+    except psycopg2.OperationalError:
+        raise _db_unavailable()
+
+    return {"status": "cleared", "deleted": deleted}
 
 
 # =========================================================
@@ -804,3 +992,126 @@ def me(user: dict = Depends(get_current_user)):
         raise HTTPException(status_code=401, detail="Missing or invalid session token.")
 
     return {"userid": row[0], "created_at": row[1].isoformat()}
+
+
+# =========================================================
+# Multi-user extension, Task 4: API keys + account deletion
+# =========================================================
+
+def _require_session_user(principal: dict) -> None:
+    """Key management and account deletion need a real login session.
+    A personal API key (which lives inside a script file and could leak)
+    must never be able to mint new keys or delete the account."""
+
+    if principal["kind"] != "user" or principal["via"] != "session":
+        raise HTTPException(
+            status_code=403,
+            detail="This action requires you to be logged in (a login session, not an API key).",
+        )
+
+
+# ---------------------------------------------------------
+# POST /apikey -- create (or replace) the caller's Gmail-script key.
+# The plaintext key is returned ONCE, here, and never stored: only its
+# hash is kept, so it can't be shown again. Creating a new key
+# immediately invalidates the previous one.
+# ---------------------------------------------------------
+
+@app.post("/apikey")
+def create_api_key(principal: dict = Depends(resolve_principal)):
+
+    _require_session_user(principal)
+
+    key = generate_api_key()
+
+    try:
+        with get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "INSERT INTO api_keys (user_id, key_hash) VALUES (%s, %s) "
+                    "ON CONFLICT (user_id) DO UPDATE "
+                    "SET key_hash = EXCLUDED.key_hash, created_at = now() "
+                    "RETURNING created_at",
+                    (principal["id"], hash_api_key(key)),
+                )
+                (created_at,) = cur.fetchone()
+    except psycopg2.errors.ForeignKeyViolation:
+        raise HTTPException(status_code=401, detail=_UNAUTHORIZED)
+    except psycopg2.OperationalError:
+        raise _db_unavailable()
+
+    return {
+        "api_key": key,
+        "created_at": created_at.isoformat(),
+        "note": "Save this key now. It is shown only once and cannot be recovered.",
+    }
+
+
+# ---------------------------------------------------------
+# GET /apikey -- does the caller have a key? (never reveals the key)
+# ---------------------------------------------------------
+
+@app.get("/apikey")
+def api_key_status(principal: dict = Depends(resolve_principal)):
+
+    _require_session_user(principal)
+
+    try:
+        with get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT created_at FROM api_keys WHERE user_id = %s",
+                    (principal["id"],),
+                )
+                row = cur.fetchone()
+    except psycopg2.OperationalError:
+        raise _db_unavailable()
+
+    if row is None:
+        return {"has_key": False, "created_at": None}
+    return {"has_key": True, "created_at": row[0].isoformat()}
+
+
+# ---------------------------------------------------------
+# POST /account/delete -- permanently delete the account.
+# Requires the current password as a second confirmation, so a stolen
+# session token alone can't wipe an account. The database cascade then
+# removes the user's results, API key and usage counters with it, so
+# nothing is left behind. Wrong passwords count toward the same lockout
+# as /login, so this can't be used to guess passwords either.
+# ---------------------------------------------------------
+
+class DeleteAccountRequest(BaseModel):
+    password: str
+
+
+@app.post("/account/delete")
+def delete_account(
+    payload: DeleteAccountRequest,
+    principal: dict = Depends(resolve_principal),
+):
+
+    _require_session_user(principal)
+
+    throttle_key = principal["userid"]
+    _check_login_throttle(throttle_key)
+
+    try:
+        with get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT password_hash FROM users WHERE id = %s",
+                    (principal["id"],),
+                )
+                row = cur.fetchone()
+
+                if row is None or not verify_password(payload.password, row[0]):
+                    _record_login_failure(throttle_key)
+                    raise HTTPException(status_code=401, detail="Incorrect password.")
+
+                cur.execute("DELETE FROM users WHERE id = %s", (principal["id"],))
+    except psycopg2.OperationalError:
+        raise _db_unavailable()
+
+    _failed_logins.pop(throttle_key, None)
+    return {"status": "deleted"}

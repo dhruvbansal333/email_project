@@ -9,8 +9,10 @@ Multi-user extension, Task 3 -- authentication helpers.
 - Requires the SESSION_SECRET environment variable (32+ characters).
 """
 
+import hashlib
 import os
 import re
+import secrets
 import time
 from typing import Optional
 
@@ -109,3 +111,24 @@ def decode_session_token(token: str) -> Optional[dict]:
         return jwt.decode(token, _session_secret(), algorithms=["HS256"])
     except jwt.PyJWTError:
         return None
+
+
+# ---------------------------------------------------------------------------
+# Personal API keys (used by the Gmail Apps Script)
+#
+# A key is 256 bits of randomness, so a plain SHA-256 hash is appropriate
+# (bcrypt's slowness exists to protect low-entropy human passwords; it would
+# only add cost here). Only the hash is stored. The plaintext key is shown to
+# the user exactly once, at creation.
+# ---------------------------------------------------------------------------
+
+API_KEY_PREFIX = "cai_"
+API_KEY_MAX_LENGTH = 200   # reject absurd inputs before hashing
+
+
+def generate_api_key() -> str:
+    return API_KEY_PREFIX + secrets.token_urlsafe(32)
+
+
+def hash_api_key(key: str) -> str:
+    return hashlib.sha256(key.encode("utf-8")).hexdigest()
