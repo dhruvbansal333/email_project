@@ -23,6 +23,7 @@ Test:
 
 import hmac
 import os
+from datetime import datetime, timedelta, timezone
 import time
 import json
 import sys
@@ -224,10 +225,14 @@ def resolve_principal(
     """
 
     if authorization is not None:
-        return _principal_from_session(authorization)
+        principal = _principal_from_session(authorization)
+        _purge_expired()
+        return principal
 
     if x_api_key is not None:
-        return _principal_from_api_key(x_api_key)
+        principal = _principal_from_api_key(x_api_key)
+        _purge_expired()
+        return principal
 
     if x_ingestion_key and INGESTION_SECRET and hmac.compare_digest(
         x_ingestion_key.encode("utf-8"), INGESTION_SECRET.encode("utf-8")
@@ -279,6 +284,145 @@ def _save_user_results(user_id: int, ranked: list, source: str) -> None:
                 "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                 rows,
             )
+            # Keep only the newest MAX_RESULTS_PER_USER rows for this user.
+            cur.execute(
+                "DELETE FROM results WHERE user_id = %s AND id NOT IN ("
+                "SELECT id FROM results WHERE user_id = %s ORDER BY id DESC LIMIT %s)",
+                (user_id, user_id, MAX_RESULTS_PER_USER),
+            )
+
+
+# =========================================================
+# Multi-user extension, Task 5: limits, retention, kill-switch
+#
+# All enforced SERVER-SIDE, so they hold no matter which client calls
+# (dashboard, Gmail script, or someone calling the API directly).
+# Defaults match the roadmap; each can be overridden with an
+# environment variable on Render without touching code.
+# =========================================================
+
+def _env_int(name: str, default: int) -> int:
+    try:
+        value = int(os.environ.get(name, default))
+        return value if value > 0 else default
+    except (TypeError, ValueError):
+        return default
+
+
+MAX_TEXT_CHARS = _env_int("MAX_TEXT_CHARS", 8000)              # per email
+DAILY_LIMIT_PER_USER = _env_int("DAILY_LIMIT_PER_USER", 30)    # emails/day
+RESULT_RETENTION_DAYS = _env_int("RESULT_RETENTION_DAYS", 7)   # auto-delete after
+MAX_RESULTS_PER_USER = _env_int("MAX_RESULTS_PER_USER", 200)   # newest kept
+PURGE_INTERVAL_SECONDS = 3600                                  # at most hourly
+USAGE_HISTORY_DAYS = 30                                        # counter rows kept
+
+
+def kill_switch_on() -> bool:
+    """Set KILL_SWITCH=on on the API service to pause the demo.
+    Read on every call, so it takes effect as soon as Render restarts the
+    service with the new value."""
+    return os.environ.get("KILL_SWITCH", "").strip().lower() in ("1", "true", "on", "yes")
+
+
+def _check_not_paused(principal: dict) -> None:
+    """While paused, user accounts can't spend Gemini quota. They can still
+    log in, view their results and delete their data."""
+    if principal["kind"] == "user" and kill_switch_on():
+        raise HTTPException(
+            status_code=503,
+            detail="Processing is temporarily paused. Your data is safe; please try again later.",
+        )
+
+
+def _enforce_text_limit(text: str) -> None:
+    if len(text) > MAX_TEXT_CHARS:
+        raise HTTPException(
+            status_code=413,
+            detail=(
+                f"Text is too long ({len(text):,} characters). "
+                f"The limit is {MAX_TEXT_CHARS:,} characters per email."
+            ),
+        )
+
+
+def _seconds_until_utc_midnight() -> int:
+    now = datetime.now(timezone.utc)
+    tomorrow = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+    return max(1, int((tomorrow - now).total_seconds()))
+
+
+def _reserve_daily_slot(user_id: int) -> bool:
+    """Atomically claim one of today's slots. Returns False if the user is
+    already at the limit. It is a single SQL statement, so simultaneous
+    requests can't both slip past the limit. 'Today' is the UTC date."""
+    with get_conn() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "INSERT INTO usage (user_id, usage_date, request_count) "
+                "VALUES (%s, (now() AT TIME ZONE 'UTC')::date, 1) "
+                "ON CONFLICT (user_id, usage_date) DO UPDATE "
+                "SET request_count = usage.request_count + 1 "
+                "WHERE usage.request_count < %s "
+                "RETURNING request_count",
+                (user_id, DAILY_LIMIT_PER_USER),
+            )
+            return cur.fetchone() is not None
+
+
+def _apply_daily_limit(principal: dict) -> None:
+    """Called just before the Gemini call, so a blocked request never
+    spends quota. The legacy (owner) path is not counted."""
+    if principal["kind"] != "user":
+        return
+    try:
+        allowed = _reserve_daily_slot(principal["id"])
+    except psycopg2.errors.ForeignKeyViolation:
+        raise HTTPException(status_code=401, detail=_UNAUTHORIZED)
+    except psycopg2.OperationalError:
+        raise _db_unavailable()
+
+    if not allowed:
+        raise HTTPException(
+            status_code=429,
+            detail=(
+                f"Daily limit reached ({DAILY_LIMIT_PER_USER} emails per day). "
+                "It resets at midnight UTC."
+            ),
+            headers={"Retry-After": str(_seconds_until_utc_midnight())},
+        )
+
+
+_last_purge = 0.0
+
+
+def _purge_expired(force: bool = False) -> None:
+    """Deletes results older than the retention period (for EVERY user,
+    including people who haven't visited), and old usage counters.
+    Runs at startup and then at most once an hour, piggybacking on normal
+    traffic. A cleanup failure must never break a real request."""
+    global _last_purge
+
+    if not os.environ.get("DATABASE_URL"):
+        return
+
+    now = time.monotonic()
+    if not force and _last_purge and now - _last_purge < PURGE_INTERVAL_SECONDS:
+        return
+    _last_purge = now   # set first, so a failure doesn't retry on every request
+
+    try:
+        with get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "DELETE FROM results WHERE processed_at < now() - make_interval(days => %s)",
+                    (RESULT_RETENTION_DAYS,),
+                )
+                cur.execute(
+                    "DELETE FROM usage WHERE usage_date < (now() AT TIME ZONE 'UTC')::date - %s",
+                    (USAGE_HISTORY_DAYS,),
+                )
+    except Exception as e:   # noqa: BLE001 - deliberately broad, see docstring
+        print(f"WARNING: purge failed: {e}")
 
 
 # ---------------------------------------------------------
@@ -347,6 +491,13 @@ def load_resources():
     else:
         print("Legacy ingestion key disabled. Only user sessions and personal API keys are accepted.")
 
+    _purge_expired(force=True)
+    print(
+        f"Limits: {MAX_TEXT_CHARS} chars/email, {DAILY_LIMIT_PER_USER} emails/user/day, "
+        f"{RESULT_RETENTION_DAYS}-day retention, {MAX_RESULTS_PER_USER} results/user. "
+        f"Kill-switch: {'ON (processing paused)' if kill_switch_on() else 'off'}."
+    )
+
     if not os.environ.get("DATABASE_URL"):
         print("WARNING: DATABASE_URL is not set. /signup and /login will return 503.")
     if not session_secret_configured():
@@ -413,6 +564,7 @@ def health():
         "sender_table_size": len(_sender_freq_table),
         "ingestion_key_configured": INGESTION_SECRET is not None,
         "auth_ready": bool(os.environ.get("DATABASE_URL")) and session_secret_configured(),
+        "paused": kill_switch_on(),
     }
 
 
@@ -433,6 +585,9 @@ def extract(
     before it goes through scoring.
     """
 
+    _check_not_paused(principal)
+    _enforce_text_limit(payload.text)
+
     if _gemini_client is None:
 
         raise HTTPException(
@@ -442,6 +597,8 @@ def extract(
                 "Set GOOGLE_API_KEY and restart."
             )
         )
+
+    _apply_daily_limit(principal)
 
     try:
 
@@ -486,6 +643,9 @@ def process(
     key. Results are saved under the caller's own account.
     """
 
+    _check_not_paused(principal)
+    _enforce_text_limit(payload.text)
+
     if _gemini_client is None:
 
         raise HTTPException(
@@ -495,6 +655,8 @@ def process(
                 "Set GOOGLE_API_KEY and restart."
             )
         )
+
+    _apply_daily_limit(principal)
 
     # -----------------------------------------------------
     # Start total processing timer
@@ -708,8 +870,9 @@ def get_results(principal: dict = Depends(resolve_principal)):
                     "SELECT commitment_text, direction, deadline_type, deadline_text, "
                     "confidence, sender, recipient, urgency_score, explanation, "
                     "source, processed_at FROM results WHERE user_id = %s "
+                    "AND processed_at > now() - make_interval(days => %s) "
                     "ORDER BY urgency_score DESC, id DESC",
-                    (principal["id"],),
+                    (principal["id"], RESULT_RETENTION_DAYS),
                 )
                 rows = cur.fetchall()
     except psycopg2.OperationalError:
@@ -865,6 +1028,12 @@ def get_current_user(authorization: Optional[str] = Header(None)) -> dict:
 def signup(payload: SignupRequest):
 
     _require_auth_config()
+
+    if kill_switch_on():
+        raise HTTPException(
+            status_code=503,
+            detail="Signups are temporarily paused. Please try again later.",
+        )
 
     # Userids are case-insensitive: "Dhruv" and "dhruv" are the same account.
     userid = payload.userid.strip().lower()
@@ -1115,3 +1284,38 @@ def delete_account(
 
     _failed_logins.pop(throttle_key, None)
     return {"status": "deleted"}
+
+
+# ---------------------------------------------------------
+# GET /usage -- what the caller has used today and what the limits are.
+# Read-only; lets the dashboard show "12 of 30 used today" so people see
+# a limit coming instead of just hitting an error.
+# ---------------------------------------------------------
+
+@app.get("/usage")
+def get_usage(principal: dict = Depends(resolve_principal)):
+
+    if principal["kind"] != "user":
+        raise HTTPException(status_code=403, detail="Usage is tracked per user account.")
+
+    try:
+        with get_conn() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "SELECT request_count FROM usage "
+                    "WHERE user_id = %s AND usage_date = (now() AT TIME ZONE 'UTC')::date",
+                    (principal["id"],),
+                )
+                row = cur.fetchone()
+    except psycopg2.OperationalError:
+        raise _db_unavailable()
+
+    return {
+        "used_today": row[0] if row else 0,
+        "daily_limit": DAILY_LIMIT_PER_USER,
+        "resets_in_seconds": _seconds_until_utc_midnight(),
+        "max_text_chars": MAX_TEXT_CHARS,
+        "retention_days": RESULT_RETENTION_DAYS,
+        "max_results": MAX_RESULTS_PER_USER,
+        "paused": kill_switch_on(),
+    }
