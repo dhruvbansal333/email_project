@@ -1,24 +1,23 @@
 """
-Phase 7, Step 7.3 — Streamlit demo dashboard.
+Multi-user extension, Task 6 -- Streamlit dashboard with login / signup.
 
-(Updated: Phase 8.5 — sends X-Ingestion-Key header on every call, and
-now reads/clears results via the API's shared server-side store
-(GET /results, POST /results/clear) instead of a local JSON file.
+What a visitor sees:
+  * Not logged in : a Log in / Sign up screen (userid + password, no email).
+  * Logged in     : Dashboard (paste/upload an email, your ranked commitments,
+                    delete my data) and Account (delete my account).
 
-Why the change: once the API and dashboard became two separate Render
-services (Phase 8.5 fix for the 405 issue), a local file on the
-dashboard's own disk could never see commitments that Gmail ingestion
-sent straight to the API. The API is now the single shared source of
-truth for both callers.)
+How it works:
+  * The login token lives ONLY in Streamlit's per-tab session state. It is never
+    put in the URL, a cookie, or a file. Refreshing the page or opening a new
+    tab starts a new session, so you log in again (by design: no "remember me").
+  * Every call to the API carries that token, and the API only ever returns the
+    logged-in user's own data. This file never touches the database.
+  * If the token expires (12 h) or the account is deleted, the next call gets a
+    401 and you are sent back to the login screen.
 
-A paste/upload UI that calls the /process endpoint and displays
-ranked, explained commitments in a table -- from both manual paste
-and, if Phase 8.5 Gmail ingestion is running, automatically-ingested
-email too.
-
-Run (with the FastAPI server already running separately):
-    pip install streamlit requests pandas
-    streamlit run app/frontend.py
+Config (environment variable on the dashboard service):
+  API_URL   public URL of the API service, e.g. https://ai-commitment-api.onrender.com
+The old INGESTION_SECRET variable is no longer used by this file.
 """
 
 import os
@@ -27,189 +26,430 @@ import pandas as pd
 import requests
 import streamlit as st
 
-# Configurable: local (same container) or a separate deployed API
-# service's public URL (see Phase 8.5 setup notes for why this is
-# needed on Render specifically).
-API_URL = os.environ.get("API_URL", "http://localhost:8000")
+API_URL = os.environ.get("API_URL", "http://localhost:8000").rstrip("/")
 
-# Must match the API's INGESTION_SECRET exactly, or every call fails
-# with a 401 (or the API itself returns 500 if IT forgot to set one).
-INGESTION_SECRET = os.environ.get("INGESTION_SECRET")
+# Used only for the sign-up notice, which is shown BEFORE login (the API reports
+# its live limits only to logged-in users, via /usage). Keep in sync with the API
+# defaults (or its environment overrides) if you ever change them.
+NOTICE_DAILY_LIMIT = 30
+NOTICE_RETENTION_DAYS = 7
+DEFAULT_MAX_CHARS = 8000
 
-st.set_page_config(page_title="AI Commitment Intelligence", layout="wide")
+WAKING_MESSAGE = (
+    "The server took too long to answer. It runs on free hosting that sleeps when idle, "
+    "so the first request can take up to a minute. Please wait a little and try again."
+)
+
+st.set_page_config(page_title="AI Commitment Intelligence", page_icon="📋", layout="wide")
 
 
-# --- API calls -------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# API access
+# ---------------------------------------------------------------------------
 
-def _headers() -> dict:
+class ApiError(Exception):
+    def __init__(self, status: int, message: str):
+        super().__init__(message)
+        self.status = status
+        self.message = message
+
+
+def _detail(resp) -> str:
+    try:
+        detail = resp.json().get("detail")
+    except Exception:  # noqa: BLE001 - body wasn't JSON
+        detail = None
+    if isinstance(detail, list):     # request-validation errors arrive as a list
+        detail = "; ".join(str(d.get("msg", d)) for d in detail)
+    return detail or f"Unexpected error ({resp.status_code})."
+
+
+def api(method, path, *, body=None, auth=True, expire_on_401=True, timeout=60):
+    """Calls the API. Returns parsed JSON or raises ApiError with a message that is
+    safe to show the user. A 401 on an authenticated call means the session is
+    over, so it is cleared here (set expire_on_401=False for calls where a 401
+    means 'wrong password', not 'session over')."""
+
     headers = {}
-    if INGESTION_SECRET:
-        headers["X-Ingestion-Key"] = INGESTION_SECRET
-    return headers
+    if auth:
+        token = st.session_state.get("token")
+        if not token:
+            raise ApiError(401, "Please log in.")
+        headers["Authorization"] = f"Bearer {token}"
 
-
-def call_process(text: str) -> dict:
-    response = requests.post(
-        f"{API_URL}/process",
-        json={"text": text, "source": "dashboard"},
-        headers=_headers(),
-        timeout=60,
-    )
-    response.raise_for_status()
-    return response.json()
-
-
-def fetch_results() -> list:
-    """Pulls the full shared results store from the API -- this is
-    what makes Gmail-ingested commitments show up here too, not just
-    ones pasted directly into this dashboard."""
     try:
-        response = requests.get(
-            f"{API_URL}/results", headers=_headers(), timeout=15
-        )
-        response.raise_for_status()
-        return response.json().get("results", [])
-    except requests.exceptions.RequestException as e:
-        st.error(f"Could not load results from the API: {e}")
-        return []
+        resp = requests.request(method, f"{API_URL}{path}", json=body, headers=headers, timeout=timeout)
+    except requests.exceptions.Timeout:
+        raise ApiError(0, WAKING_MESSAGE)
+    except requests.exceptions.RequestException:
+        raise ApiError(0, "Cannot reach the server right now. Please try again in a moment.")
+
+    if resp.status_code == 401 and auth and expire_on_401:
+        _clear_session()
+        raise ApiError(401, "Your session has expired. Please log in again.")
+
+    if not resp.ok:
+        raise ApiError(resp.status_code, _detail(resp))
+
+    return resp.json()
 
 
-def clear_results_remote() -> bool:
+@st.cache_data(ttl=20, show_spinner=False)
+def check_health():
     try:
-        response = requests.post(
-            f"{API_URL}/results/clear", headers=_headers(), timeout=15
-        )
-        response.raise_for_status()
-        return True
-    except requests.exceptions.RequestException as e:
-        st.error(f"Could not clear results: {e}")
-        return False
-
-
-def check_health() -> dict | None:
-    try:
-        r = requests.get(f"{API_URL}/health", timeout=5)
+        r = requests.get(f"{API_URL}/health", timeout=8)
         r.raise_for_status()
         return r.json()
     except requests.exceptions.RequestException:
         return None
 
 
-# --- UI ---------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# Session helpers
+# ---------------------------------------------------------------------------
 
-st.title("📋 AI Commitment Intelligence")
-st.caption(
-    "Paste an email or thread below. The system extracts commitments, "
-    "ranks them by urgency, and explains each ranking. If Gmail "
-    "auto-ingestion (Phase 8.5) is running, those results appear here too."
-)
+def _clear_session():
+    for key in ("token", "userid", "confirm_clear"):
+        st.session_state.pop(key, None)
 
-health = check_health()
-if health is None:
-    st.error(
-        f"⚠️ Cannot reach the API server at {API_URL}. "
-        "Make sure it's running and API_URL is set correctly."
+
+def _login_success(data: dict):
+    st.session_state["token"] = data["token"]
+    st.session_state["userid"] = data["userid"]
+    st.session_state["page"] = "Dashboard"
+
+
+def flash(kind: str, text: str):
+    """Show a message on the NEXT run (used right before st.rerun())."""
+    st.session_state["flash"] = (kind, text)
+
+
+def show_flash():
+    item = st.session_state.pop("flash", None)
+    if item:
+        getattr(st, item[0])(item[1])
+
+
+def show_error(e: ApiError):
+    """Display an API error; if it ended the session, go back to the login screen."""
+    if e.status == 401 and not st.session_state.get("token"):
+        flash("warning", e.message)
+        st.rerun()
+    st.error(e.message)
+
+
+def fmt_seconds(seconds: int) -> str:
+    hours, rest = divmod(max(0, int(seconds)), 3600)
+    minutes = rest // 60
+    return f"{hours}h {minutes}m" if hours else f"{minutes}m"
+
+
+def show_table(df: pd.DataFrame, **kwargs):
+    """Full-width table that works across Streamlit versions."""
+    try:
+        st.dataframe(df, width="stretch", hide_index=True, **kwargs)
+    except Exception:  # noqa: BLE001 - older Streamlit: no width="stretch"
+        st.dataframe(df, use_container_width=True, hide_index=True, **kwargs)
+
+
+# ---------------------------------------------------------------------------
+# Not logged in: Log in / Sign up
+# ---------------------------------------------------------------------------
+
+SIGNUP_NOTICE = f"""
+**Please read before signing up**
+
+- **No email, no password reset.** If you forget your password it cannot be recovered; you would need to create a new account.
+- **Your text is sent to Google's Gemini API** to extract commitments. This app uses Google's *free* tier, where Google may use submitted content to improve its products and human reviewers may read it. **Do not submit confidential or private emails, or other people's emails without their permission. Use sample or test emails.**
+- Results are kept for **{NOTICE_RETENTION_DAYS} days**, then deleted automatically. You can delete your data or your whole account at any time.
+- Fair-use limits: **{NOTICE_DAILY_LIMIT} emails per day**, up to {DEFAULT_MAX_CHARS:,} characters each.
+- This is a student demo project, provided as-is.
+"""
+
+
+def render_auth():
+    st.title("📋 AI Commitment Intelligence")
+    st.caption(
+        "Paste an email or thread. The system extracts the commitments (who promised what, "
+        "to whom, by when), ranks them by urgency, and explains each ranking."
     )
-elif not health.get("gemini_ready"):
-    st.warning(
-        "⚠️ API server is up, but Gemini isn't configured. "
-        "Set GOOGLE_API_KEY on the API service and restart it."
-    )
-else:
-    auth_note = " (ingestion key required)" if health.get("ingestion_key_configured") else ""
-    st.success(
-        f"✅ API connected — {health.get('sender_table_size', 0)} senders loaded.{auth_note}"
-    )
+    show_flash()
 
-st.divider()
+    health = check_health()
+    if health is None:
+        st.warning(
+            "The server is starting up (free hosting sleeps when idle). "
+            "This can take up to a minute. Please try again shortly."
+        )
+    elif health.get("paused"):
+        st.warning(
+            "The demo is temporarily paused: new accounts and processing are unavailable. "
+            "You can still log in to view or delete your data."
+        )
 
-col_input, col_actions = st.columns([3, 1])
+    login_tab, signup_tab = st.tabs(["Log in", "Sign up"])
 
-with col_input:
-    email_text = st.text_area(
-        "Paste email or thread text",
-        height=200,
-        placeholder="Hi Priya, I'll send you the revised contract by Friday afternoon. "
-                    "Also, can you review the attached budget by end of day tomorrow?",
-    )
+    with login_tab:
+        with st.form("login_form"):
+            userid = st.text_input("Userid")
+            password = st.text_input("Password", type="password")
+            submitted = st.form_submit_button("Log in")
+        if submitted:
+            if not userid.strip() or not password:
+                st.error("Please enter your userid and password.")
+            else:
+                with st.spinner("Logging in..."):
+                    try:
+                        data = api("POST", "/login", body={"userid": userid, "password": password},
+                                   auth=False, timeout=90)
+                    except ApiError as e:
+                        st.error(e.message)
+                    else:
+                        _login_success(data)
+                        st.rerun()
 
-    uploaded_file = st.file_uploader(
-        "...or upload a .txt / .eml file instead", type=["txt", "eml"]
-    )
-    if uploaded_file is not None:
-        email_text = uploaded_file.read().decode("utf-8", errors="replace")
-        st.text_area("File contents (loaded)", value=email_text, height=150, disabled=True)
+    with signup_tab:
+        with st.form("signup_form"):
+            new_userid = st.text_input(
+                "Choose a userid", help="3-32 characters: letters, numbers or underscore. Not case-sensitive.")
+            new_password = st.text_input("Choose a password", type="password", help="At least 8 characters.")
+            confirm = st.text_input("Confirm password", type="password")
+            st.info(SIGNUP_NOTICE)
+            agreed = st.checkbox("I have read and understand the above")
+            submitted = st.form_submit_button("Create account")
+        if submitted:
+            if not new_userid.strip() or not new_password:
+                st.error("Please choose a userid and a password.")
+            elif new_password != confirm:
+                st.error("The two passwords don't match.")
+            elif not agreed:
+                st.error("Please tick the box to confirm you've read the notice.")
+            else:
+                with st.spinner("Creating your account..."):
+                    try:
+                        data = api("POST", "/signup", body={"userid": new_userid, "password": new_password},
+                                   auth=False, timeout=90)
+                    except ApiError as e:
+                        st.error(e.message)
+                    else:
+                        _login_success(data)
+                        flash("success", f"Welcome, {data['userid']}! Your account is ready.")
+                        st.rerun()
 
-with col_actions:
-    st.write("")
-    st.write("")
-    process_clicked = st.button("🔍 Process", type="primary", use_container_width=True)
-    clear_clicked = st.button("🗑️ Clear results", use_container_width=True)
 
-if clear_clicked:
-    if clear_results_remote():
-        st.success("Results store cleared.")
+# ---------------------------------------------------------------------------
+# Logged in: Dashboard
+# ---------------------------------------------------------------------------
 
-if process_clicked:
-    if not email_text or not email_text.strip():
-        st.warning("Please paste some text or upload a file first.")
-    elif health is None:
-        st.error("Cannot process: API server is not reachable.")
-    else:
+COLUMNS = {
+    "urgency_score": "Urgency",
+    "commitment_text": "Commitment",
+    "direction": "Direction",
+    "deadline_text": "Deadline",
+    "confidence": "Confidence",
+    "sender": "From",
+    "recipient": "To",
+    "_source": "Source",
+    "_processed_at": "Processed (UTC)",
+    "explanation": "Why this rank",
+}
+
+
+def page_dashboard():
+    st.title("📋 Dashboard")
+
+    usage = None
+    try:
+        usage = api("GET", "/usage")
+    except ApiError as e:
+        show_error(e)
+
+    max_chars = usage["max_text_chars"] if usage else DEFAULT_MAX_CHARS
+    paused = bool(usage and usage.get("paused"))
+    at_limit = bool(usage and usage["used_today"] >= usage["daily_limit"])
+
+    if usage:
+        used, limit = usage["used_today"], usage["daily_limit"]
+        st.progress(
+            min(used / limit, 1.0),
+            text=f"{used} of {limit} emails used today. Resets in {fmt_seconds(usage['resets_in_seconds'])} (midnight UTC).",
+        )
+    if paused:
+        st.warning("Processing is temporarily paused. You can still view and delete your results.")
+    elif at_limit:
+        st.warning("You've used today's emails. You can still view your results; the limit resets at midnight UTC.")
+
+    show_flash()
+
+    col_input, col_actions = st.columns([3, 1])
+    with col_input:
+        pasted = st.text_area(
+            "Paste email or thread text",
+            height=200,
+            placeholder="Hi Priya, I'll send you the revised contract by Friday afternoon. "
+                        "Also, can you review the attached budget by end of day tomorrow?",
+        )
+        uploaded = st.file_uploader("...or upload a .txt / .eml file instead", type=["txt", "eml"])
+        text = pasted
+        if uploaded is not None:
+            text = uploaded.getvalue().decode("utf-8", errors="replace")
+            st.text_area("File contents (loaded)", value=text, height=150, disabled=True)
+
+        too_long = len(text) > max_chars
+        st.caption(f"{len(text):,} / {max_chars:,} characters")
+        if too_long:
+            st.error(f"This text is {len(text):,} characters; the limit is {max_chars:,}. Please shorten it.")
+
+    with col_actions:
+        st.write("")
+        st.write("")
+        can_process = bool(text.strip()) and not too_long and not paused and not at_limit
+        process_clicked = st.button("🔍 Process", type="primary", disabled=not can_process)
+
+    if process_clicked:
         with st.spinner("Extracting and ranking commitments..."):
             try:
-                result = call_process(email_text)
-                new_items = result.get("ranked_commitments", [])
-                if new_items:
-                    st.success(f"Found {len(new_items)} commitment(s).")
+                result = api("POST", "/process", body={"text": text, "source": "dashboard"}, timeout=90)
+            except ApiError as e:
+                show_error(e)
+            else:
+                n = len(result.get("ranked_commitments", []))
+                if n:
+                    flash("success", f"Found {n} commitment(s).")
                 else:
-                    st.info("No commitments found in this text.")
-            except requests.exceptions.HTTPError as e:
-                st.error(f"API returned an error: {e.response.status_code} — {e.response.text}")
-            except requests.exceptions.RequestException as e:
-                st.error(f"Could not reach the API: {e}")
+                    flash("info", "No commitments found in this text.")
+                st.rerun()      # refresh the usage bar and the table below
 
-st.divider()
+    st.divider()
+    st.subheader("Your commitments")
 
-st.subheader("Ranked Commitments")
+    col_a, col_b = st.columns([1, 3])
+    with col_a:
+        st.button("🔄 Refresh")           # any click re-runs the page, which re-reads your results
+    with col_b:
+        hide_low = st.checkbox("Hide low-confidence items", value=True)
 
-hide_low_confidence = st.checkbox("Hide low-confidence items", value=True)
+    results = []
+    try:
+        results = api("GET", "/results")["results"]
+    except ApiError as e:
+        show_error(e)
 
-col_refresh, _ = st.columns([1, 4])
-with col_refresh:
-    if st.button("🔄 Refresh"):
-        st.rerun()
+    if hide_low:
+        results = [r for r in results if r.get("confidence") != "low"]
 
-store = fetch_results()
-if hide_low_confidence:
-    store = [item for item in store if item.get("confidence") != "low"]
+    if not results:
+        st.info("Nothing here yet. Paste an email above and click Process.")
+    else:
+        df = pd.DataFrame(results)
+        df["_processed_at"] = df["_processed_at"].astype(str).str[:16].str.replace("T", " ")
+        cols = [c for c in COLUMNS if c in df.columns]
+        show_table(
+            df[cols].rename(columns=COLUMNS),
+            column_config={
+                "Urgency": st.column_config.NumberColumn("Urgency", format="%.1f"),
+                "Commitment": st.column_config.TextColumn("Commitment", width="large"),
+                "Why this rank": st.column_config.TextColumn("Why this rank", width="large"),
+            },
+        )
+        st.caption(f"{len(df)} commitment(s). Results are deleted automatically after {usage['retention_days'] if usage else NOTICE_RETENTION_DAYS} days.")
 
-if not store:
-    st.info(
-        "No commitments processed yet. Paste an email above and click "
-        "Process, or wait for Gmail ingestion to find one."
+    # ---- Delete my data (two-step confirm) ----
+    st.divider()
+    if st.session_state.get("confirm_clear"):
+        st.warning("Delete ALL your stored results? This can't be undone.")
+        c1, c2, _ = st.columns([1, 1, 3])
+        if c1.button("Yes, delete everything", type="primary"):
+            try:
+                out = api("POST", "/results/clear")
+            except ApiError as e:
+                show_error(e)
+            else:
+                st.session_state["confirm_clear"] = False
+                flash("success", f"Deleted {out.get('deleted', 0)} result(s).")
+                st.rerun()
+        if c2.button("Cancel"):
+            st.session_state["confirm_clear"] = False
+            st.rerun()
+    else:
+        if st.button("🗑️ Delete my data"):
+            st.session_state["confirm_clear"] = True
+            st.rerun()
+
+
+# ---------------------------------------------------------------------------
+# Logged in: Account
+# ---------------------------------------------------------------------------
+
+def page_account():
+    st.title("👤 Account")
+    show_flash()
+
+    try:
+        me = api("GET", "/me")
+        usage = api("GET", "/usage")
+    except ApiError as e:
+        show_error(e)
+        return
+
+    st.write(f"**Userid:** {me['userid']}")
+    st.write(f"**Created:** {str(me['created_at'])[:16].replace('T', ' ')} UTC")
+    st.write(
+        f"**Limits:** {usage['daily_limit']} emails per day, {usage['max_text_chars']:,} characters each. "
+        f"Results are kept for {usage['retention_days']} days (newest {usage['max_results']} only), then deleted automatically."
     )
-else:
-    df = pd.DataFrame(store)
+    st.caption("Your text is processed by Google's Gemini API (free tier). Please don't submit confidential emails.")
 
-    display_cols = [
-        "urgency_score", "commitment_text", "direction", "deadline_type",
-        "deadline_text", "confidence", "sender", "recipient", "_source",
-        "explanation",
-    ]
-    display_cols = [c for c in display_cols if c in df.columns]
-    df_display = df[display_cols].sort_values("urgency_score", ascending=False)
-
-    st.dataframe(
-        df_display,
-        use_container_width=True,
-        hide_index=True,
-        column_config={
-            "urgency_score": st.column_config.NumberColumn("Urgency", format="%.1f"),
-            "commitment_text": st.column_config.TextColumn("Commitment", width="large"),
-            "explanation": st.column_config.TextColumn("Why", width="large"),
-            "_source": st.column_config.TextColumn("Source"),
-        },
+    st.divider()
+    st.subheader("Delete my account")
+    st.write(
+        "This permanently deletes your account and every result stored for it. "
+        "It cannot be undone, and there is no way to recover it."
     )
+    with st.form("delete_account_form"):
+        password = st.text_input("Enter your password to confirm", type="password")
+        sure = st.checkbox("I understand this is permanent")
+        submitted = st.form_submit_button("Delete my account")
+    if submitted:
+        if not password:
+            st.error("Please enter your password.")
+        elif not sure:
+            st.error("Please tick the box to confirm.")
+        else:
+            try:
+                api("POST", "/account/delete", body={"password": password}, expire_on_401=False)
+            except ApiError as e:
+                st.error(e.message)
+            else:
+                _clear_session()
+                flash("success", "Your account and all its data have been deleted.")
+                st.rerun()
 
-    st.caption(f"{len(df_display)} commitment(s) total in the shared results store.")
+
+# ---------------------------------------------------------------------------
+# Router
+# ---------------------------------------------------------------------------
+
+def render_app():
+    with st.sidebar:
+        st.markdown(f"Logged in as **{st.session_state.get('userid', '')}**")
+        st.radio("Go to", ["Dashboard", "Account"], key="page", label_visibility="collapsed")
+        if st.button("Log out"):
+            _clear_session()
+            flash("info", "You have been logged out.")
+            st.rerun()
+
+    if st.session_state.get("page") == "Account":
+        page_account()
+    else:
+        page_dashboard()
+
+
+def main():
+    if st.session_state.get("token"):
+        render_app()
+    else:
+        render_auth()
+
+
+main()
