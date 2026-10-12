@@ -21,6 +21,7 @@ The old INGESTION_SECRET variable is no longer used by this file.
 """
 
 import os
+import time
 
 import pandas as pd
 import requests
@@ -39,6 +40,20 @@ WAKING_MESSAGE = (
     "The server took too long to answer. It runs on free hosting that sleeps when idle, "
     "so the first request can take up to a minute. Please wait a little and try again."
 )
+ASLEEP_MESSAGE = (
+    "The server had gone to sleep (free hosting does that when idle) and has just woken up, "
+    "so that request did not go through. Please click the button again."
+)
+
+UNSURE_MESSAGE = (
+    "The server took too long to answer, so we can't be sure that request went through. "
+    "Before trying again, check whether it did (log in again, or press Refresh on the dashboard)."
+)
+
+# How long to wait for a sleeping server to wake, and how often to check.
+# (Environment overrides exist mainly so the automated tests can run quickly.)
+WAKE_MAX_SECONDS = float(os.environ.get("WAKE_MAX_SECONDS", "75"))
+WAKE_POLL_SECONDS = float(os.environ.get("WAKE_POLL_SECONDS", "3"))
 
 st.set_page_config(page_title="AI Commitment Intelligence", page_icon="📋", layout="wide")
 
@@ -64,11 +79,49 @@ def _detail(resp) -> str:
     return detail or f"Unexpected error ({resp.status_code})."
 
 
+def _is_proxy_error(resp) -> bool:
+    """True for a 502/503/504 that did NOT come from our app.
+
+    Our API always attaches a JSON "detail" to its own errors (for example
+    "Extraction failed: ..." or "Processing is temporarily paused"). A bare
+    502/503/504 means the hosting platform's proxy answered instead, which is
+    what happens while a sleeping free instance is still starting up."""
+    if resp.status_code not in (502, 503, 504):
+        return False
+    try:
+        body = resp.json()
+    except ValueError:
+        return True
+    return not (isinstance(body, dict) and "detail" in body)
+
+
+def _wake_server() -> bool:
+    """Poll /health (a harmless read) until the API answers, or give up."""
+    with st.spinner("The server is waking up (free hosting sleeps when idle). This can take up to a minute..."):
+        deadline = time.monotonic() + WAKE_MAX_SECONDS
+        while True:
+            try:
+                r = requests.get(f"{API_URL}/health", timeout=10)
+                if r.ok and r.json().get("status") == "ok":
+                    return True
+            except (requests.exceptions.RequestException, ValueError):
+                pass
+            if time.monotonic() >= deadline:
+                return False
+            time.sleep(WAKE_POLL_SECONDS)
+
+
 def api(method, path, *, body=None, auth=True, expire_on_401=True, timeout=60):
     """Calls the API. Returns parsed JSON or raises ApiError with a message that is
     safe to show the user. A 401 on an authenticated call means the session is
     over, so it is cleared here (set expire_on_401=False for calls where a 401
-    means 'wrong password', not 'session over')."""
+    means 'wrong password', not 'session over').
+
+    Cold starts: if the hosting proxy rejects the call because the server is
+    asleep, we wake it first. Reads and login are then retried once, because
+    repeating them is harmless. Everything else (sign-up, processing, deleting,
+    key changes) is NOT retried automatically: the user is told it didn't go
+    through, so nothing can ever happen twice."""
 
     headers = {}
     if auth:
@@ -77,12 +130,37 @@ def api(method, path, *, body=None, auth=True, expire_on_401=True, timeout=60):
             raise ApiError(401, "Please log in.")
         headers["Authorization"] = f"Bearer {token}"
 
-    try:
-        resp = requests.request(method, f"{API_URL}{path}", json=body, headers=headers, timeout=timeout)
-    except requests.exceptions.Timeout:
-        raise ApiError(0, WAKING_MESSAGE)
-    except requests.exceptions.RequestException:
-        raise ApiError(0, "Cannot reach the server right now. Please try again in a moment.")
+    safe_to_retry = method == "GET" or path == "/login"
+
+    for attempt in (1, 2):
+        try:
+            resp = requests.request(method, f"{API_URL}{path}", json=body, headers=headers, timeout=timeout)
+        except requests.exceptions.Timeout:
+            raise ApiError(0, WAKING_MESSAGE)
+        except requests.exceptions.ConnectionError:
+            resp = None            # nothing is accepting connections: treat like a sleeping server
+        except requests.exceptions.RequestException:
+            raise ApiError(0, "Cannot reach the server right now. Please try again in a moment.")
+
+        if resp is not None and not _is_proxy_error(resp):
+            break
+
+        # 504 = the gateway gave up waiting. The app may already have received (and even
+        # finished) the request, so for anything that changes data we must NOT say "it
+        # didn't go through" and invite a repeat.
+        if resp is not None and resp.status_code == 504 and not safe_to_retry:
+            raise ApiError(0, UNSURE_MESSAGE)
+
+        # The server is asleep or still starting.
+        if attempt == 1 and _wake_server():
+            if safe_to_retry:
+                continue
+            raise ApiError(0, ASLEEP_MESSAGE)
+        raise ApiError(
+            0,
+            WAKING_MESSAGE if resp is not None
+            else "Cannot reach the server right now. Please try again in a moment.",
+        )
 
     if resp.status_code == 401 and auth and expire_on_401:
         _clear_session()
@@ -100,7 +178,7 @@ def check_health():
         r = requests.get(f"{API_URL}/health", timeout=8)
         r.raise_for_status()
         return r.json()
-    except requests.exceptions.RequestException:
+    except (requests.exceptions.RequestException, ValueError):
         return None
 
 
@@ -179,8 +257,12 @@ def render_auth():
     if health is None:
         st.warning(
             "The server is starting up (free hosting sleeps when idle). "
-            "This can take up to a minute. Please try again shortly."
+            "This can take up to a minute. You can still press Log in or Create account: "
+            "it will wait for the server to wake up first."
         )
+        if st.button("Check again"):
+            check_health.clear()
+            st.rerun()
     elif health.get("paused"):
         st.warning(
             "The demo is temporarily paused: new accounts and processing are unavailable. "
