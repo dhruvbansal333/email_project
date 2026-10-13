@@ -20,6 +20,7 @@ Config (environment variable on the dashboard service):
 The old INGESTION_SECRET variable is no longer used by this file.
 """
 
+import json
 import os
 import time
 
@@ -187,7 +188,7 @@ def check_health():
 # ---------------------------------------------------------------------------
 
 def _clear_session():
-    for key in ("token", "userid", "confirm_clear"):
+    for key in ("token", "userid", "confirm_clear", "fresh_key", "confirm_regen"):
         st.session_state.pop(key, None)
 
 
@@ -421,7 +422,8 @@ def page_dashboard():
         results = [r for r in results if r.get("confidence") != "low"]
 
     if not results:
-        st.info("Nothing here yet. Paste an email above and click Process.")
+        st.info("Nothing here yet. Paste an email above and click Process, "
+                "or connect Gmail (sidebar) to process emails you label automatically.")
     else:
         df = pd.DataFrame(results)
         df["_processed_at"] = df["_processed_at"].astype(str).str[:16].str.replace("T", " ")
@@ -509,20 +511,318 @@ def page_account():
 
 
 # ---------------------------------------------------------------------------
+# Logged in: Connect Gmail
+# ---------------------------------------------------------------------------
+
+SCRIPT_TEMPLATE = r"""/**
+ * AI Commitment Intelligence - Gmail connector (generated for your account)
+ *
+ * KEEP THE KEY BELOW SECRET. Treat it like a password: don't share this script
+ * or post it anywhere. If it leaks, generate a new key on the Connect Gmail page
+ * (the old key stops working immediately).
+ *
+ * What it does:
+ *  - Every 5 minutes it looks ONLY at Gmail threads you have labeled "CommitmentAI-Send".
+ *  - It sends the text of the newest message in each (first 8,000 characters) to the
+ *    app. The app extracts and ranks the commitments and shows them on your dashboard.
+ *  - Then it adds the label "CommitmentAI-Done" so that thread is never sent twice.
+ *  - If an email can never be processed (too long to read, rejected, or it failed 3
+ *    times) it gets "CommitmentAI-Failed" and is left alone.
+ *  It never sends, edits or deletes any email. It only adds its own three labels.
+ *
+ * Setup: pick the function "setup" in the toolbar, click Run, and approve the permissions.
+ */
+
+const API_URL = __API_URL__;
+const API_KEY = __API_KEY__;
+
+const SEND_LABEL = "CommitmentAI-Send";
+const DONE_LABEL = "CommitmentAI-Done";
+const FAILED_LABEL = "CommitmentAI-Failed";
+const HANDLER = "processLabeledEmails";
+const TRIGGER_MINUTES = 5;
+const MAX_THREADS_PER_RUN = 5;
+const MAX_CHARS = 8000;
+const MAX_ATTEMPTS = 3;
+
+// Run this ONCE: creates the labels and the 5-minute timer. Safe to run again.
+function setup() {
+  [SEND_LABEL, DONE_LABEL, FAILED_LABEL].forEach(function (name) {
+    if (!GmailApp.getUserLabelByName(name)) {
+      GmailApp.createLabel(name);
+      Logger.log("Created label: " + name);
+    }
+  });
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === HANDLER) {
+      ScriptApp.deleteTrigger(t);
+    }
+  });
+  ScriptApp.newTrigger(HANDLER).timeBased().everyMinutes(TRIGGER_MINUTES).create();
+  Logger.log("Ready. Label any email '" + SEND_LABEL + "' and it will be picked up within " +
+             TRIGGER_MINUTES + " minutes.");
+}
+
+// Runs automatically every 5 minutes (you can also run it by hand to test).
+function processLabeledEmails() {
+  if (!API_KEY || API_KEY.indexOf("cai_") !== 0) {
+    Logger.log("No API key set. Generate one on the app's Connect Gmail page and paste it into API_KEY.");
+    return;
+  }
+  const doneLabel = GmailApp.getUserLabelByName(DONE_LABEL);
+  const failedLabel = GmailApp.getUserLabelByName(FAILED_LABEL);
+  if (!GmailApp.getUserLabelByName(SEND_LABEL) || !doneLabel || !failedLabel) {
+    Logger.log("Labels are missing. Run the function 'setup' once first.");
+    return;
+  }
+
+  // Never let two runs overlap (the timer firing while you press Run, or a slow run
+  // outlasting 5 minutes): that could send the same email twice.
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(10000)) {
+    Logger.log("Another run is still in progress; skipping this one.");
+    return;
+  }
+  try {
+    processThreads_(doneLabel, failedLabel);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+// The actual work. Only ever called while holding the lock.
+function processThreads_(doneLabel, failedLabel) {
+  const props = PropertiesService.getScriptProperties();
+  const query = "label:" + SEND_LABEL + " -label:" + DONE_LABEL + " -label:" + FAILED_LABEL;
+  const threads = GmailApp.search(query, 0, MAX_THREADS_PER_RUN);
+  Logger.log("Found " + threads.length + " labeled email thread(s) to process.");
+
+  for (let i = 0; i < threads.length; i++) {
+    const thread = threads[i];
+    const id = thread.getId();
+    const attemptsKey = "attempts_" + id;
+    const messages = thread.getMessages();
+    const text = String(messages[messages.length - 1].getPlainBody() || "").trim().substring(0, MAX_CHARS);
+
+    if (!text) {
+      thread.addLabel(doneLabel);          // nothing to read in it
+      Logger.log("Thread " + id + ": empty, marked done.");
+      continue;
+    }
+
+    const result = callApi_(text);
+    const outcome = classify_(result);
+
+    if (outcome === "ok") {
+      thread.addLabel(doneLabel);
+      props.deleteProperty(attemptsKey);
+      Logger.log("Thread " + id + ": processed.");
+    } else if (outcome === "fail") {
+      thread.addLabel(failedLabel);        // this email can never work; don't retry it
+      props.deleteProperty(attemptsKey);
+      Logger.log("Thread " + id + ": rejected by the app (" + result.code + "), marked failed. " + detail_(result));
+    } else if (outcome === "attempt") {
+      const attempts = Number(props.getProperty(attemptsKey) || 0) + 1;
+      if (attempts >= MAX_ATTEMPTS) {
+        thread.addLabel(failedLabel);      // keeps one bad email from using your daily quota forever
+        props.deleteProperty(attemptsKey);
+        Logger.log("Thread " + id + ": failed " + attempts + " times, marked failed.");
+      } else {
+        props.setProperty(attemptsKey, String(attempts));
+        Logger.log("Thread " + id + ": attempt " + attempts + " of " + MAX_ATTEMPTS + " failed; will retry. " + detail_(result));
+      }
+    } else {
+      // "stop": a problem that affects every email (server asleep, limit reached, bad key...).
+      // Leave everything unlabeled and try again at the next run.
+      Logger.log("Stopping this run (code " + result.code + "). " + detail_(result) +
+                 (result.code === 401 ? " -> Your key was rejected: generate a new one and paste it into API_KEY." : ""));
+      break;
+    }
+  }
+}
+
+function callApi_(text) {
+  try {
+    const response = UrlFetchApp.fetch(API_URL, {
+      method: "post",
+      contentType: "application/json",
+      headers: { "X-API-Key": API_KEY },
+      payload: JSON.stringify({ text: text, source: "gmail" }),
+      muteHttpExceptions: true
+    });
+    return { code: response.getResponseCode(), body: response.getContentText() };
+  } catch (err) {
+    return { code: 0, body: "" };          // network error or timeout
+  }
+}
+
+// Decide what to do with the app's answer.
+//  ok      - done
+//  fail    - this particular email will never work (empty/too long/invalid): mark failed
+//  attempt - the AI step failed for this email: count it, retry, give up after MAX_ATTEMPTS
+//  stop    - not this email's fault: wait for the next run (nothing is labeled or counted)
+function classify_(r) {
+  if (r.code === 200) return "ok";
+  if (r.code === 0) return "stop";
+  let hasDetail = false;
+  try { hasDetail = !!JSON.parse(r.body).detail; } catch (e) {}
+  if (!hasDetail) return "stop";           // not an answer from the app (e.g. the server is waking up)
+  if (r.code === 400 || r.code === 413 || r.code === 422) return "fail";
+  if (r.code >= 500 && r.code !== 503) return "attempt";
+  return "stop";                           // 401 bad key, 429 limit reached, 503 paused, anything unexpected
+}
+
+function detail_(r) {
+  try { return String(JSON.parse(r.body).detail || ""); } catch (e) { return ""; }
+}
+"""
+
+
+def build_script(api_url: str, key) -> str:
+    """The Apps Script the user pastes, with the endpoint and (if just generated) their key."""
+    endpoint = f"{api_url.rstrip('/')}/process"
+    return (
+        SCRIPT_TEMPLATE
+        .replace("__API_URL__", json.dumps(endpoint))
+        .replace("__API_KEY__", json.dumps(key or "PASTE_YOUR_KEY_HERE"))
+    )
+
+
+def page_connect_gmail():
+    st.title("📧 Connect Gmail")
+    show_flash()
+
+    st.write(
+        "Optional. Connect your own Gmail so that emails **you choose** are processed automatically "
+        "and their commitments show up on your Dashboard."
+    )
+    st.info(
+        "**How it works and what it can see**\n\n"
+        "- You paste a small script into **your own** Google account. It runs there, on a timer.\n"
+        "- It only looks at emails you label **CommitmentAI-Send**. Nothing else is read or sent.\n"
+        "- This app never receives your Google password or any Google login token. It only receives "
+        "the **text of the emails you label** (first 8,000 characters), plus your personal key.\n"
+        "- That text goes to Google's Gemini API (free tier: it may be used to improve Google's products "
+        "and read by reviewers). **Don't label confidential emails, or other people's private emails.**\n"
+        "- The usual limits apply (daily emails, 7-day retention). Results can take up to 5 minutes to appear."
+    )
+
+    if any(h in API_URL for h in ("localhost", "127.0.0.1")):
+        st.warning("This dashboard is pointed at a local API address, so a script on Google's servers "
+                   "could not reach it. (On the live site this is set to the public API URL.)")
+
+    # ---------------- 1. key ----------------
+    st.subheader("1. Your personal key")
+    try:
+        status = api("GET", "/apikey")
+    except ApiError as e:
+        show_error(e)
+        return
+
+    fresh = st.session_state.get("fresh_key")
+
+    if fresh:
+        st.success("Your new key is below. **It is shown only now and can't be recovered**, so the script "
+                   "in step 2 already contains it. Copy the script before you leave this page.")
+        st.code(fresh, language=None)
+        if st.button("I've copied the script, hide the key"):
+            st.session_state.pop("fresh_key", None)
+            st.rerun()
+    else:
+        if status["has_key"]:
+            st.write(
+                f"You already have a key (created {str(status['created_at'])[:16].replace('T', ' ')} UTC). "
+                "For your security only a scrambled version is stored, so it can't be shown again."
+            )
+            if st.session_state.get("confirm_regen"):
+                st.warning("Generating a new key **stops your current Gmail script immediately** until you "
+                           "paste the new script. Continue?")
+                c1, c2, _ = st.columns([1, 1, 3])
+                if c1.button("Yes, generate a new key", type="primary"):
+                    _generate_key()
+                if c2.button("Cancel"):
+                    st.session_state["confirm_regen"] = False
+                    st.rerun()
+            elif st.button("🔑 Generate a new key"):
+                st.session_state["confirm_regen"] = True
+                st.rerun()
+        else:
+            st.write("You don't have a key yet.")
+            if st.button("🔑 Generate my Gmail key", type="primary"):
+                _generate_key()
+
+    # ---------------- 2. script ----------------
+    st.subheader("2. Your script")
+    script = build_script(API_URL, fresh)
+    if not fresh:
+        st.caption("This copy has a placeholder where your key goes. Generate a key above to get a script "
+                   "with your key already inside.")
+    st.code(script, language="javascript")
+    st.download_button("⬇️ Download as a file (.gs)", data=script, file_name="commitment_ai_gmail.gs",
+                       mime="text/plain")
+
+    # ---------------- 3. install ----------------
+    st.subheader("3. Install it (about 5 minutes, once)")
+    st.markdown(
+        """
+1. Open [script.google.com](https://script.google.com) while signed in to the Gmail account you want to connect, then click **New project**.
+2. Delete the placeholder code, paste the script from step 2, and click **Save**.
+3. In the toolbar, choose the function **setup** and click **Run**. Google will ask you to authorize it:
+   - You'll see **"Google hasn't verified this app."** That is expected: you're running a script you pasted yourself, not a published app. Click **Advanced**, then **Go to … (unsafe)**, then **Allow**.
+   - **Read the permission list on that screen.** Apps Script's Gmail access is broad: Google describes its widest Gmail permission as reading, composing, sending and permanently deleting all your email. This script's code only searches threads you labeled and adds its own labels. It never sends, edits or deletes mail, and you can read every line above.
+   - It also asks to connect to an external service (this app) and to run when you're not present (the 5-minute timer).
+4. The execution log should say it created three labels (`CommitmentAI-Send`, `-Done`, `-Failed`) and set a timer.
+5. In Gmail, apply the label **CommitmentAI-Send** to any email you want processed. (You can also create a Gmail filter that applies it automatically, for example for emails from one person.)
+6. Within about 5 minutes it is processed and labeled **CommitmentAI-Done**. Open the **Dashboard** and press **Refresh**: its commitments appear with Source "gmail".
+        """
+    )
+
+    st.subheader("4. If something looks wrong")
+    st.markdown(
+        """
+- **Nothing appears:** in Apps Script open **Executions** (left sidebar) to see the log. You can also run `processLabeledEmails` by hand.
+- **"Your key was rejected":** you generated a newer key, or deleted the account. Generate a new key here and paste the new script.
+- **Label `CommitmentAI-Failed`:** the app couldn't use that email (too long, invalid, or it failed three times). It won't be retried.
+- **Daily limit reached:** the script waits and tries again automatically; the limit resets at midnight UTC.
+- **To stop it:** in Apps Script click the clock icon (**Triggers**) and delete the trigger, or delete the project. Generating a new key here also cuts off the old script immediately.
+        """
+    )
+
+
+def _generate_key():
+    try:
+        data = api("POST", "/apikey")
+    except ApiError as e:
+        show_error(e)
+        return
+    st.session_state["fresh_key"] = data["api_key"]
+    st.session_state["confirm_regen"] = False
+    st.rerun()
+
+
+# ---------------------------------------------------------------------------
 # Router
 # ---------------------------------------------------------------------------
 
 def render_app():
     with st.sidebar:
         st.markdown(f"Logged in as **{st.session_state.get('userid', '')}**")
-        st.radio("Go to", ["Dashboard", "Account"], key="page", label_visibility="collapsed")
+        st.radio("Go to", ["Dashboard", "Connect Gmail", "Account"], key="page", label_visibility="collapsed")
         if st.button("Log out"):
             _clear_session()
             flash("info", "You have been logged out.")
             st.rerun()
 
-    if st.session_state.get("page") == "Account":
+    page = st.session_state.get("page")
+    if page != "Connect Gmail":
+        # A key is shown only on the page that created it; leaving the page discards it.
+        st.session_state.pop("fresh_key", None)
+        st.session_state.pop("confirm_regen", None)
+
+    if page == "Account":
         page_account()
+    elif page == "Connect Gmail":
+        page_connect_gmail()
     else:
         page_dashboard()
 
