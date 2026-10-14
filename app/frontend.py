@@ -173,14 +173,71 @@ def api(method, path, *, body=None, auth=True, expire_on_401=True, timeout=60):
     return resp.json()
 
 
-@st.cache_data(ttl=20, show_spinner=False)
-def check_health():
+def _health_once(timeout=8):
+    """One uncached call to the API's /health. Returns its JSON, or None if it isn't answering."""
     try:
-        r = requests.get(f"{API_URL}/health", timeout=8)
+        r = requests.get(f"{API_URL}/health", timeout=timeout)
         r.raise_for_status()
         return r.json()
     except (requests.exceptions.RequestException, ValueError):
         return None
+
+
+@st.cache_data(ttl=20, show_spinner=False)
+def check_health():
+    return _health_once()
+
+
+def wait_for_api():
+    """Poll /health until the API answers or the time budget (WAKE_MAX_SECONDS) runs out.
+    Shows live progress. Returns the health dict, or None if it never answered.
+    Bounded on purpose: free hosting wakes in roughly 30-60 s but can take longer, and
+    nothing here can make it faster."""
+    slot = st.empty()
+    started = time.monotonic()
+    while True:
+        waited = int(time.monotonic() - started)
+        slot.info(
+            f"⏳ Waking up the server... {waited}s so far. Free hosting sleeps when idle; this usually "
+            "takes 30-60 seconds and sometimes longer. This page continues by itself when it is ready."
+        )
+        health = _health_once()
+        if health is not None:
+            slot.empty()
+            check_health.clear()
+            return health
+        if time.monotonic() - started + WAKE_POLL_SECONDS >= WAKE_MAX_SECONDS:
+            slot.empty()
+            return None
+        time.sleep(WAKE_POLL_SECONDS)
+
+
+def ensure_api_ready():
+    """Login screen: make sure the API is awake before showing the forms.
+    The first quick call already wakes a sleeping server; if it doesn't answer yet we wait,
+    bounded. Returns the health dict, or None after giving up (with a Retry button shown)."""
+    with st.spinner("Contacting the server..."):
+        health = check_health()
+    if health is not None:
+        st.session_state.pop("api_gave_up", None)
+        return health
+
+    if not st.session_state.get("api_gave_up"):
+        health = wait_for_api()
+        if health is not None:
+            return health
+        st.session_state["api_gave_up"] = True      # don't re-wait on every click
+
+    st.error(
+        f"The server hasn't answered after about {int(WAKE_MAX_SECONDS)} seconds. Free hosting can take "
+        "a minute or two to wake up, and sometimes longer, so it may still be starting. "
+        "Press Retry, or wait a moment. You can also just try Log in below: it waits for the server again."
+    )
+    if st.button("🔄 Retry"):
+        st.session_state.pop("api_gave_up", None)
+        check_health.clear()
+        st.rerun()
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -254,17 +311,8 @@ def render_auth():
     )
     show_flash()
 
-    health = check_health()
-    if health is None:
-        st.warning(
-            "The server is starting up (free hosting sleeps when idle). "
-            "This can take up to a minute. You can still press Log in or Create account: "
-            "it will wait for the server to wake up first."
-        )
-        if st.button("Check again"):
-            check_health.clear()
-            st.rerun()
-    elif health.get("paused"):
+    health = ensure_api_ready()
+    if health is not None and health.get("paused"):
         st.warning(
             "The demo is temporarily paused: new accounts and processing are unavailable. "
             "You can still log in to view or delete your data."
@@ -777,6 +825,8 @@ def page_connect_gmail():
         """
     )
 
+    render_filter_help()
+
     st.subheader("4. If something looks wrong")
     st.markdown(
         """
@@ -787,6 +837,107 @@ def page_connect_gmail():
 - **To stop it:** in Apps Script click the clock icon (**Triggers**) and delete the trigger, or delete the project. Generating a new key here also cuts off the old script immediately.
         """
     )
+
+
+# Example Gmail searches shown on the Connect Gmail page. Kept as data so they can be sanity-checked.
+GMAIL_QUERY_EXAMPLES = [
+    ("Promises people make", '("I will" OR "I\'ll" OR "will get back to you" OR "will follow up")'),
+    ("Deadlines in the email text", '(deadline OR "due date" OR "by EOD" OR "end of day" OR "by Friday" OR ASAP)'),
+    ("Deadlines in the subject line", 'subject:(deadline OR "action required" OR "please confirm")'),
+    ("One specific sender", "from:manager@example.com"),
+    ("A few specific senders", "from:(alice@example.com OR bob@example.com)"),
+    ("Everyone at one company", "from:@example.com"),
+    ("Narrow and safer: one sender AND a keyword", 'from:manager@example.com ("I will" OR "I\'ll" OR deadline)'),
+    ("Skip promotional noise (add to any search)", "-category:promotions -category:social -from:noreply"),
+    ("Only recent mail (handy while testing)", "from:manager@example.com newer_than:7d"),
+]
+
+
+def render_filter_help():
+    st.subheader("Optional: label emails automatically with a Gmail filter")
+    st.caption(
+        "Instead of labeling each email by hand, a Gmail filter can apply **CommitmentAI-Send** for you. "
+        "Filters are created in Gmail on a computer; once made, they also work for mail you read on your phone."
+    )
+    with st.expander("Show me how (beginner-friendly)"):
+        t_create, t_ideas, t_test, t_fix = st.tabs(
+            ["1. Create the filter", "2. Search ideas", "3. Test it", "4. If it doesn't work"]
+        )
+
+        with t_create:
+            st.markdown(
+                """
+**Before you start:** run **setup** once (step 3 above), so the label `CommitmentAI-Send` exists.
+
+1. Open Gmail **on a computer**.
+2. At the right end of the search box at the top, click the **Show search options** icon (it looks like little sliders).
+3. Fill in what should match: **From** (an email address), **Subject** (words) or **Has the words** (anything in the email). Pick ideas from the **Search ideas** tab.
+4. *(Recommended)* Click **Search** first to preview which emails match. Then open **Show search options** again; your criteria are still there.
+5. Click **Create filter** at the bottom of the box.
+6. Tick **Apply the label**, open **Choose label**, and pick **CommitmentAI-Send**.
+7. *(Optional)* Tick **Also apply filter to matching conversations** to label mail you already have. Check first how many that is: you can process **30 emails a day**, and every labeled email is sent to Google's Gemini API.
+8. Click **Create filter**.
+
+From now on, matching **new** emails get the label automatically, and the script picks them up within about 5 minutes.
+
+**Shortcut:** tick an email in your inbox, click **More** (three dots), choose **Filter messages like these**, then continue from step 5.
+**Good to know:** a reply to a filtered email is only labeled if the reply also matches the same search.
+                """
+            )
+
+        with t_ideas:
+            st.markdown(
+                "Copy one into Gmail's search box (or the **Has the words** / **From** fields). "
+                "Replace the example addresses with real ones."
+            )
+            for title, query in GMAIL_QUERY_EXAMPLES:
+                st.markdown(f"**{title}**")
+                st.code(query, language=None)
+            st.markdown(
+                """
+**Reading these:** write **OR** in capitals; quotes mean an exact phrase; a minus sign excludes; brackets group things together; Gmail searches aren't case-sensitive.
+
+⚠️ **Keep it narrow.** A broad keyword filter can label a lot of mail. Every labeled email is sent to Google's free Gemini API (don't use it on confidential senders) and counts toward your 30 a day. A specific sender, optionally combined with a keyword, is the safest choice.
+                """
+            )
+
+        with t_test:
+            st.markdown(
+                """
+1. **Test the search first.** Paste your query into Gmail's search box and press Enter. The emails you see are exactly what the filter would label. Too many or too few? Adjust it *before* creating the filter.
+2. Create the filter (first tab).
+3. **Send a test email that matches.** From a different account is best; an email you send to yourself may also work.
+4. Within seconds it should show the label **CommitmentAI-Send** (you'll see it on the email and in the left sidebar).
+5. Within about 5 minutes the script adds **CommitmentAI-Done** (the Send label stays).
+6. Open the **Dashboard** and press **Refresh**: its commitments appear with Source "gmail".
+7. Also check the opposite: an email that should *not* match stays unlabeled.
+
+**Labeling one email by hand:** open it, click the **Labels** icon (a tag) in the toolbar, tick **CommitmentAI-Send**, click **Apply**. On the phone app: three dots, **Change labels**.
+                """
+            )
+
+        with t_fix:
+            st.markdown(
+                """
+**The email didn't get the label**
+- Does your search find it? Paste the query into Gmail's search box. If not, loosen it.
+- Filters only act on **new** mail. For older mail, tick *Also apply filter to matching conversations* when creating the filter, or label it by hand.
+- The label must be spelled exactly `CommitmentAI-Send`. A similar one you made yourself is ignored. Run **setup** to create the right one.
+- Ended up in Spam? Edit the filter and tick **Never send it to Spam**.
+- A reply is only labeled if it also matches the filter's search.
+
+**It has the label, but nothing appears on the dashboard**
+- Wait up to 5 minutes, then press **Refresh**.
+- In Apps Script open **Executions** and look for errors.
+- It was labeled **CommitmentAI-Failed**: the app couldn't use that email (too long, rejected, or it failed 3 times). It won't be retried.
+- Today's 30 emails are used up: the script waits and the limit resets at midnight UTC.
+- "Key was rejected": you generated a newer key. Paste the newer script.
+
+**Too many emails are being labeled**
+- In Gmail click **Settings** (gear), **See all settings**, **Filters and Blocked Addresses**, then **Edit** or **Delete**. Removing a filter doesn't remove labels already applied; remove those by hand.
+- Each conversation is sent **once**. To send it again, remove **CommitmentAI-Done** from it (this can create duplicate results).
+                """
+            )
 
 
 def _generate_key():
