@@ -20,6 +20,7 @@ Config (environment variable on the dashboard service):
 The old INGESTION_SECRET variable is no longer used by this file.
 """
 
+import html
 import json
 import os
 import time
@@ -27,6 +28,11 @@ import time
 import pandas as pd
 import requests
 import streamlit as st
+
+try:  # older Streamlit versions only have components.html; newer ones prefer st.iframe
+    import streamlit.components.v1 as components
+except Exception:  # noqa: BLE001
+    components = None
 
 API_URL = os.environ.get("API_URL", "http://localhost:8000").rstrip("/")
 
@@ -36,6 +42,8 @@ API_URL = os.environ.get("API_URL", "http://localhost:8000").rstrip("/")
 NOTICE_DAILY_LIMIT = 30
 NOTICE_RETENTION_DAYS = 7
 DEFAULT_MAX_CHARS = 8000
+
+READY_MESSAGE = "Getting your AI assistant ready… This may take a little while on the first visit."
 
 WAKING_MESSAGE = (
     "The server took too long to answer. It runs on free hosting that sleeps when idle, "
@@ -198,7 +206,7 @@ def wait_for_api():
     while True:
         waited = int(time.monotonic() - started)
         slot.info(
-            f"⏳ Waking up the server... {waited}s so far. Free hosting sleeps when idle; this usually "
+            f"⏳ {READY_MESSAGE} ({waited}s so far.) Free hosting sleeps when idle; this usually "
             "takes 30-60 seconds and sometimes longer. This page continues by itself when it is ready."
         )
         health = _health_once()
@@ -212,11 +220,17 @@ def wait_for_api():
         time.sleep(WAKE_POLL_SECONDS)
 
 
+def _retry_wake():
+    """Retry button callback: forget that we gave up and drop the cached /health result."""
+    st.session_state.pop("api_gave_up", None)
+    check_health.clear()
+
+
 def ensure_api_ready():
     """Login screen: make sure the API is awake before showing the forms.
     The first quick call already wakes a sleeping server; if it doesn't answer yet we wait,
     bounded. Returns the health dict, or None after giving up (with a Retry button shown)."""
-    with st.spinner("Contacting the server..."):
+    with st.spinner(READY_MESSAGE):
         health = check_health()
     if health is not None:
         st.session_state.pop("api_gave_up", None)
@@ -231,12 +245,11 @@ def ensure_api_ready():
     st.error(
         f"The server hasn't answered after about {int(WAKE_MAX_SECONDS)} seconds. Free hosting can take "
         "a minute or two to wake up, and sometimes longer, so it may still be starting. "
-        "Press Retry, or wait a moment. You can also just try Log in below: it waits for the server again."
+        "Log in and Sign up appear as soon as it answers. Press Retry to check again."
     )
-    if st.button("🔄 Retry"):
-        st.session_state.pop("api_gave_up", None)
-        check_health.clear()
-        st.rerun()
+    # on_click (not st.rerun inside an `if st.button`): Streamlit reruns by itself after the callback, so the
+    # Retry button is not drawn again in the pass that follows the click.
+    st.button("🔄 Retry", on_click=_retry_wake)
     return None
 
 
@@ -245,7 +258,7 @@ def ensure_api_ready():
 # ---------------------------------------------------------------------------
 
 def _clear_session():
-    for key in ("token", "userid", "confirm_clear", "fresh_key", "confirm_regen"):
+    for key in ("token", "userid", "confirm_clear", "fresh_key", "confirm_regen", "show_script"):
         st.session_state.pop(key, None)
 
 
@@ -312,7 +325,11 @@ def render_auth():
     show_flash()
 
     health = ensure_api_ready()
-    if health is not None and health.get("paused"):
+    if health is None:
+        # The server isn't answering yet: show only the message and the Retry button.
+        # Log in / Sign up are offered once the API has actually answered.
+        return
+    if health.get("paused"):
         st.warning(
             "The demo is temporarily paused: new accounts and processing are unavailable. "
             "You can still log in to view or delete your data."
@@ -736,6 +753,80 @@ def build_script(api_url: str, key) -> str:
     )
 
 
+def copy_button_html(text: str, label: str = "Copy setup script") -> str:
+    """A small self-contained HTML page: one button that copies `text` to the clipboard and says
+    whether it worked. It runs only in the user's browser; nothing is sent anywhere.
+    (`</` is escaped so a script containing "</script>" cannot break out of the page.)"""
+    payload = json.dumps(text).replace("</", "<\\/")
+    return f"""<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  :root {{ color-scheme: light dark; }}
+  body {{ margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }}
+  button {{ font: inherit; font-weight: 600; padding: .65rem 1.3rem; border-radius: .5rem; border: 0;
+           background: #ff4b4b; color: #fff; cursor: pointer; }}
+  button:hover {{ filter: brightness(.92); }}
+  #m {{ margin-top: .6rem; font-size: .92rem; line-height: 1.35; }}
+  .ok {{ color: #1a7f37; }} .bad {{ color: #c62828; }}
+  @media (prefers-color-scheme: dark) {{ .ok {{ color: #56d364; }} .bad {{ color: #ff7b72; }} }}
+</style></head>
+<body>
+<button id="b" type="button">📋 {html.escape(label)}</button>
+<div id="m" role="status" aria-live="polite"></div>
+<script>
+  const TEXT = {payload};
+  const msg = document.getElementById("m");
+  function ok() {{
+    msg.className = "ok";
+    msg.textContent = "✅ Copied! Now paste it into Google Apps Script (step 3).";
+  }}
+  function fail() {{
+    msg.className = "bad";
+    msg.textContent = "⚠️ Couldn't copy automatically. Click “View script code” below and use the copy icon, " +
+                      "or use the download button.";
+  }}
+  function legacyCopy() {{
+    try {{
+      const t = document.createElement("textarea");
+      t.value = TEXT; t.style.position = "fixed"; t.style.opacity = "0";
+      document.body.appendChild(t); t.focus(); t.select();
+      const done = document.execCommand("copy");
+      document.body.removeChild(t);
+      return !!done;
+    }} catch (e) {{ return false; }}
+  }}
+  document.getElementById("b").addEventListener("click", function () {{
+    if (navigator.clipboard && navigator.clipboard.writeText) {{
+      navigator.clipboard.writeText(TEXT).then(ok, function () {{ legacyCopy() ? ok() : fail(); }});
+    }} else {{
+      legacyCopy() ? ok() : fail();
+    }}
+  }});
+</script>
+</body></html>"""
+
+
+def embed_html(page_html: str, height: int):
+    """Show a small trusted HTML page. Newer Streamlit deprecates components.html in favour of st.iframe,
+    so use st.iframe when this version has it and fall back to components.html on older versions."""
+    if hasattr(st, "iframe"):
+        st.iframe(page_html, height=height)
+    else:
+        components.html(page_html, height=height)
+
+
+PRIVACY_TEXT = (
+    "**How it works and what it can see**\n\n"
+    "- You paste a small script into **your own** Google account. It runs there, on a timer.\n"
+    "- It only looks at emails you label **CommitmentAI-Send**. Nothing else is read or sent.\n"
+    "- This app never receives your Google password or any Google login token. It only receives "
+    "the **text of the emails you label** (first 8,000 characters), plus your personal key.\n"
+    "- That text goes to Google's Gemini API (free tier: it may be used to improve Google's products "
+    "and read by reviewers). **Don't label confidential emails, or other people's private emails.**\n"
+    "- The usual limits apply (daily emails, 7-day retention). Results can take up to 5 minutes to appear."
+)
+
+
 def page_connect_gmail():
     st.title("📧 Connect Gmail")
     show_flash()
@@ -744,99 +835,163 @@ def page_connect_gmail():
         "Optional. Connect your own Gmail so that emails **you choose** are processed automatically "
         "and their commitments show up on your Dashboard."
     )
-    st.info(
-        "**How it works and what it can see**\n\n"
-        "- You paste a small script into **your own** Google account. It runs there, on a timer.\n"
-        "- It only looks at emails you label **CommitmentAI-Send**. Nothing else is read or sent.\n"
-        "- This app never receives your Google password or any Google login token. It only receives "
-        "the **text of the emails you label** (first 8,000 characters), plus your personal key.\n"
-        "- That text goes to Google's Gemini API (free tier: it may be used to improve Google's products "
-        "and read by reviewers). **Don't label confidential emails, or other people's private emails.**\n"
-        "- The usual limits apply (daily emails, 7-day retention). Results can take up to 5 minutes to appear."
+    st.caption(
+        "⏱️ One-time setup, about 5 minutes, 6 short steps. "
+        "🔒 Only emails **you** label are processed, and their text goes to Google's free Gemini API, "
+        "so don't label confidential emails. Details are in *Permissions & privacy* just below."
     )
+    with st.expander("🔒 Permissions & privacy: what this can see"):
+        st.info(PRIVACY_TEXT)
 
     if any(h in API_URL for h in ("localhost", "127.0.0.1")):
         st.warning("This dashboard is pointed at a local API address, so a script on Google's servers "
                    "could not reach it. (On the live site this is set to the public API URL.)")
 
-    # ---------------- 1. key ----------------
-    st.subheader("1. Your personal key")
+    # ---------------- Step 1: key ----------------
     try:
         status = api("GET", "/apikey")
     except ApiError as e:
+        st.subheader("Step 1 · Create your personal connection key")
         show_error(e)
         return
 
     fresh = st.session_state.get("fresh_key")
 
-    if fresh:
-        st.success("Your new key is below. **It is shown only now and can't be recovered**, so the script "
-                   "in step 2 already contains it. Copy the script before you leave this page.")
-        st.code(fresh, language=None)
-        if st.button("I've copied the script, hide the key"):
-            st.session_state.pop("fresh_key", None)
-            st.rerun()
-    else:
-        if status["has_key"]:
-            st.write(
-                f"You already have a key (created {str(status['created_at'])[:16].replace('T', ' ')} UTC). "
-                "For your security only a scrambled version is stored, so it can't be shown again."
-            )
-            if st.session_state.get("confirm_regen"):
-                st.warning("Generating a new key **stops your current Gmail script immediately** until you "
-                           "paste the new script. Continue?")
-                c1, c2, _ = st.columns([1, 1, 3])
-                if c1.button("Yes, generate a new key", type="primary"):
-                    _generate_key()
-                if c2.button("Cancel"):
-                    st.session_state["confirm_regen"] = False
-                    st.rerun()
-            elif st.button("🔑 Generate a new key"):
-                st.session_state["confirm_regen"] = True
+    with st.container(border=True):
+        st.subheader("Step 1 · Create your personal connection key")
+        st.caption(
+            "This key is like a private password just for your Gmail script. It lets the script prove to this app "
+            "that the emails are yours. It is not your login password and is never made from it."
+        )
+        if fresh:
+            st.success("Your new key is below. **It is shown only now and can't be recovered**, so the script "
+                       "in step 2 already contains it. Copy the script before you leave this page.")
+            st.code(fresh, language=None)
+            if st.button("I've copied the script, hide the key"):
+                st.session_state.pop("fresh_key", None)
                 st.rerun()
         else:
-            st.write("You don't have a key yet.")
-            if st.button("🔑 Generate my Gmail key", type="primary"):
-                _generate_key()
+            if status["has_key"]:
+                st.write(
+                    f"You already have a key (created {str(status['created_at'])[:16].replace('T', ' ')} UTC). "
+                    "For your security only a scrambled version is stored, so it can't be shown again."
+                )
+                if st.session_state.get("confirm_regen"):
+                    st.warning("Generating a new key **stops your current Gmail script immediately** until you "
+                               "paste the new script. Continue?")
+                    c1, c2, _ = st.columns([1, 1, 3])
+                    if c1.button("Yes, generate a new key", type="primary"):
+                        _generate_key()
+                    if c2.button("Cancel"):
+                        st.session_state["confirm_regen"] = False
+                        st.rerun()
+                elif st.button("🔑 Generate a new key"):
+                    st.session_state["confirm_regen"] = True
+                    st.rerun()
+            else:
+                st.write("You don't have a key yet.")
+                if st.button("🔑 Generate my Gmail key", type="primary"):
+                    _generate_key()
 
-    # ---------------- 2. script ----------------
-    st.subheader("2. Your script")
+    # ---------------- Step 2: script ----------------
     script = build_script(API_URL, fresh)
-    if not fresh:
-        st.caption("This copy has a placeholder where your key goes. Generate a key above to get a script "
-                   "with your key already inside.")
-    st.code(script, language="javascript")
-    st.download_button("⬇️ Download as a file (.gs)", data=script, file_name="commitment_ai_gmail.gs",
-                       mime="text/plain")
+    with st.container(border=True):
+        st.subheader("Step 2 · Copy your setup script")
+        if not fresh:
+            st.caption("This copy has a placeholder where your key goes. Generate a key above to get a script "
+                       "with your key already inside.")
+        st.warning(
+            "🔑 **This script contains your personal key. Don't share it, post it online or commit it to GitHub.** "
+            "Anyone who can see the script could use your key to reach your commitment data in this app "
+            "(not your Gmail or your login password). If it ever leaks, generate a new key here: "
+            "the old one stops working immediately."
+        )
+        embed_html(
+            copy_button_html(script, "Copy setup script" if fresh else "Copy script template (key not included)"),
+            height=95,
+        )
+        show_code = st.session_state.get("show_script", False)
+        if st.button("Hide script code" if show_code else "View script code", key="toggle_script"):
+            st.session_state["show_script"] = not show_code
+            st.rerun()
+        if show_code:
+            st.code(script, language="javascript")
+        st.download_button("⬇️ Download as a file (.gs)", data=script, file_name="commitment_ai_gmail.gs",
+                           mime="text/plain")
 
-    # ---------------- 3. install ----------------
-    st.subheader("3. Install it (about 5 minutes, once)")
-    st.markdown(
-        """
+    # ---------------- Step 3: open Apps Script ----------------
+    with st.container(border=True):
+        st.subheader("Step 3 · Open Google Apps Script and paste the script")
+        st.markdown(
+            """
 1. Open [script.google.com](https://script.google.com) while signed in to the Gmail account you want to connect, then click **New project**.
 2. Delete the placeholder code, paste the script from step 2, and click **Save**.
-3. In the toolbar, choose the function **setup** and click **Run**. Google will ask you to authorize it:
+            """
+        )
+
+    # ---------------- Step 4: run setup + permissions ----------------
+    with st.container(border=True):
+        st.subheader("Step 4 · Run setup and approve permissions")
+        st.caption("Google asks for permission because the script runs inside your Google account. "
+                   "You approve it once; it is your own script, so you can read every line.")
+        st.markdown(
+            """
+1. In the toolbar, choose the function **setup** and click **Run**. Google will ask you to authorize it:
    - You'll see **"Google hasn't verified this app."** That is expected: you're running a script you pasted yourself, not a published app. Click **Advanced**, then **Go to … (unsafe)**, then **Allow**.
    - **Read the permission list on that screen.** Apps Script's Gmail access is broad: Google describes its widest Gmail permission as reading, composing, sending and permanently deleting all your email. This script's code only searches threads you labeled and adds its own labels. It never sends, edits or deletes mail, and you can read every line above.
    - It also asks to connect to an external service (this app) and to run when you're not present (the 5-minute timer).
-4. The execution log should say it created three labels (`CommitmentAI-Send`, `-Done`, `-Failed`) and set a timer.
-5. In Gmail, apply the label **CommitmentAI-Send** to any email you want processed. (You can also create a Gmail filter that applies it automatically, for example for emails from one person.)
-6. Within about 5 minutes it is processed and labeled **CommitmentAI-Done**. Open the **Dashboard** and press **Refresh**: its commitments appear with Source "gmail".
-        """
-    )
+2. The execution log should say it created three labels (`CommitmentAI-Send`, `-Done`, `-Failed`) and set a timer.
+            """
+        )
 
-    render_filter_help()
+    # ---------------- Step 5: label emails ----------------
+    with st.container(border=True):
+        st.subheader("Step 5 · Label the emails you want processed")
+        st.markdown(
+            """
+In Gmail, apply the label **CommitmentAI-Send** to any email you want processed. (You can also create a Gmail filter that applies it automatically, for example for emails from one person.)
+            """
+        )
+        render_filter_help()
 
-    st.subheader("4. If something looks wrong")
-    st.markdown(
-        """
+    # ---------------- Step 6: test ----------------
+    with st.container(border=True):
+        st.subheader("Step 6 · Test your connection")
+        st.markdown(
+            """
+Within about 5 minutes it is processed and labeled **CommitmentAI-Done**. Open the **Dashboard** and press **Refresh**: its commitments appear with Source "gmail".
+
+- **CommitmentAI-Done** means the email was processed.
+- **CommitmentAI-Failed** means the app couldn't use that email, and it won't be retried (see *Troubleshooting*).
+            """
+        )
+
+    # ---------------- expandable detail ----------------
+    with st.expander("🛠️ Troubleshooting: if something looks wrong"):
+        st.markdown(
+            """
 - **Nothing appears:** in Apps Script open **Executions** (left sidebar) to see the log. You can also run `processLabeledEmails` by hand.
 - **"Your key was rejected":** you generated a newer key, or deleted the account. Generate a new key here and paste the new script.
 - **Label `CommitmentAI-Failed`:** the app couldn't use that email (too long, invalid, or it failed three times). It won't be retried.
 - **Daily limit reached:** the script waits and tries again automatically; the limit resets at midnight UTC.
 - **To stop it:** in Apps Script click the clock icon (**Triggers**) and delete the trigger, or delete the project. Generating a new key here also cuts off the old script immediately.
-        """
-    )
+            """
+        )
+
+    with st.expander("⚙️ Advanced details: limits, retries and known limitations"):
+        st.markdown(
+            """
+- **How often:** a timer runs the script every **5 minutes**. Each run handles up to **5** labeled conversations, so results can take a few minutes to appear.
+- **What it reads:** only conversations labeled **CommitmentAI-Send** that are not yet labeled Done or Failed. It searches by label and adds its own labels. It does not send, edit or delete mail.
+- **What is sent:** the text of each labeled email (first **8,000 characters**) plus your personal key, over HTTPS to this app, which passes the text to Google's Gemini API (free tier).
+- **Limits:** about **30 emails per day** per account (the daily count resets at midnight UTC) and results are deleted after **7 days**.
+- **Retries:** if the server is asleep or the network fails, the email stays labeled Send and is tried again on the next run. After **3 failed attempts** on the same email it is labeled **CommitmentAI-Failed** and not retried.
+- **Free hosting sleeps:** the very first run after a long idle period may fail and simply be retried five minutes later.
+- **Possible duplicates:** if a network timeout happens after the app already processed an email, the retry can rarely create a duplicate result. Removing **CommitmentAI-Done** from a conversation to resend it can also create duplicates.
+- **Two runs never overlap:** the script uses a lock so a slow run isn't started twice.
+- **Stopping:** delete the trigger (clock icon in Apps Script) or the project. Generating a new key here immediately stops any older script.
+            """
+        )
 
 
 # Example Gmail searches shown on the Connect Gmail page. Kept as data so they can be sanity-checked.
@@ -969,6 +1124,7 @@ def render_app():
         # A key is shown only on the page that created it; leaving the page discards it.
         st.session_state.pop("fresh_key", None)
         st.session_state.pop("confirm_regen", None)
+        st.session_state.pop("show_script", None)
 
     if page == "Account":
         page_account()
