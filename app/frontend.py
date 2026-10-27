@@ -41,6 +41,12 @@ API_URL = os.environ.get("API_URL", "http://localhost:8000").rstrip("/")
 # defaults (or its environment overrides) if you ever change them.
 NOTICE_DAILY_LIMIT = 30
 NOTICE_RETENTION_DAYS = 7
+NOTICE_MAX_RESULTS = 200
+NOTICE_MAX_ACCOUNTS = 15
+NOTICE_USAGE_HISTORY_DAYS = 30
+NOTICE_LOGIN_MAX_FAILURES = 5
+NOTICE_LOGIN_WINDOW_MINUTES = 10
+NOTICE_SESSION_HOURS = 12
 DEFAULT_MAX_CHARS = 8000
 
 READY_MESSAGE = "Getting your AI assistant ready… This may take a little while on the first visit."
@@ -312,8 +318,82 @@ SIGNUP_NOTICE = f"""
 - **Your text is sent to Google's Gemini API** to extract commitments. This app uses Google's *free* tier, where Google may use submitted content to improve its products and human reviewers may read it. **Do not submit confidential or private emails, or other people's emails without their permission. Use sample or test emails.**
 - Results are kept for **{NOTICE_RETENTION_DAYS} days**, then deleted automatically. You can delete your data or your whole account at any time.
 - Fair-use limits: **{NOTICE_DAILY_LIMIT} emails per day**, up to {DEFAULT_MAX_CHARS:,} characters each.
+- **Not for use from the EEA, Switzerland or the UK.** Google's terms for the free Gemini tier don't allow apps built on it to be offered to users in those regions. Please don't use this demo from there.
 - This is a student demo project, provided as-is.
+- The full **Privacy & consent** notice is just below this form.
 """
+
+
+PRIVACY_LAST_UPDATED = "October 2026"
+
+
+def privacy_notice_markdown() -> str:
+    """The single, complete Privacy & consent notice. Every number comes from the constants above, and
+    tests/test_privacy_page.py checks them against the backend's real defaults so the text can't drift."""
+    return f"""
+*Last updated: {PRIVACY_LAST_UPDATED}. This is a student demo project, provided as-is. It has not had a professional security audit or a legal review.*
+
+### The short version
+- **You decide what goes in:** text you paste or upload, or emails you label in Gmail.
+- **That text is sent to Google's Gemini API** (free tier) to find commitments. On the free tier Google may use submitted content to improve its products, and human reviewers may read it. **Don't submit confidential emails, or other people's emails without their permission.**
+- **We store the extracted commitments, not the email.** They are kept for **{NOTICE_RETENTION_DAYS} days**, then deleted. You can delete them, or your whole account, at any time.
+- **No email address and no password reset.** A forgotten password can't be recovered.
+- **Not for use from the EEA, Switzerland or the UK** (see "Where you may use this demo").
+
+### What is stored
+| Data | How it is stored |
+|---|---|
+| Userid | As you chose it. |
+| Password | Only as a one-way bcrypt hash. The password itself is never stored. |
+| Gmail connection key (optional) | Only as a SHA-256 hash. The key is shown to you once and can't be shown again. |
+| Extracted commitments | Commitment text, direction, deadline, confidence, sender and recipient names as found in the email, urgency score, explanation, source (dashboard or Gmail) and time. These are pieces of your email, kept as extracted and **not anonymised**, so they can contain names and other personal details. |
+| Daily usage counter | How many emails your account processed each day (kept about {NOTICE_USAGE_HISTORY_DAYS} days). |
+
+**Not stored in the database:** the full text of the emails you submit. It is held in memory while it is processed and sent to Gemini. The app's own server logs record timings, counts and warnings, not email text. Our hosting providers keep their own technical logs, which we don't control.
+
+### Who handles your data
+| Who | What they receive | Why |
+|---|---|---|
+| Google (Gemini API) | The text of each email you submit | To extract the commitments |
+| Google (Gmail and Apps Script) | Only if you connect Gmail: the script runs inside your own Google account | To read the conversations you label |
+| Render | Web traffic to the dashboard and the API | Hosting |
+| Neon | The database contents described above | Storage |
+| The project owner | Has administrative access to the hosting and database, so could technically read stored results | Running the demo |
+
+### Where you may use this demo
+Google's Gemini API terms say that apps offered to users in the European Economic Area, Switzerland or the United Kingdom must use Google's paid service. This demo uses the **free** tier, so it is **not intended for use from those regions**. The app does not detect your location or block anyone; it relies on you.
+
+### Keeping and deleting your data
+- Results are kept for **{NOTICE_RETENTION_DAYS} days** (newest **{NOTICE_MAX_RESULTS}** only). Older ones are hidden straight away, and a cleanup that runs while the service is in use (at most once an hour) deletes them permanently.
+- **Delete my data** (Dashboard) removes all your stored results immediately.
+- **Delete my account** (Account) removes your account, your Gmail key and your results. It asks for your password and can't be undone.
+- Text already sent to Google can't be recalled by us. Our database host may also keep short-lived internal backups that we don't control.
+
+### Account security
+- Sessions last **{NOTICE_SESSION_HOURS} hours**. Logging out ends your session in this browser. A session token can't be cancelled early on the server; it simply expires.
+- After **{NOTICE_LOGIN_MAX_FAILURES} wrong passwords** for a userid within **{NOTICE_LOGIN_WINDOW_MINUTES} minutes**, logging in to it is blocked for up to {NOTICE_LOGIN_WINDOW_MINUTES} minutes. (This counter is kept in memory and resets when the server restarts.)
+- Login errors don't reveal whether a userid exists.
+- There is **no email and no password reset**. If you forget your password, create a new account; the old data can't be recovered.
+
+### Connecting Gmail (optional)
+- You paste a script into your **own** Google account. It only looks at conversations you label **CommitmentAI-Send**, and sends the body text of the newest message in each (first {DEFAULT_MAX_CHARS:,} characters) together with your personal key. This app never receives your Google password or a Google login token.
+- Anyone who gets your script can use the key inside it to reach your commitment data in this app (not your Gmail or your login password). Generating a new key stops the old script immediately.
+- You can stop at any time by deleting the script's trigger in Apps Script.
+
+### Limits
+Up to **{NOTICE_DAILY_LIMIT} emails per day** per account, **{DEFAULT_MAX_CHARS:,} characters** each, and **{NOTICE_MAX_RESULTS} stored results**. This demo accepts at most **{NOTICE_MAX_ACCOUNTS} accounts**. The owner can pause new accounts and processing; you can still log in to view or delete your data.
+
+### Accuracy and responsibility
+Extraction is automated and can miss or misread commitments, so check anything important yourself. If you submit other people's emails, you are responsible for having their permission. The demo is provided as-is and may be changed, paused or removed.
+
+### Your consent
+Ticking the box when you create an account confirms that you have read this notice. You can withdraw at any time by deleting your account.
+"""
+
+
+def page_privacy():
+    st.title("🔒 Privacy & consent")
+    st.markdown(privacy_notice_markdown())
 
 
 def render_auth():
@@ -383,6 +463,9 @@ def render_auth():
                         _login_success(data)
                         flash("success", f"Welcome, {data['userid']}! Your account is ready.")
                         st.rerun()
+
+    with st.expander("📄 Read the full Privacy & consent notice"):
+        st.markdown(privacy_notice_markdown())
 
 
 # ---------------------------------------------------------------------------
@@ -547,7 +630,8 @@ def page_account():
         f"**Limits:** {usage['daily_limit']} emails per day, {usage['max_text_chars']:,} characters each. "
         f"Results are kept for {usage['retention_days']} days (newest {usage['max_results']} only), then deleted automatically."
     )
-    st.caption("Your text is processed by Google's Gemini API (free tier). Please don't submit confidential emails.")
+    st.caption("Your text is processed by Google's Gemini API (free tier). Please don't submit confidential emails. "
+               "Full details: **Privacy & consent** in the sidebar.")
 
     st.divider()
     st.subheader("Delete my account")
@@ -823,7 +907,8 @@ PRIVACY_TEXT = (
     "the **text of the emails you label** (first 8,000 characters), plus your personal key.\n"
     "- That text goes to Google's Gemini API (free tier: it may be used to improve Google's products "
     "and read by reviewers). **Don't label confidential emails, or other people's private emails.**\n"
-    "- The usual limits apply (daily emails, 7-day retention). Results can take up to 5 minutes to appear."
+    "- The usual limits apply (daily emails, 7-day retention). Results can take up to 5 minutes to appear.\n"
+    "- Full details, including where this demo may be used, are in **Privacy & consent** (sidebar)."
 )
 
 
@@ -1113,7 +1198,8 @@ def _generate_key():
 def render_app():
     with st.sidebar:
         st.markdown(f"Logged in as **{st.session_state.get('userid', '')}**")
-        st.radio("Go to", ["Dashboard", "Connect Gmail", "Account"], key="page", label_visibility="collapsed")
+        st.radio("Go to", ["Dashboard", "Connect Gmail", "Account", "Privacy & consent"], key="page",
+                 label_visibility="collapsed")
         if st.button("Log out"):
             _clear_session()
             flash("info", "You have been logged out.")
@@ -1128,6 +1214,8 @@ def render_app():
 
     if page == "Account":
         page_account()
+    elif page == "Privacy & consent":
+        page_privacy()
     elif page == "Connect Gmail":
         page_connect_gmail()
     else:
