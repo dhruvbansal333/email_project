@@ -88,7 +88,7 @@ Limits of this claim: Render and Neon keep their own platform logs and backups (
 | Action | Where | Effect | Evidence |
 |---|---|---|---|
 | Delete my data | Dashboard | Deletes all of the user's `results` rows immediately | Code |
-| Delete my account | Account (password required) | Deletes the `users` row. Related `api_keys`, `results` and `usage` rows should be removed by foreign-key cascade | Code for the delete; **Unverified** for the cascade, see section 10 |
+| Delete my account | Account (password required) | Deletes the `users` row. Related `api_keys`, `results` and `usage` rows are removed by foreign-key cascade | Code for the delete; cascade constraints **Owner-verified** (section 10). A full end-to-end account deletion on the live site is not recorded here |
 | Replace the Gmail key | Connect Gmail | New key generated; the stored hash is overwritten, so the old key stops working immediately | Code |
 | Stop Gmail processing | Apps Script → Triggers (delete trigger) | No further polling | Documented on the Connect Gmail page; not separately tested here |
 | Password recovery | none | By design (no email collected). A forgotten password means a new account | Code, Test |
@@ -129,6 +129,8 @@ WHERE contype = 'f' AND confrelid = 'users'::regclass;
 
 Expected: `api_keys`, `results` and `usage` each listed with `c`. If any shows `a` (no action), deleting an account would fail or leave rows behind, and the Privacy & consent page's account-deletion sentence must be corrected before release.
 
+**Result (project owner, October 2026):** all three tables returned `c`. This confirms the constraints exist; it does not replace the end-to-end check in step 4 below.
+
 **Manual live checklist:**
 
 1. Sign up as a new user: the notice shows the EEA/Switzerland/UK line and the *Read the full Privacy & consent notice* expander opens.
@@ -147,11 +149,12 @@ Expected: `api_keys`, `results` and `usage` each listed with `c`. If any shows `
 | Invalid/regenerated API key returns 401 | Code; live result not recorded here |
 | Rate limit returns 429 | Code; live result not recorded here |
 | Data survives a Render restart (Neon, not memory) | Code (results are in Neon); live restart test not recorded here |
-| "Delete my data" leaves no residue | Results rows deleted (Code); usage counters are not results and expire after 30 days; account-delete cascade **Unverified** (section 10) |
+| "Delete my data" leaves no residue | Results rows deleted (Code); usage counters are not results and expire after 30 days; account-delete cascade constraints **Owner-verified** (section 10); end-to-end account deletion on the live site not yet recorded |
 | Independent test with a second, separate account and Google account | Not evidenced here. This is Task 9 |
 
 ## 12. Change log
 
 | Date | Change |
 |---|---|
+| October 2026 | Recorded the owner's Neon check: `api_keys`, `results` and `usage` all cascade on user deletion. |
 | October 2026 | Added the Privacy & consent page (sidebar and login screen), the regional-restriction disclosure, the claim-vs-code tests, and this document. No change to authentication, storage, limits or the extraction/ranking pipeline. |
