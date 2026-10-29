@@ -121,7 +121,7 @@ Three Render services, plus the database:
 | API | Web service, Docker | Needs the variables in the first table below |
 | Dashboard | Web service, Docker | Needs `API_URL` |
 | Launcher | Static site | Publish directory `launcher` |
-| Database | Neon Postgres (free tier) | Connection string goes in `DATABASE_URL` on the API |
+| Database | Neon Postgres (free tier) | Create the tables with `db/schema.sql`; the connection string goes in `DATABASE_URL` on the API |
 
 **API service environment variables**
 
@@ -171,10 +171,11 @@ uvicorn app.main:app --reload --port 8000
 streamlit run app/frontend.py              # API_URL defaults to http://localhost:8000
 ```
 
-The multi-user features need a Postgres database with the four tables
-(`users`, `api_keys`, `results`, `usage`). The table definitions are not
-included in this repository yet; without `DATABASE_URL` the API still starts but
-signup and login return 503.
+The multi-user features need a Postgres database with four tables (`users`,
+`api_keys`, `results`, `usage`). Create them once, on an empty database, with
+[`db/schema.sql`](db/schema.sql) (paste it into the Neon SQL editor, or run
+`psql "$DATABASE_URL" -f db/schema.sql`; it is safe to run twice). Without
+`DATABASE_URL` the API still starts, but signup and login return 503.
 
 Docker (runs both processes in one container, which is convenient for local use;
 on Render they are separate services):
@@ -196,6 +197,7 @@ python -m pytest -q
 | Privacy page, and checks that the notice matches the code | `tests/test_privacy_page.py` |
 | API wake-up gating and Retry | `tests/test_wake_up.py` |
 | Ranking evaluation maths and safeguards | `tests/test_ranking_eval.py` |
+| `db/schema.sql` agrees with the SQL in the API; no column can hold the raw email | `tests/test_schema.py` |
 
 Some tests need `data/gold_set/v1/` to be present and skip themselves otherwise.
 
@@ -215,6 +217,7 @@ src/
 data/
   gold_set/v1/           # 1,190 gold-labelled commitments, train/val/test split
   ranking_eval/          # Blind labelling sheet, manifest and results for the ranking evaluation
+db/schema.sql            # Table definitions (users, api_keys, results, usage)
 launcher/index.html      # Static page that wakes the API and dashboard
 tests/                   # Automated tests
 docs/                    # Evaluation write-ups, privacy and security, test reports
