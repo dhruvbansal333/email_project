@@ -1,0 +1,165 @@
+{
+  "n": 60,
+  "label_counts": {
+    "LOW": 25,
+    "HIGH": 16,
+    "MEDIUM": 19
+  },
+  "distinct_scorer_scores": 40,
+  "scorer": {
+    "spearman": 0.4255874633467777,
+    "ndcg_at_10": 0.6354769172569495,
+    "pairwise_accuracy": 0.7048346055979644,
+    "r_precision_high": 0.4166666666666667
+  },
+  "scorer_ci95": {
+    "spearman": [
+      0.18211099435204112,
+      0.6348322144166351
+    ],
+    "ndcg_at_10": [
+      0.49050369962417034,
+      0.8448653845904915
+    ],
+    "pairwise_accuracy": [
+      0.5919148936170213,
+      0.8102585487906588
+    ],
+    "r_precision_high": [
+      0.15384615384615385,
+      0.6666666666666666
+    ]
+  },
+  "pairwise_tied_fraction": 0.02374893977947413,
+  "pairs_compared": 1179,
+  "baseline_random_expected": {
+    "spearman": -0.005164587410885549,
+    "ndcg_at_10": 0.42889781163778756,
+    "pairwise_accuracy": 0.4972213740458015,
+    "r_precision_high": 0.26575
+  },
+  "baseline_deadline_only": {
+    "spearman": 0.521727887865378,
+    "ndcg_at_10": 0.7136819299427883,
+    "pairwise_accuracy": 0.7391857506361323,
+    "r_precision_high": 0.5096153846153846
+  },
+  "exploratory_paired_difference_scorer_minus_deadline_only": {
+    "spearman": {
+      "estimate": -0.09614042451860033,
+      "ci95": [
+        -0.19974560291406598,
+        -0.0010530650065940783
+      ],
+      "ci_excludes_zero": true
+    },
+    "ndcg_at_10": {
+      "estimate": -0.07820501268583879,
+      "ci95": [
+        -0.21072481889707528,
+        0.03788043860953849
+      ],
+      "ci_excludes_zero": false
+    },
+    "pairwise_accuracy": {
+      "estimate": -0.03435114503816794,
+      "ci95": [
+        -0.08460076045627374,
+        0.014272970561998166
+      ],
+      "ci_excludes_zero": false
+    },
+    "r_precision_high": {
+      "estimate": -0.0929487179487179,
+      "ci95": [
+        -0.21875,
+        0.047619047619047616
+      ],
+      "ci_excludes_zero": false
+    }
+  },
+  "warnings": [],
+  "confusion_human_rows_vs_scorer_tier_cols": {
+    "LOW": {
+      "LOW": 15,
+      "MEDIUM": 8,
+      "HIGH": 2
+    },
+    "MEDIUM": {
+      "LOW": 5,
+      "MEDIUM": 6,
+      "HIGH": 8
+    },
+    "HIGH": {
+      "LOW": 4,
+      "MEDIUM": 5,
+      "HIGH": 7
+    }
+  },
+  "largest_disagreements": [
+    {
+      "item_id": "7f7c9358b4",
+      "human": "HIGH",
+      "scorer_score": 23.2,
+      "scorer_tier": "LOW",
+      "deadline_text": "",
+      "commitment_text": "i will be checking voicemail and my mobile is 713 - 302 - 4187 ."
+    },
+    {
+      "item_id": "451b982569",
+      "human": "HIGH",
+      "scorer_score": 28.7,
+      "scorer_tier": "LOW",
+      "deadline_text": "",
+      "commitment_text": "based on that conversation , i will be in a better position to direct you to some of the research we have that addresses those specific topi"
+    },
+    {
+      "item_id": "2440a0647a",
+      "human": "LOW",
+      "scorer_score": 69.3,
+      "scorer_tier": "HIGH",
+      "deadline_text": "the next 4 weeks",
+      "commitment_text": "so i will spend the next 4 weeks working on this ."
+    },
+    {
+      "item_id": "e33723b535",
+      "human": "HIGH",
+      "scorer_score": 36.8,
+      "scorer_tier": "LOW",
+      "deadline_text": "in the near future",
+      "commitment_text": "let ' s talk in the near future to continue our\nconversation"
+    },
+    {
+      "item_id": "09aefe3547",
+      "human": "LOW",
+      "scorer_score": 67.8,
+      "scorer_tier": "HIGH",
+      "deadline_text": "january 23",
+      "commitment_text": "please remember to contact your candidates . their deadline is\\njanuary 23 ."
+    },
+    {
+      "item_id": "059c32343f",
+      "human": "HIGH",
+      "scorer_score": 37.5,
+      "scorer_tier": "LOW",
+      "deadline_text": "",
+      "commitment_text": "in order that i may begin the process of getting you an ll\nimmigration visa , i will need you to complete the attached visa questionnaire\nan"
+    },
+    {
+      "item_id": "570ecffa60",
+      "human": "LOW",
+      "scorer_score": 64.9,
+      "scorer_tier": "MEDIUM",
+      "deadline_text": "",
+      "commitment_text": "please plan on attending ."
+    },
+    {
+      "item_id": "8039fd665e",
+      "human": "MEDIUM",
+      "scorer_score": 28.7,
+      "scorer_tier": "LOW",
+      "deadline_text": "",
+      "commitment_text": "mike / vince : is there anyone else , that needs to be notified ?"
+    }
+  ]
+}
