@@ -116,7 +116,7 @@ While `INGESTION_SECRET` is set on the API service, a header `X-Ingestion-Key` i
 **Automated (no network, no secrets):**
 
 ```powershell
-python -m pytest -q tests/test_privacy_page.py tests/test_wake_up.py tests/test_connect_gmail_ux.py
+python -m pytest -q tests/test_privacy_page.py tests/test_wake_up.py tests/test_connect_gmail_page.py
 ```
 
 **Confirm foreign-key cascade (read-only SQL, run in the Neon SQL editor).** `confdeltype = 'c'` means `ON DELETE CASCADE`:
